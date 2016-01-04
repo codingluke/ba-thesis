@@ -1,0 +1,4 @@
+## Vergleich der verschiedenen Ansätze
+
+
+
