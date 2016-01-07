@@ -168,6 +168,14 @@ Um das Gradientenabstiegsverfahren auf kleinere Untergruppen der Trainingsdaten,
 
 #### Backpropagation Algorithmus
 
+#### Stochastisches Gradientenabstiegsverfahren
 
+#### RMSProp
 
-#### Gute Startwerte finden
+#### Momentum
+
+#### Regularisation
+
+#### Dropout
+
+#### Gewichte und Bias initialisieren
