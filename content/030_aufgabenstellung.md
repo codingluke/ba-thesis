@@ -96,6 +96,43 @@ Software-Unit-Tests
 
 ## Datenanalyse
 
+Die Trainings und Testdaten werden direkt vom Kaggle Wettbewerb *Denoising Dirty Documnets* zur Verfügung gestellt.
+Dabei wurden folgende Eigenschaften in der explorativen Datenanalyse ausfindig gemacht.
+
+Trainingsdaten
+
+  ~ :
+  ~ 144 Bilder insgesamt
+  ~ 48 Bilder in der Größe (540 x 258)
+  ~ 96 Bilder in der Größe (540 x 420)
+  ~ Alle Bilder sind in verrauschter und bereinigter Form vorhanden
+  ~ 8 verschiedene Hintergründe
+  ~ 2 verschiedene Texte
+  ~ 3 verschiedenen Schriftarten
+  ~ 2 verschiedenen Schriftgrößen
+  ~ Kursiv und normal
+  ~ Alle Kombinationen von Hintergrund, Text, Schriftart und Stiele vorhanden
+  ~ Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe
+  ~ Bildformat *PNG*
+
+Testdaten
+
+  ~ :
+  ~ 72 Bilder insgesamt
+  ~ 24 Bilder in der Größe (540 x 258)
+  ~ 48 Bilder in der Größe (540 x 420)
+  ~ Alle Bilder sind nur in verrauschter Form vorhanden
+  ~ 4 verschiedene Hintergründe unterschiedlich zu den Hintergründe der Trainingsdaten
+  ~ 5 verschiedene Schriftarten wobei 3 gleich sind zu den Trainingsschriftarten
+  ~ 3 verschiedene Schriftgrößen
+  ~ 1 Text unterschiedlich zu den 2 Trainingstexte
+  ~ Kursiv und normal
+  ~ Nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stiele vorhanden
+  ~ Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe
+  ~ Bildformat *PNG*
+
+
+
 
 ## Alternativen
 
