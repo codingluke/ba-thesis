@@ -9,3 +9,5 @@
 ### Graph Struktur
 
 ### Kompilieren nach C/GPU
+
+### Alternativen TensorFlow

@@ -154,7 +154,7 @@ So ist es möglich Schrittweise die Variablen an das Optimum anzugleichen. Am Be
   \frac{\partial C_{X}}{\partial b}
 \end{equation}
 
-Um das Gradientenabstiegsverfahren auf kleinere Untergruppen der Trainingsdaten, auch *Baches* genannt, anzuwenden, müssen diese Aufsummiert werden.
+Um das Gradientenabstiegsverfahren auf kleinere Untergruppen der Trainingsdaten, auch *Batches* genannt, anzuwenden, müssen diese Aufsummiert werden.
 
 \begin{equation} \label{eq:update_gewichte}
   w \to w'  = w -\frac{n}{m}
@@ -167,6 +167,49 @@ Um das Gradientenabstiegsverfahren auf kleinere Untergruppen der Trainingsdaten,
 \end{equation}
 
 #### Backpropagation Algorithmus
+
+Der Backpropagation Algorithmus wurde ursprünglich im Jahre 1974 von Paul Werbos an der Harvard Universität entwickelt [@backprop]. In der Praxis findet er aber erst seit 1986 durch die Arbeit "Beyond regression: new tools for prediction and analysis in the behavioral sciences" von David Rumelhart, Geoffrey Hilton und Ronald Williams [@RumelhartHintonWIlliams1986] verwendung.
+
+Er löste das Problem der effizienten Gewichtsfindung in den versteckten Schichten. Davor geschah dies auf sehr ineffizienter Weise, welche die anfängliche Euphorie über kNN bis in die 80er Jahre verstummen lies.
+
+Der Algorithmus besteht im wesentlichen aus drei Schritten:
+
+1. Eingabe einer Trainingsmenge
+2. Für jedes Trainingsexemplar werden drei weitere Schritte ausgeführt
+    - **Feed-forward**: Das Eingabemuster wird durch das Netz propagiert
+    - **Ausgangsfehler**: Der Ausgabevektor wird durch die Kostenfunktion mit dem Zielvektor verglichen und der Fehler daraus abgeleitet.
+    - **Zurückführen des Fehlers (Backpropagate)**: Der Ausgangsfehler wird nun Schichtweise zurückgeführt. Dadurch erhält jede Schicht einen eigenen Fehlerwert der aber vom Ausgangsfehler beeinflusst wird.
+3. Alle Schichten berechnen nun die neuen Gewichte und Biase anhand der Gleichungen \ref{eq:update_gewichte} und \ref{eq:update_bias} des Gradientenabstiegsverfahren. Dabei ist die Kostenfunktion $C$ nun der beim Zurückführen berechneten Wert modifiziert worden.
+
+Für diese Schritte werden vier wesentliche Gleichungen benötigt:
+
+**1. Berechnung des Fehlers in der Ausgangsschicht**
+
+\begin{eqnarray} \label{eq:backprop_1}
+  \delta^L_j = \frac{\partial C}{\partial a^L_j} g'(in^L_j)
+\end{eqnarray}
+
+Die Gleichung \ref{eq:backprop_1} besteht aus zwei Terme. Der erste, linke Term beschreibt wie schnell sich der Fehler $\delta^L_j$, des $j$-ten Neuron der Ausgangsschicht $L$, anhand der Konstenfunktion respektive der dessen Aktivierung $a^L_j$ ändert. Der zweite Term misst, wie schnell sich die Aktivierungsfunktion $g$ durch den Eingabefunktionswert $in^L_j$ ändert. Diese Berechnung muss für jedes Ausgangsneuron gemacht werden. Dafür gibt es die Vektordarstellung $\delta^L = \nabla_{a^L} C \odot \sigma'(in^L)$, wobei $\odot$ das *Hadamard Produkt* darstellt. $\delta^L$ steht somit für einen Vektor aller Fehlern, $a^L$ für alle Aktivierungswerte und $in^L$ für alle Eingabefunktionswerte der Ausgangsschicht.
+
+**2. Berechnung des Fehlers $\delta^l$ einer unsichtbaren Schicht $l$ anhand des Fehlers der darauffolgenden Schicht $\delta^{l+1}$**
+
+\begin{eqnarray}
+  \delta^l = ((w^{l+1})^T \delta^{l+1}) \odot g'(in^l)
+\end{eqnarray}
+
+Ausgehend des Fehlervektors $\delta^{l+1}$ der $(l+1)$-ten Schicht und deren aktuellen Gewichtsvektor $w^{l+1}$ kann auf den Fehler der vorhergehenden Schicht $l$ geschlossen werden. Durch das *Hadamard Produkt* wird dieser nun auf die Änderungsrate der Aktivierungsfunktion der vorhergehenden Schicht  $l$ angerechnet und ergibt somit den Fehlervektor $\delta^l$. So kann der Fehler Schichtweise von der Ausgangsschicht auf beliebig viele vorhergehende, unsichtbare Schichten weitergeleitet werden.
+
+**3. und 4. Berechung der Änderungsrate des Fehlers respektiv zu allen Gewichte rsp. Biase im Netzwerk**
+
+\begin{eqnarray}
+  \frac{\partial C}{\partial b^l_j} = \delta^l_j
+\end{eqnarray}
+
+\begin{eqnarray}
+  \frac{\partial C}{\partial b} = \delta,
+\end{eqnarray}
+
+
 
 #### Stochastisches Gradientenabstiegsverfahren
 

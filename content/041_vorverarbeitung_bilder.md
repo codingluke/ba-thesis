@@ -11,3 +11,5 @@
 ### Entrauschtes Bild zusammensetzen
 
 ### Ähnlichkeit zu convolutional Netzen
+
+### Online vs. Offline verfahren
