@@ -129,7 +129,7 @@ Eine andere Kostenfunktion, die *cross-entropy* Funktion, kommt in modernen kNN 
   \displaystyle\sum_{X} [y(X)ln(a) + (1 - y(X))ln(1-a)]
 \end{equation}
 
-#### Gradientenabstiegsverfahren
+#### Gradientenabstiegsverfahren \label{gradientenabstiegsverfahren}
 
 Beim Gradientenabstiegsverfahren wird die Kostenfunktion mit deren Variablen als Tal angenommen. Die Abbildung \ref{gradientenabstieg} zeigt dies anhand der Funktion $C$ auf der *y-Achse* welche zwei Variablen, $v_1$ auf der *x-Achse* und $v_2$ auf der *z-Achse*, voraussetzt.
 
@@ -166,7 +166,7 @@ Um das Gradientenabstiegsverfahren auf kleinere Untergruppen der Trainingsdaten,
   \displaystyle\sum_{j} \frac{\partial C_{X_j}}{\partial b}
 \end{equation}
 
-#### Backpropagation Algorithmus
+#### Backpropagation Algorithmus \label{backprop}
 
 Der Backpropagation Algorithmus wurde ursprünglich im Jahre 1974 von Paul Werbos an der Harvard Universität entwickelt [@backprop]. In der Praxis findet er aber erst seit 1986 durch die Arbeit "Beyond regression: new tools for prediction and analysis in the behavioral sciences" von David Rumelhart, Geoffrey Hilton und Ronald Williams [@RumelhartHintonWIlliams1986] verwendung.
 
@@ -174,12 +174,9 @@ Er löste das Problem der effizienten Gewichtsfindung in den versteckten Schicht
 
 Der Algorithmus besteht im wesentlichen aus drei Schritten:
 
-1. Eingabe einer Trainingsmenge
-2. Für jedes Trainingsexemplar werden drei weitere Schritte ausgeführt
-    - **Feed-forward**: Das Eingabemuster wird durch das Netz propagiert
-    - **Ausgangsfehler**: Der Ausgabevektor wird durch die Kostenfunktion mit dem Zielvektor verglichen und der Fehler daraus abgeleitet.
-    - **Zurückführen des Fehlers (Backpropagate)**: Der Ausgangsfehler wird nun Schichtweise zurückgeführt. Dadurch erhält jede Schicht einen eigenen Fehlerwert der aber vom Ausgangsfehler beeinflusst wird.
-3. Alle Schichten berechnen nun die neuen Gewichte und Biase anhand der Gleichungen \ref{eq:update_gewichte} und \ref{eq:update_bias} des Gradientenabstiegsverfahren. Dabei ist die Kostenfunktion $C$ nun der beim Zurückführen berechneten Wert modifiziert worden.
+1. **Feed-forward**: Das Eingabemuster wird durch das kNN gleitet.
+2. **Ausgangsfehler**: Der Ausgabevektor wird mittels der Kostenfunktion mit dem Zielvektor verglichen und der Fehlervektor daraus abgeleitet.
+3. **Rückführung des Fehlers (Backpropagate)**: Der Ausgangsfehler wird nun Schichtweise zurückgeführt. Dadurch erhält jede Schicht einen eigenen Fehlerwert der aber vom Ausgangsfehler beeinflusst wird.
 
 Für diese Schritte werden vier wesentliche Gleichungen benötigt:
 
@@ -191,29 +188,55 @@ Für diese Schritte werden vier wesentliche Gleichungen benötigt:
 
 Die Gleichung \ref{eq:backprop_1} besteht aus zwei Terme. Der erste, linke Term beschreibt wie schnell sich der Fehler $\delta^L_j$, des $j$-ten Neuron der Ausgangsschicht $L$, anhand der Konstenfunktion respektive der dessen Aktivierung $a^L_j$ ändert. Der zweite Term misst, wie schnell sich die Aktivierungsfunktion $g$ durch den Eingabefunktionswert $in^L_j$ ändert. Diese Berechnung muss für jedes Ausgangsneuron gemacht werden. Dafür gibt es die Vektordarstellung $\delta^L = \nabla_{a^L} C \odot \sigma'(in^L)$, wobei $\odot$ das *Hadamard Produkt* darstellt. $\delta^L$ steht somit für einen Vektor aller Fehlern, $a^L$ für alle Aktivierungswerte und $in^L$ für alle Eingabefunktionswerte der Ausgangsschicht.
 
-**2. Berechnung des Fehlers $\delta^l$ einer unsichtbaren Schicht $l$ anhand des Fehlers der darauffolgenden Schicht $\delta^{l+1}$**
+**2. Berechnung des Fehlervektors $\delta^l$ einer unsichtbaren Schicht $l$ anhand des Fehlervektors der darauffolgenden Schicht $\delta^{l+1}$**
 
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:backprop_2}
   \delta^l = ((w^{l+1})^T \delta^{l+1}) \odot g'(in^l)
 \end{eqnarray}
 
-Ausgehend des Fehlervektors $\delta^{l+1}$ der $(l+1)$-ten Schicht und deren aktuellen Gewichtsvektor $w^{l+1}$ kann auf den Fehler der vorhergehenden Schicht $l$ geschlossen werden. Durch das *Hadamard Produkt* wird dieser nun auf die Änderungsrate der Aktivierungsfunktion der vorhergehenden Schicht  $l$ angerechnet und ergibt somit den Fehlervektor $\delta^l$. So kann der Fehler Schichtweise von der Ausgangsschicht auf beliebig viele vorhergehende, unsichtbare Schichten weitergeleitet werden.
+Der rechte Term der Gleichung \ref{eq:backprop_2} schliesst auf die Fehlerdifferenz der Schicht $l$ ausgehend vom Fehlervektors $\delta^{l+1}$ der Folgeschicht und deren aktuellen Gewichtsvektor $w^{l+1}$. Durch das *Hadamard Produkt* wird dieser Term der Änderungsrate der Aktivierungsfunktion $g$ der Schicht $l$ angerechnet und ergibt den angenommenen Fehlervektor $\delta^l$. So wird der Fehler Schichtweise von der Ausgangsschicht auf beliebig viele vorhergehende, unsichtbare Schichten zurückgeführt.
 
-**3. und 4. Berechung der Änderungsrate des Fehlers respektiv zu allen Gewichte rsp. Biase im Netzwerk**
+**3. Berechung des Gradienten Kostenfunktion in Reation zu den Biase im Netzwerk**
 
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:backprop_3}
   \frac{\partial C}{\partial b^l_j} = \delta^l_j
 \end{eqnarray}
 
-\begin{eqnarray}
-  \frac{\partial C}{\partial b} = \delta,
+Die Gleichung \ref{eq:backprop_3} zeigt, dass sich die partielle Ableitung, also Änderungsrate, der Kostenfunktion an der Position des $j$-ten Neurons der $l$-ten Schichtrespektive gleich verhält wie der bereits berechnete Fehler $\delta^l_j$
+
+**4. Berechung des Gradienten der Kostenfunktion in Relation zu den Gewichten im Netzwerk**
+
+\begin{eqnarray} \label{eq:backprop_4}
+  \frac{\partial C}{\partial w^l_{jk}} = a^{l-1}_k \delta^l_j.
 \end{eqnarray}
 
-
+Die Gleichung \ref{eq:backprop_4} zeigt wie die Änderungsrate, der Gradient, der Kostenfunktion an der Stelle von jedem Neuron in jeder Schicht in relation zu den jeweiligen Gewichten berechnet werden kann. Dafür muss der Aktivierungswert $a^{l-1}_k$ der vorhergehenden Schicht $l-1$ , welcher dem Wert der Eingabeverknüpfung entspricht, mit dem Fehler $\delta^l_j$ der zu berechnenden Schicht $l$ multipliziert werden.
 
 #### Stochastisches Gradientenabstiegsverfahren
 
-#### RMSProp
+Aufbauend auf dem Kapitel \ref{backprop}, welches anhand dem *Backpropagation* Algorithmus aufzeigt wie die Gradienten der Kostenfunktion an den Punkten der einzelnen Neuron berechnet werden kann, ist das *stochastische Gradientenabstiegsverfahren* ein Algorithmus um die Gewichte in Anbetracht der berechneten Gradienten zu modifizieren. Es wird *stochastisch* genannt, da die durch Backpropagation berechneten Gradienten, anhand des Ausgabefehlers eine stochastische Annahme sind.
+
+Die Gewichte werden für jede Schicht der Gleichung $w^l \rightarrow w^l-\frac{\eta}{m} \sum_x \delta^{x,l} (a^{x,l-1})^T$ angepasst. Die Biase mit der Gleichung $b^l \rightarrow b^l-\frac{\eta}{m} \sum_x \delta^{x,l}$.
+
+Verleicht man diese zwei Gleichungen mit den im Kapitel \ref{gradientenabstiegsverfahren} beschriebenen Gleichungen \ref{eq:update_gewichte} und \ref{eq:update_bias}, wird ersichtlich, dass die darin zu berechneten Gradienten nun durch die im Backpropagation algorithmus berechneten Gradienten ausgetauscht werden.
+
+#### RMSProp / Root Mean Square Propagation
+
+Die *RMSProp* wurde von Tijemen Tieleman [@Tieleman2012] vorgeschlagen und von wird von Geoffrez Hinton im Kurs *COURSERA: Neural Networks for Machine Learning* vermittelt. Dieses Verfahren zur Gewichtsmodifikation hat in dieser Bachelorarbeit zu sehr guten Ergebnissen geführt. Leider gibt es keine offizielle Veröffentlichung des Verfahrens.
+
+Das Verfahren erweitert das *stochastische Gradientenabstiegsverfahren* insofern, dass der Gradient aller Gewichte über die Zeit hinweg, durch dem *root-mean-square* gemittelt, mitgeführt, und bei der Modifikation der Gewichte miteinbezogen wird.
+
+\begin{eqnarray} \label{eq:rmsprop_1}
+  MeanSquare(w^l_{jk}, t) = 0.9 * MeanSquare(w^l_{jk}, t-1) + 0.1 (G^{lt}_{jk})^2
+\end{eqnarray}
+
+Die Gleichung \ref{eq:rmsprop_1} zeigt wie der durch Backpropagation angenommene Gradient $G^{lt}_{jk}$ der Kostenfunktion $C$ in Relation der Gewichte $w^l_{jk}$ rekursiv über die Trainingszeit $t$, im Quadrat gemittelt, mitgeführt wird. Dabei ist der mitgeführte, gemittelte Gradient mit $0.9$ stärker Gewichtet als der Aktuelle.
+
+\begin{eqnarray} \label{eq:rmsprop_2}
+  G =  \frac{G^{lt}_{jk}}{\sqrt[2]{MeanSquare(w^l_{jk}, t)}}
+\end{eqnarray}
+
+Der für die Gewichtsanpassung Analog der *stochastischen Gradientenabstiegsverfahren* zu Verwendende Gradient $G$ wird berechnet, indem dem durch Backpropagation angenommene Gradient $G^{lt}_{jk}$ durch die Wurzel des mitgeführten, gemittelten Gradienten geteilt wird.
 
 #### Momentum
 
