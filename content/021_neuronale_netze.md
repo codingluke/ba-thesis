@@ -238,10 +238,85 @@ Die Gleichung \ref{eq:rmsprop_1} zeigt wie der durch Backpropagation angenommene
 
 Der für die Gewichtsanpassung Analog der *stochastischen Gradientenabstiegsverfahren* zu Verwendende Gradient $G$ wird berechnet, indem dem durch Backpropagation angenommene Gradient $G^{lt}_{jk}$ durch die Wurzel des mitgeführten, gemittelten Gradienten geteilt wird.
 
+![Vergleich verschiedener Backpropagation Methoden \label{rmsprop-compair}](images/rmsprop_comairation.png)
+
+In der Abbildung \ref{rmsprop-compair} ist sichtbar, dass der Rmsprop (Schwarz) gegenüber dem SGD (Rot) viel schneller das Optimum (Stern) erreicht. SGD mit Momentum (grün), welches als nächstes erläutert wird, schneidet besser ab als der SGD, legt jedoch einen viel weiteren Weg als der Rmsprop zurück. Auf die drei anderen aufgeführten Methoden NAG, Adagrad und Adadelta wird in dieser Bachelorarbeit nicht eingegangen.
+
 #### Momentum
 
-#### Regularisation
+Der Term *Momentum*, übersetzt ins Deutsche mit Schwung, Eigendynamik, Moment oder auch Wucht übersetzt, versucht das Gradientenabstiegsverfahren mit der aus der Physik bekannten Geschwindigkeitszuwachs beim Abstieg zu ergänzen.
 
-#### Dropout
+\begin{eqnarray}
+  v & \rightarrow  & v' = \mu v - \eta \nabla C \label{eq:momentum_1}\\
+  w & \rightarrow & w' = w+v'.  \label{eq:momentum_2}
+  \end{eqnarray}
+
+In der Gleichung \ref{eq:momentum_1} steht die Variable $v$ für *velocity* zu Deutsch Geschwindigkeit. Die Variable $\mu$ steht für den *momentum co-effizient* und kann als eine Art Reibung interpretiert werden. Der Term $\eta \nabla C$ ist der bereits bekannte Gradient in Relation zum Ausgangsfehler. So wird nun bei auf Zeit eine Geschwindigkeit aufgebaut, welche vom Gradienten abhängig ist. Zeigt der Gradient mehrere Iterationen in die gleiche Richtung, erhöht sich die Geschwindigkeit. Diese wird nun den Gewichten $w$ mit der Gelchung \ref{eq:momentum_2} hinzu addiert. Der *momentum co-effizient* soll zwischen 0 und 1 liegen, wobei 1 keine Reibung und 0 hohe Reibung bedeutet. Die Reibung soll verhindern, dass die Geschwindigkeit so groß wird, dass der Wert beim erreichen des Optimums nicht über das Ziel hinaus schießt. [@nielsen_2015, K.3]
+
+*Momentum* kann auch in Kombination mit dem *RMSprop* Verfahren angewendet werden. Der Nutzen ist dabei noch Gegenstand der Forschung.
+
+#### Overfitting
+
+*Overfitting* passiert, wenn ein Modell die Trainingsdaten so gut gelernt hat, dass es für genau diesen Datensatz sehr gute Resultate liefert, für einen Anderen jedoch wieder super schlechte. Das Modell hat also zu wenig generalisiert und zu viele spezielle Details gemerkt. Um *Overfitting* zu vermeiden gibt es mehrere Strategien:
+
+- Einen Möglichst großen Trainingsdatensatz erstellen
+- Ein kNN mit weniger Parameter (Neuronen) wählen. Nur im Notfall!
+- Anhand eines vom Trainingsdatensatz ausgegliederten Validationsdatensatz die Präzision regelmäßig überprüfen und das Training stoppen wenn diese abnimmt (*early-stopping*)
+- L2 Regularisation welche im folgekapitel erläutert wird (*weight-decay*)
+- Dropout
+
+In dieser Bachelorarbeit werden alle Methoden angewandt.
+
+#### L2 Regularisation
+
+Die *l2-Regularisation* versucht dem *Overfitting* entgegenzuwirken, indem es die Kostenfunktion mit einen zusätzlichen Term, den sogenannten *regularisation-term*, ergänzt.
+
+\begin{eqnarray} \label{eq:l2}
+  C = C_0 + \frac{\lambda}{2n}
+  \sum_w w^2,
+\end{eqnarray}
+
+Die Gleichung \ref{eq:l2} Zeigt diesen Term, der dem Kostenfunktionswert $C_0$ hinzu addiert wird. Er entspricht der Summe der Quadraten aller Gewichte im Netzwerk. Dieser wird mit dem Faktor $\lambda / 2n$ skaliert. Dabei entspricht $\lambda$ dem *Regularisations-Parameter* und $n$ der Größe vom Trainingsdatensatz.
+
+Eine Interpretation der L2 Regularisation ist, kleine Gewichte über große Gewichte vor zu ziehen. Je größer der *Regularisations-Parameter* $\lambda$ gewählt wird, desto eher werden kleine Gewichte bevorzugt. Größere Gewichte werden gleich behandelt. Ist der $\lambda$ klein wird das minimieren der original Kostenfunktion bevorzugt. Bei dem Wert 0 wird der gesamte Reglarisations-Term eliminiert.
+
+Eine Aussage wieso die *l2-Regularisation* funktioniert lautet, dass kleinere Gewichte eine kleinere Komplexität besitzen und damit eine einfachere und mächtigere Beschreibung der Daten ermöglichen. Eine andere Aussage lautet. Durch das gleichbehandeln von großen Mustern, werden die kleinen oft vorkommende Muster welche eher dem generellen Modell entsprechen, bevorzugt. Das kNN lernt also ein einfacheres, generelleres Modell, welches auf neuen Daten besser funktioniert.
+
+Beide Aussagen stützen sich vor allem auf empirische Studien und sind keine wasserdichten Erklärungen. Es gibt sehr wohl Beispiele, bei welchen ein Komplexes Modell das einfachere überbietet. Deswegen darf die *l2-Regularisation* nicht blind angewendet werden.
+
+Es ist empirisch ebenfalls bewiesen, das die *l2-Regularisation* nicht nur *Overfitting* vorbeugt sondern auch zu konstanteren Ergebnissen bei mehreren Trainingsgängen erlangt.
+
+#### Dropout / Rauswerfen
+
+*Dropout* ist ein weiteres Verfahren *Overfitting* zu vermeiden. Dabei werden bei jedem Trainingsdurchgang zufallsbedingt eine definierte Anzahl Neuronen deaktiviert. Dies wird in der Abbildung \ref{dropout} visuel dargestellt. Damit verändert sich der Aufbau das kNN. Wird dieser Rauswurf nun bei jedem Trainingsdurchgang (oder *Mini-Batch*) neu initialisiert, hat dies den Effekt, dass mehrere neuronale Konstellationen vom gleichen kNN trainiert werden. Dies kann verglichen werden, als würde man mehrere kNN gleichzeitig lernen und deren Resultat am ende Mitteln.
+
+![Dropout, temporäres deaktivieren zufälliger Neuronen \label{dropout}](images/dropout.png)
+
+Die Idee dahinter ist, dass wenn mehre kNN trainiert werden, sich alle auf ihre eigene Art überanpassen. Werden nun die jeweiligen Resultate gemittelt, heben sich die Einzelnen überanpassungen gegenseitig auf.
 
 #### Gewichte und Bias initialisieren
+
+Vor der Trainieren eines kNN müssen die Gewichte und Biase auf einen Startwert gesetzt werden. Standardmäßig wird eine zufällige, unabhängige Gaussverteilung zwischen $0$ und $1$ gewählt. Zu einem besseres Resultat führt die normalisierte Gaussverteilung $W \sim N(0,1)$.
+
+In den letzen Jahren haben mehrere Arbeiten darauf hingewiesen, das durch intelligentes initialisieren der Gewichte das Lernen erheblich beeinflussen kann. Auch ist die Initialisierung von der Aktivierungsfunktion abhängig.
+
+\begin{eqnarray} \label{eq:init_lecun}
+  W \sim N(0,1 / \sqrt{n_{\rm in}})
+\end{eqnarray}
+
+Die von 1998 LeCun et al in [@lecun_backprop] vorgeschlagene Verteilung \ref{eq:init_lecun} hat immer noch bestand und wird oft eingesetzt.
+
+In dieser Bacheloarbeit wird für die *Sigmoid* Aktivierungsfunktion die Methode von Glorot und benigo aus dem Jahre 2010 verwendet. Diese besitzt für die *Sigmoid* Aktivierungsfunktion folgende Verteilung. Diese wird auch im offiziellen Theano Tutorial zu kNN verwendet.
+
+\begin{eqnarray} \label{eq:init_relu}
+  W \sim N(0,\sqrt{\frac{12}{n_{in} + n_{out}}})
+\end{eqnarray}
+
+Für die Aktivierungsfunktion $ReLU$ wird die Initialisierung nach \ref{eq:init_relu} vorgeschlagen. Diese ist identisch zu der der *Sigmoid* Funktion. Es werden aber auch Negativwerte zugelassen.
+
+\begin{eqnarray} \label{eq:init_relu}
+  W \sim N(-\sqrt{\frac{12}{n_{in} + n_{out}}},\sqrt{\frac{12}{n_{in} + n_{out}}})
+\end{eqnarray}
+
+
+
