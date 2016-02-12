@@ -50,13 +50,14 @@ Trainingsverlauf
 
   ~ : FA08
   ~ Der Trainingsverlauf soll zur späteren Analyse aufgezeichnet werden.
-  ~ Um möglichst effizient die besten Hyperparameter für die kNN zu finden, soll ein intelligenter *Gridsearch-Algorighmus* implementiert werden.
+  ~ Um möglichst effizient die besten Hyperparameter für die kNN zu finden, soll ein intelligenter *Gridsearch-Algorighmus* verwendet werden.
 
 Evaluation
 
   ~ : FA09
   ~ Die Modelle werden durch die von Kaggle [@kaggleDDD] zur Verfügung gestellten Testdaten direkt auf kaggle.com bewertet.
   ~ Die verschiedenen Modelle sollen miteinander auf Trainingsdauer, Trainingsverlauf Verglichen werden.
+  ~ Die Auswirkung diverser Hyperparameter soll aufgezeigt werden.
 
 ### Nicht Funktionale Anforderungen
 
@@ -102,53 +103,34 @@ Weitere Deep-Learning Techniken
   ~ Auf weitere Deep-Learning Methoden wie die *Bolzmann Maschienen* und *Deep-Belief-Netze* wird nicht eingegangen.
   ~ Ebenfalls werden nur *fast-forward* kNN untersucht. Auf weitere Methoden wie die *recurrent kNN* wird nicht eingegangen.
 
-Handschrift
+Schriftbilder
 
   ~ : AB03
   ~ Die Bilder dürfen keine Handschrift beinhalten.
+  ~ Es werden nur die Schriftarten und Stiele, welche in den Trainingsdaten vorkommen berücksichtigt.
 
-## Datenanalyse
+## Explorative Datenanalyse
 
-Die Trainings und Testdaten werden direkt vom Kaggle Wettbewerb *Denoising Dirty Documnets* zur Verfügung gestellt.
-Dabei wurden folgende Eigenschaften in der explorativen Datenanalyse ausfindig gemacht.
+Die Trainings und Testdaten werden direkt vom Kaggle Wettbewerb *Denoising Dirty Documnets* [@kaggleDDD] zur Verfügung gestellt.
+In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht.
 
 Trainingsdaten
 
-  ~ :
-  ~ 144 Bilder insgesamt
-  ~ 48 Bilder in der Größe (540 x 258)
-  ~ 96 Bilder in der Größe (540 x 420)
-  ~ Alle Bilder sind in verrauschter und bereinigter Form vorhanden
-  ~ 8 verschiedene Hintergründe
-  ~ 2 verschiedene Texte
-  ~ 3 verschiedenen Schriftarten
-  ~ 2 verschiedenen Schriftgrößen
-  ~ Kursiv und normal
-  ~ Alle Kombinationen von Hintergrund, Text, Schriftart und Stiele vorhanden
-  ~ Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe
-  ~ Bildformat *PNG*
+  ~ 144 Bilder insgesamt; 48 Bilder in der Größe (540 x 258); 96 Bilder in der Größe (540 x 420); Alle Bilder sind in verrauschter und bereinigter Form vorhanden; 8 verschiedene Hintergründe; 2 verschiedene Texte; 3 verschiedenen Schriftarten; 2 verschiedenen Schriftgrößen; Alle Schriftarten sind kursiv und normal vorhanden; Alle Kombinationen von Hintergrund, Text, Schriftart und Stiele sind vorhanden; Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe; Bildformat *PNG*
 
 Testdaten
 
-  ~ :
-  ~ 72 Bilder insgesamt
-  ~ 24 Bilder in der Größe (540 x 258)
-  ~ 48 Bilder in der Größe (540 x 420)
-  ~ Alle Bilder sind nur in verrauschter Form vorhanden
-  ~ 4 verschiedene Hintergründe unterschiedlich zu den Hintergründe der Trainingsdaten
-  ~ 5 verschiedene Schriftarten wobei 3 gleich sind zu den Trainingsschriftarten
-  ~ 3 verschiedene Schriftgrößen
-  ~ 1 Text unterschiedlich zu den 2 Trainingstexte
-  ~ Kursiv und normal
-  ~ Nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stiele vorhanden
-  ~ Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe
-  ~ Bildformat *PNG*
+  ~ 72 Bilder insgesamt; 24 Bilder in der Größe (540 x 258); 48 Bilder in der Größe (540 x 420); Alle Bilder sind nur in verrauschter Form vorhanden; 4 verschiedene Hintergründe welche unterschiedlich zu den Hintergründe der Trainingsdaten sind; 5 verschiedene Schriftarten gleich zu den Trainingsschriftarten; 3 verschiedene Schriftgrößen; 1 Text unterschiedlich zu den 2 Trainingstexte; Kursiv und normal; Nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stiele vorhanden; Die größeren Bilder teilen sich die Hintergründe mit den kleineren Bilder und erweitern diese auf ihre Größe; Bildformat *PNG*
+
+**Zusammenfassung**
+
+Das wesentlichste Merkmal ist, dass sich in den Trainings sowie in den Testdaten exakt die selben Schriftbilder vorfinden. Der Unterschied liegt im neuen Text sowie Hintergrundbilder. Das Trainierte *kNN* soll und kann keine neuen Schriftarten erkennen.
 
 ## Alternativen
 
 ### Schwellwert und Kontrast
 
-Die einfachste Möglichkeit automatisiert einen gewissen Grad an Bereinigung von verrauschter Schriftbilder zu erlangen bieten einfache Schwellenwert und Kontrast Algorithmen. Bei Graustufenbilder repräsentiert der Wert 0 eines Pixel Schwarz und der Wert 1 Weiß.
+Eine simple Möglichkeit automatisiert einen gewissen Grad an Bereinigung von verrauschter Schriftbilder zu erlangen bieten Schwellenwert und Kontrast Algorithmen. Bei Graustufenbilder repräsentiert der Wert 0 eines Pixel Schwarz und der Wert 1 Weiß.
 
 Beim Schwellenwert wird für jeden Pixel des Bildes überprüft, ob dieser eine Schwelle an Grauwert überschreitet. Wenn er dies tut, wird der Wert gelassen, wenn nicht wird der Wert auf Weiß gesetzt. Dadurch entsteht automatisch ein größeren Kontrast. Diese Methode wird auch Tiefpassfilter genannt.
 
@@ -186,7 +168,7 @@ C++
 
 ### Künstliche neuronale Netze
 
-Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb die klassischen probabilistischen Modelle übertroffen haben.
+Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb die klassischen probabilistischen Modelle übertroffen haben. [@quelle!!]
 
 Es soll mit dieser Bachelorarbeit bewiesen werden, dass kNN ebenfalls beim Bereinigen von verrauschter Schriftbilder geeignet sind.
 
@@ -194,7 +176,6 @@ Es soll mit dieser Bachelorarbeit bewiesen werden, dass kNN ebenfalls beim Berei
 
 Die Programmiersprache *Python* wurde gewählt, da es dafür die besten Ressourcen und Tutorien gibt. *Python* genießt in der Welt der Wissenschaft eine große Beliebtheit, so gibt es im Internet ausführliche Beschreibungen der Techniken, welche in dieser Bachelorarbeit verwendet werden. Zusätzlich ist *Python* mit geringem Aufwand installiert, sehr portabel und hat eine komfortable Syntax.
 
-Mit dem Server *deepgreen02* steht ein für *Deep-Learning* mit *Python* optimierter Server der Hochschule für Technik und Wirtschaft zur Verfügung. Auch die Bibliothek *Theano* trägt viel zur Wahl von *Python* bei. Mit ihr ist es so einfach wie noch nie in einer komfortablen, dynamischen Skriptsprache die Algorithmen zu Definieren um diese später, hoch Performant, auf einer GPU auszuführen.
+Mit dem Server *deepgreen02* steht ein für *Deep-Learning* mit *Python* optimierter Server der Hochschule für Technik und Wirtschaft zur Verfügung. Auch die Bibliothek *Theano* trägt viel zur Wahl von *Python* bei. Mit ihr ist es so einfach wie noch nie in einer komfortablen, dynamischen Programmiersprache die Algorithmen zu Definieren um diese später, hoch performant, auf einer GPU auszuführen.
 
-*Python* verfügt ebenfalls über viele Bibliotheken in anderen Bereichen wie z.B. der Web-Programmierung. So können in *Python* geschriebene Modelle einfach als Web-Service Plattform unabhängig zur Verfügung gestellt werden. Auch bieten immer mehr Big-Data Plattformen wie *Apache Hadoop* und *Apache Spark* Schnittstellen für *Python* an.
-
+*Python* verfügt ebenfalls über viele Bibliotheken in anderen Bereichen wie z.B. der Web-Programmierung. So können in *Python* geschriebene Modelle einfach als Web-Service Plattform unabhängig zur Verfügung gestellt werden. Auch bieten immer mehr Big-Data Plattformen wie *Apache Hadoop* und *Apache Spark* Schnittstellen für *Python* an. [@quelle!!]

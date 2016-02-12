@@ -1,12 +1,16 @@
-# Einleitung {#einleitung}
+# Einleitung \label{head:einleitung}
 
-## Motivation {#motivation}
+## Motivation \label{head:motivation}
 
-## Begriffsklärung
+Es existieren immer noch immense Wissensbestände, welche die Menschheit seit der Erfindung der Schrift niedergeschrieben hat, in reiner Papierform. Diese Art der Wissenskonservierung hat sich über Jahrtausende bewährt. Ein großer Nachteil dieses Mediums liegt jedoch im effizienten Durchsuchen.
 
-Viele Begriffe von angewendeten Methoden in dieser Bachelorarbeit haben ihren Ursprung im Englischen. Dabei wird versucht die möglichst weit verbreiteten Deutschen Bezeichnungen zu verwenden.
+Neue Arten der Wissensspeicherung in Form von digitaler Schrift, bieten den Vorteil, das Wissen durch Volltext-Indexierung effizient durchsuchbar zu machen. Um diese Errungenschaft auch auf alte Schriften anwenden zu können müssen diese digitalisiert werden.
 
-## Zielstellung {#zielstellung}
+Durch die jahrelange Archivierung sind die Schriften oft nicht mehr gut leserlich. Dazu kann der Staub, Luftfeuchtigkeit, die Sonne oder auch ungeschickter Umgang mit Flüssigkeiten geführt haben. Diese Verunreinigung kann dazu führen, dass beim Digitalisieren diverse Buchstaben und Wörter nicht korrekt erkannt werden.
+
+An diesem Punkt möchte diese Arbeit ansetzen. Mit Hilfe von künstlichen neuronalen Netze, soll eine Möglichkeit erarbeitet werden, wie die eingescannten Schriften, vor der eigentlichen Schrifterkennung, bereinigt werden, damit der Schrifterkennung weniger Fehler unterlaufen.
+
+## Zielstellung \label{head:zielstellung}
 
 Das Hauptziel dieser Bachelorarbeit ist, ein künstliches neuronales Netzwerk, kNN, zu entwerfen, implementieren und
 trainieren, welches möglichst gut im Kaggle Wettbewerb “Denoising Dirty Documents” abschneidet. [@kaggleDDD]
@@ -17,11 +21,16 @@ Es wird auf verschiedene Architekturmodelle von kNN zurückgegriffen, welche unt
 
 Eine weitere Zielsetzung ist es, eine Architektur zur komfortablen Hyperparametersuche und Analyse des Lernvorgans herauszuarbeiten. Diese Architektur wird direkt für das Lernen und Analysieren der verschiedenen kNN dieser Bachelorarbeit angewendet.
 
-## Abgrenzung
+## Aufbau der Arbeit \label{head:aufbau}
 
+Die Arbeit ist in sieben aufeinander aufbauenden Hauptkategorien unterteilt. Angefangen mit der Einleitung folgt ein Kapitel über die Grundlagen der in der Arbeit verwendeten Techniken.
 
-## Aufbau der Arbeit {#aufbau}
+Nachdem die Grundlagen erörtert wurden, wird in der Aufgabenstellung darauf eingegangen, was genau das Ziel und die Randbedingungen der Arbeit ist und welche alternativen Ansätze existieren.
 
+Darauf folgt das Kapitel Entwurf, in welchem die benötigten Prozesse und Umsetzungsvarianten analysiert und aufgezeigt werden. Die gefundenen Prozesse werden dann im Kapitel Implementation in der Programmiersprache *Python* umgesetzt.
 
+Mit Hilfe des zuvor implementieren Programm wird im Kapitel Evaluierung versucht ein möglichst gutes kNN zu Konfigurieren und Trainieren. Es werden verschiedene Konfigurationen und Trainingsvarianten gegenübergestellt.
+
+Schlussendlich wird im Schlussteil eine kritische Retrospektive der Arbeit niedergeschrieben und einen Ausblick auf weitere Möglichkeiten gegeben.
 
 

@@ -286,7 +286,7 @@ Beide Aussagen stützen sich vor allem auf empirische Studien und sind keine was
 
 Es ist empirisch ebenfalls bewiesen, das die *l2-Regularisation* nicht nur *Overfitting* vorbeugt sondern auch zu konstanteren Ergebnissen bei mehreren Trainingsgängen erlangt.
 
-#### Dropout / Rauswerfen
+#### Dropout / Rauswerfen \label{head:dropout}
 
 *Dropout* ist ein weiteres Verfahren *Overfitting* zu vermeiden. Dabei werden bei jedem Trainingsdurchgang zufallsbedingt eine definierte Anzahl Neuronen deaktiviert. Dies wird in der Abbildung \ref{dropout} visuel dargestellt. Damit verändert sich der Aufbau das kNN. Wird dieser Rauswurf nun bei jedem Trainingsdurchgang (oder *Mini-Batch*) neu initialisiert, hat dies den Effekt, dass mehrere neuronale Konstellationen vom gleichen kNN trainiert werden. Dies kann verglichen werden, als würde man mehrere kNN gleichzeitig lernen und deren Resultat am ende Mitteln.
 

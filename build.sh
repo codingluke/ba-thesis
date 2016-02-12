@@ -2,7 +2,7 @@
 clear
 if [[ $# == 1 ]] 
 then
-  pandoc -s -N --biblatex --listings --chapters --toc-depth=3 --template=template.tex metadata.md content/*.md -o $1.tex
+  pandoc -s -N --biblatex --listings --chapters --toc-depth=2 --template=template.tex metadata.md content/*.md -o $1.tex
   pdflatex $1.tex
   biber $1
   pdflatex $1.tex
