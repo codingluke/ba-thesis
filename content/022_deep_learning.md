@@ -2,17 +2,17 @@
 
 ### Definition
 
-Sobald ein kNN über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes kNN. Kommen solche tiefe kNN zum Einsatz wird generell von *Deep-Learning* gesprochen.
+Sobald ein kNN über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes kNN. Kommen solche tiefe kNN zum Einsatz, wird generell von *Deep-Learning* gesprochen.
 
-Das Verwenden von mehren Schichten, kann sich dadurch Positiv auf das Resultat auswirken, dass jede weitere Schicht die gelernten Eigenschaften der vorhergehenden wiederverwenden und verfeinern kann. Dies führt zu höheren, abstrakteren Eigenschaften pro zusätzlichen Schicht.
+Das Verwenden von mehren Schichten, kann sich dadurch positiv auf das Resultat auswirken, dass jede weitere Schicht die gelernten Eigenschaften der vorhergehenden wiederverwenden und verfeinern kann. Dies führt zu höheren, abstrakteren Eigenschaften pro zusätzlicher Schicht.
 
-Vor allem in der Bild- und Sprachverarbeitung wurde durch tiefe kNN neue Standards gesetzt. Google Now, Microsoft's Cortana und auch Apple's Siri verwenden alle unter anderem tiefe kNN.
+Vor allem in der Bild- und Sprachverarbeitung wurden durch tiefe kNN neue Standards gesetzt. Google Now, Microsoft's Cortana und auch Apple's Siri verwenden unter anderem alle mehrschichtige kNN.
 
 ### Gradientenschwund \label{gradietenschwund}
 
-Das Trainieren von tiefen kNN mit mehr als drei Schichten, war lange Zeit durch rechenkapazität beschränkt. Ein großes Problem stellte vor allem der *vanishing-gradient*, zu Detusch *Gradientenschwund* dar.
+Das Trainieren von tiefen kNN mit mehr als drei Schichten, war lange Zeit durch Rechenkapazität beschränkt. Ein großes Problem stellte vor allem der *vanishing-gradient* (deut. *Gradientenschwund*) dar.
 
-Der *Gradientenschwund* findet durch den *Backpropagation Algorithmus* zwischen den Schichten statt. Beim *Backpropagation Algorithmus* wird der Fehler von der Ausgangsschicht zur Eingangsschicht zurück geleitet. Nun verliert der Gradient der partiell abgeleiteten *Aktivierungsfunktion* jeder vorhergehenden Schicht an Größe, bis er fast nicht mehr existent ist. Dies hat zur Folge, dass die ersten Schichten in einem tiefen kNN sehr langsam bis gar nicht lernen.
+Der *Gradientenschwund* findet durch den *Backpropagation Algorithmus* zwischen den Schichten statt. Beim *Backpropagation Algorithmus* wird der Fehler von der Ausgangsschicht zur Eingangsschicht zurückgeleitet. Nun verliert der Gradient der partiell abgeleiteten *Aktivierungsfunktion* jeder vorhergehenden Schicht an Größe, bis er fast nicht mehr existent ist. Dies hat zur Folge, dass die ersten Schichten in einem tiefen kNN sehr langsam bis gar nicht lernen.
 
 ### Unsupervised Feature Learning \label{unsubervised-feature-learning}
 
@@ -28,29 +28,29 @@ Der *Autoencoder* ist ein kNN mit der Form $X-h-X$, wobei die Eingangs- und Ausg
 
 ![Autoencoder: Wiederverwendung der unsichtbaren Schicht \label{fig:autoencoder}](images/autoencoder.png)
 
-Es wird versucht die zu lernende Daten so in der unsichtbare Schicht abzubilden (encode), damit sie wieder möglichst gut auf die Ausgangsschicht reproduziert (decode) werden können. Der *Autoencoder* versucht somit die *Identitätsfunktion* zu lernen.
+Es wird versucht die zu lernenden Daten so in der unsichtbaren Schicht abzubilden (encode), damit sie wieder möglichst gut auf die Ausgangsschicht reproduziert (decode) werden können. Der *Autoencoder* versucht somit die *Identitätsfunktion* zu lernen.
 
-Die gelernten Gewichte aus der unsichtbaren Schicht, bilden die Trainingsdaten in einer abstrakteren Ebene ab und können, wie in Abbildung \ref{fig:autoencoder}, für weitere Netze als Initialgewichte verwendet werden. Gelernt wurden diese Gewichte ohne zusätzliche Zieldaten. Somit handelt es sich um *Unsupervised-Feature-scoreLearning*.
+Die gelernten Gewichte aus der unsichtbaren Schicht, bilden die Trainingsdaten in einer abstrakteren Ebene ab und können, wie in Abbildung \ref{fig:autoencoder}, für weitere Netze als Initialgewichte verwendet werden. Trainiert wurden diese Gewichte ohne zusätzliche Zieldaten. Somit handelt es sich um *Unsupervised-Feature-scoreLearning*.
 
-### Denoising Autoencoder
+### Denoising-Autoencoder
 
-In der Arbeit "Extracting and Composing Robust Features with Denoising Autoencoders" [@VincentPLarochelleH2008] wird bewiesen, dass die Identitätsfunktion noch abstrakter gelernt werden kann, wenn die Trainingsdaten bei der Eingabe zufällig verrauscht werden.
+In der Arbeit "Extracting and Composing Robust Features with Denoising Autoencoders" [@VincentPLarochelleH2008] wird beschrieben, dass die Identitätsfunktion noch abstrakter gelernt werden kann, wenn die Trainingsdaten bei der Eingabe zufällig verrauscht werden.
 
-Ein *Denoising Autoencoder* ist somit ein *Autoencoder* welche die Eingangsdaten zuerst zufällig verrauscht, auf die unsichtbare Schicht abbildet und schlussendlich versucht diese bereinigt an der Ausgangsschicht auszugeben.
+Ein *Denoising-Autoencoder* ist somit ein *Autoencoder*, welche die Eingangsdaten zuerst zufällig verrauscht, auf die unsichtbare Schicht abbildet und schlussendlich versucht diese bereinigt an der Ausgangsschicht auszugeben.
 
-Das Rauschen veranlasst den *Autoencoder* dazu, die wesentlichen Eigenschaften der Daten zu finden. Ansonsten ist es nicht möglich diese zu bereinigen. Ist das Training erfolgreich, wurde das "Wesen" der Daten erkannt und die Gewichte und Biase der unsichtbaren Schicht können als Initialgewichte verwendet werden.
+Das Rauschen veranlasst den *Autoencoder* dazu, die wesentlichen Eigenschaften der Daten zu finden. Ansonsten ist es nicht möglich diese zu bereinigen. Ist das Training erfolgreich, wurde das "Wesen" der Daten erkannt und die Gewichte und Bias der unsichtbaren Schicht können als Initialgewichte verwendet werden.
 
-### Stacked Denoising Autoencoder
+### Stacked-Denoising-Autoencoder
 
-Der *Stacked Denoising Autoencoder*, ist die Kombination von mehreren Autoencodern zu einem "Stapel" und soll dem *Gradientenschwund* beisteuern. Es werden mehrere Autoencoder so aneinander gekoppelt, dass die unsichtbare Schicht des Vorgehenden zur Eingangsschicht des Nachfolgenden wird.
+Der *Stacked-Denoising-Autoencoder*, ist die Kombination von mehreren Autoencodern zu einem "Stapel" und soll dem *Gradientenschwund* entgegenwirken. Es werden mehrere *Autoencoder* so aneinander gekoppelt, dass die unsichtbare Schicht des Vorgehenden zur Eingangsschicht des Nachfolgenden wird.
 
 ![Stacked Autoencoder mit zwei unsichtbaren Schichten](images/stacked_autoencoder.png)
 
-Die Autoencoder werden einzeln, beim vordersten beginnend, autonom Trainiert. So werden die unsichtbaren Schichten nicht alle miteinander, sondern nacheinander Trainiert und umgehen den *Gradientenschwund*.
+Die *Autoencoder* werden einzeln, beim vordersten beginnend, autonom trainiert. So werden die unsichtbaren Schichten nicht alle miteinander, sondern nacheinander trainiert und umgehen den *Gradientenschwund*.
 
-Sind alle Schichten fertig Trainiert, wird das gesamte Netz nochmals *supervied* Nachtrainiert (fine-tunig).
+Sind alle Schichten fertig trainiert, wird das gesamte Netz nochmals *supervied* nachtrainiert (*Fine-tunig*).
 
 ### ReLU / Rampenfunktion
 
-Beim *Fine-Tuning* des Netzes ist das Problem vom *Gradientenschwund* immer noch vorhanden. Die *Aktivierungsfunktion* *ReLU* hat sich im *Deep-Learning* dadurch durchgesetzt, dass bei ihr der *Gradientenschwund* nicht so ausgeprägt ist wie bei der *Sigmoid-Funktion*. [@GlorotBB11]
+Beim *Fine-tuning* des Netzes ist das Problem vom *Gradientenschwund* immer noch vorhanden. Die *Aktivierungsfunktion* *ReLU* hat sich im *Deep-Learning* dadurch durchgesetzt, dass bei ihr der *Gradientenschwund* nicht so ausgeprägt ist wie bei der *Sigmoid-Funktion*. [@GlorotBB11]
 

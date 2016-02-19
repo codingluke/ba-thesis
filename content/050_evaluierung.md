@@ -115,10 +115,18 @@ Während der heuristischen Hyperparametersuche ist aufgefallen, dass die unsicht
 
 ## Stacked Denoising Autoencoder
 
-Wird das kNN um eine Schicht erweitert, wird das Resultat signifikant verbessert. Auch kann in der Abbildung \ref{fig:dA-vs-sdA} abgelesen werden, dass das Voraustraining der Autoencoder bessere Resultate erzäugt als ein nicht voraustrainiertes tiefes kNN.
+Bei Stacked Deonising Autoencoder, handelt es sich um kNN mit mehreren aufeinander folgenden *AutoencoderLayer*. Es wird nun überprüft wie sich die Präzision pro neue Schicht verändert, wenn es voraustrainiert wird und wenn nicht.
+
+### Zweischichtig
+
+Wird das kNN um eine Schicht erweitert, wird das Resultat signifikant verbessert. Auch kann in der Abbildung \ref{fig:dA-vs-sdA} abgelesen werden, dass voraustrainierte Autoencoder, bessere Resultate erzeugen als ein nicht voraustrainiertes tiefes kNN.
 
 ![Eischichtiger Denoising Autoencoder gegenüber einem Zweischichtigen Stacked Denoising Autoencoder, mit und ohne Voraustraining \label{fig:dA-vs-sdA}](images/dA_vs_sdA.png)
 
 \FloatBarrier
 
+### Dreischichtig
+
+\FloatBarrier
+### Vierschichtig
 

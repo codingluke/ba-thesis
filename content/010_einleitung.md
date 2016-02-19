@@ -4,11 +4,11 @@
 
 Es existieren immer noch immense Wissensbestände, welche die Menschheit seit der Erfindung der Schrift niedergeschrieben hat, in reiner Papierform. Diese Art der Wissenskonservierung hat sich über Jahrtausende bewährt. Ein großer Nachteil dieses Mediums liegt jedoch im effizienten Durchsuchen.
 
-Neue Arten der Wissensspeicherung in Form von digitaler Schrift, bieten den Vorteil, das Wissen durch Volltext-Indexierung effizient durchsuchbar zu machen. Um diese Errungenschaft auch auf alte Schriften anwenden zu können müssen diese digitalisiert werden.
+Neue Arten der Wissensspeicherung in Form von digitaler Schrift bieten den Vorteil das Wissen durch Volltext-Indexierung effizient durchsuchbar zu machen. Um diese Errungenschaft auch auf alte Schriften anwenden zu können müssen diese digitalisiert werden.
 
-Durch die jahrelange Archivierung sind die Schriften oft nicht mehr gut leserlich. Dazu kann der Staub, Luftfeuchtigkeit, die Sonne oder auch ungeschickter Umgang mit Flüssigkeiten geführt haben. Diese Verunreinigung kann dazu führen, dass beim Digitalisieren diverse Buchstaben und Wörter nicht korrekt erkannt werden.
+Durch die jahrelange Archivierung sind die Schriften oft nicht mehr gut lesbar. Dazu können Staub, Luftfeuchtigkeit, Sonneneinstrahlung oder ungeschickter Umgang mit Flüssigkeiten geführt haben. Diese Verunreinigung kann dazu führen, dass beim Digitalisieren diverse Buchstaben und Wörter nicht korrekt erkannt werden.
 
-An diesem Punkt möchte diese Arbeit ansetzen. Mit Hilfe von künstlichen neuronalen Netze, soll eine Möglichkeit erarbeitet werden, wie die eingescannten Schriften, vor der eigentlichen Schrifterkennung, bereinigt werden, damit der Schrifterkennung weniger Fehler unterlaufen.
+An diesem Punkt soll die vorliegende Arbeit ansetzen. Mit Hilfe von künstlichen neuronalen Netzen wird versucht eine Möglichkeit zu erarbeiten, eingescannte Schriften, vor der eigentlichen Schrifterkennung zu bereinigen, um das Endresultat der Schrifterkennung zu verbessern.
 
 ## Zielstellung \label{head:zielstellung}
 
@@ -23,14 +23,14 @@ Eine weitere Zielsetzung ist es, eine Architektur zur komfortablen Hyperparamete
 
 ## Aufbau der Arbeit \label{head:aufbau}
 
-Die Arbeit ist in sieben aufeinander aufbauenden Hauptkategorien unterteilt. Angefangen mit der Einleitung folgt ein Kapitel über die Grundlagen der in der Arbeit verwendeten Techniken.
+Die Arbeit ist in neun aufeinander aufbauende Hauptkategorien unterteilt. Der Einleitung folgt ein Kapitel über die Grundlagen der in der Arbeit verwendeten Techniken.
 
-Nachdem die Grundlagen erörtert wurden, wird in der Aufgabenstellung darauf eingegangen, was genau das Ziel und die Randbedingungen der Arbeit ist und welche alternativen Ansätze existieren.
+Nachdem die Grundlagen erörtert wurden, wird in der Aufgabenstellung darauf eingegangen, was genau das Ziel und die Randbedingungen der Arbeit sind und welche alternativen Ansätze existieren.
 
-Darauf folgt das Kapitel Entwurf, in welchem die benötigten Prozesse und Umsetzungsvarianten analysiert und aufgezeigt werden. Die gefundenen Prozesse werden dann im Kapitel Implementation in der Programmiersprache *Python* umgesetzt.
+Darauf folgt die Analyse, in welcher die benötigten Prozesse und Umsetzungsvarianten gesucht und aufgezeigt werden. Die gefundenen Prozesse werden danach im Kapitel Implementierung in der Programmiersprache *Python* umgesetzt. Die Implementierung wird durch Softwaretests verifiziert, welche unter dem Kapitel Test Driven Development genauer erläutert werden. Um die Implementation auch anwenden zu können, wird im Kapitel Anwendung darauf eingegangen wie die Implementierten Module kombiniert werden können, um verschiedene kNN zu konfigurieren, trainieren und schlussendlich zu verwenden.
 
-Mit Hilfe des zuvor implementieren Programm wird im Kapitel Evaluierung versucht ein möglichst gutes kNN zu Konfigurieren und Trainieren. Es werden verschiedene Konfigurationen und Trainingsvarianten gegenübergestellt.
+Mit Hilfe des zuvor implementierten Programms wird im Kapitel Evaluierung versucht ein möglichst gutes kNN zu konfigurieren und trainieren. Die Resultate werden miteinander verglichen und ausgewertet.
 
-Schlussendlich wird im Schlussteil eine kritische Retrospektive der Arbeit niedergeschrieben und einen Ausblick auf weitere Möglichkeiten gegeben.
+Abschließend wird im Fazit eine kritische Retrospektive der Arbeit niedergeschrieben und einen Ausblick auf weitere Möglichkeiten gegeben.
 
 
