@@ -6,7 +6,7 @@
 
 ### Eigenschaften
 
-Theano arbeitet Hand-in-Hand mit der *Python* Bibliothek *numpy* und ergänzt diese mit einer transparenten *GPU* Schnittstelle. So können kostspielige Berechnungen komfortabel auf der *GPU* ausgeführt werden, ohne das Wissen über die spezifischen GPU-Programmiersprachen, wie beispielsweise *CUDA*.
+Theano arbeitet Hand-in-Hand mit der *Python* Bibliothek *numpy* und ergänzt diese mit einer transparenten *GPU*-Schnittstelle. So können kostspielige Berechnungen komfortabel auf der *GPU* ausgeführt werden, ohne das Wissen über die spezifischen *GPU*-Programmiersprachen, wie beispielsweise *CUDA*.
 
 Möglich macht dies die von *Theano* verwendete Graphenstruktur zur Abbildung der mathematischen Ausdrücke. In der Abbildung \ref{fig:thano_graph} ist zu sehen, wie der Ausdruck $z=x+y$ abgebildet wird, wobei x, y und z vom Typ *theano.thensor.matrix* sind.
 

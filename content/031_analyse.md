@@ -1,8 +1,8 @@
-# Analyse und Systementwurf
+# Analyse und Systementwurf \label{head:analyse}
 
 Im Kapitel Analyse, werden die nötigen Prozesse zur Umsetzung der Anforderungen analysiert und beschrieben. Es bestehen zwei Hauptprozesse, welche sich teilweise überschneiden. Diese wären der Bereinigungsprozess eines Bildes sowie der Trainingsprozess des kNN. Darüber hinaus werden unterstützende Vorgehensweisen zur Hyperparemetersuche und zur Konfiguration der Architektur des kNN beschrieben.
 
-## Bereinigungsprozess
+## Bereinigungsprozess \label{head:bereinigungsprozess}
 
 Die Trainings- und Testdaten bestehen aus verschieden großen Bildern. Um ein Bild als Ganzes von einem *kNN* bereinigen zu lassen, müsste die Eingangsschicht aus den Graustrufenwerten der einzelnen Pixel des Bildes bestehen. Dadurch definiert die Bildgröße auch die Eingangsgröße des *kNN*.
 
@@ -10,7 +10,7 @@ Der Aufbau eines *kNN* kann nachträglich nicht verändert werden. Dies bedeutet
 
 Um dieses Problem zu lösen, wird ein Vorverarbeitungsschritt eingeführt. Die Bilder werden nicht als Ganzes bereinigt, sondern werden zuerst in gleich große Subbilder (wie in Abbildung \ref{fig:sliding-window}) unterteilt. Dieses Verfahren wird in der Arbeit "Enhancement and Cleaning of Handwritten Data by Using Neural Networks" [@cleaning-handwritten-data2005] für die Handschriftbereinigung vorgeschlagen.
 
-![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN \label{fig:sliding-window}](images/prozess.png)
+![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN \label{fig:sliding-window}](images/Bereinigungsprozess.pdf)
 
 Um ebenfalls die Randpixel bereinigen zu können, wird das Bild vor dem Prozess mit einem schwarzen Rand erweitert. Der Rand besitzt dieselbe Größe wie die Anzahl der berücksichtigten Nachbarn. Am Ende muss das bereinigte Bild aus den einzelnen, bereinigten Pixeln wiederhergestellt werden. Deswegen ist es wichtig, das die Subbilder bei der Bereinigung sortiert vorliegen.
 
@@ -28,11 +28,11 @@ Das Trainieren des *kNN* Teilt die wesentlichen Schritte mit dem in Abbildung \r
 
 Auf die Implementation der Trainingsalgorithmen wird im Kapitel \ref{head:network} eingegangen.
 
-### Aufzeichnung des Trainingsprozesses
+### Aufzeichnung des Trainingsprozesses \label{head:aufzeichung-training-prozess}
 
-Während dem Trainieren wird der Trainingsverlauf in einer *MongoDB* aufgezeichnet. Das Trainieren findet auf dem Server *deepgreen02* statt. Durch die Aufzeichnung kann der Trainingsverlauf auf einem Laptop, welcher sich über VPN im HTW-Berlin Netzwerk befindet, visualisiert und analysiert werden.
+Während dem Trainieren wird der Trainingsverlauf in einer *MongoDB* aufgezeichnet. Das Trainieren findet auf dem Server *deepgreen02* statt. Durch die Aufzeichnung kann der Trainingsverlauf auf einem Laptop, welcher sich über *VPN* im HTW-Berlin Netzwerk befindet, visualisiert und analysiert werden.
 
-![Kontextdiagram der Trainingsumgebung \label{fig:training_kontext}](images/training_kontext.png)
+![Kontextdiagram der Trainingsumgebung \label{fig:training-kontext}](images/VPN-Umgebung.pdf)
 
 \FloatBarrier
 
@@ -48,24 +48,24 @@ Für die Suche wird die *Python* Bibliothek *Spearmint* verwendet. *Spearmint* w
 
 ### Fine-tuning
 
-Die heuristische Hyperparemetersuche wird als grobe Suche verwendet, um möglichst viele Kombinationen zu testen. Ist diese abgeschlossen, werden die Trainingsläufe analysiert und einzelne Parametereigenschaften zusätzlich analysiert.
+Die heuristische Hyperparemetersuche wird als grobe Suche verwendet, um möglichst viele Kombinationen zu testen. Ist diese abgeschlossen, werden die Trainingsläufe und zusätzlich einzelne Parametereigenschaften analysiert.
 
-So wird zusätzlich analysiert, welche Rolle die Lernrate, die unsichtbare Schicht und auch die Größe des *Mini-Batch* spielen. Um gezielte Trainingsläufe zu starten, wird die heuristische Suche umgangen.
+So wird ebenfalls erforscht, welche Rolle die Lernrate, die unsichtbare Schicht und auch die Größe des *Minibatch* spielen. Um gezielte Trainingsläufe zu starten, wird die heuristische Suche umgangen.
 
 ## Konfiguration des kNN
 
-Die Konfiguration des kNN wird unter anderem über die heuristische Hyperparametersuche gesucht. So wird die Neuronenanzahl der unsichtbaren Schichten auch als Hyperparameter übergeben.
+Die Konfiguration des *kNN* wird unter anderem über die heuristische Hyperparametersuche gesucht. So wird die Neuronenanzahl der unsichtbaren Schichten auch als Hyperparameter übergeben.
 
 Die Anzahl und Art der Schichten wird nicht automatisch gesucht. Es wird immer ein Netzwerk aus verschiedenen Schichten zusammengestellt und darin durch die heuristische Hyperparemetersuche die optimale Konfiguration gesucht.
 
-Arten von kNN welche untersucht werden:
+Arten von *kNN* welche untersucht werden:
 
-- Einschichtige kNN
-- Einschichtiges Autoencoder kNN
-- Einschichtiges Denoising Autoencoder kNN
-- Mehrschichtiges kNN mit Sigmoid Aktivierungsfunktion
-- Mehrschichtiges kNN mit ReLU Aktivierungsfunktion
-- Mehrschichtiges Denoising Autoencoer kNN
+- Einschichtige *kNN*
+- Einschichtiges Autoencoder *kNN*
+- Einschichtiges Denoising-Autoencoder *kNN*, *dA*
+- Mehrschichtiges *kNN*, *MLP*, mit *Sigmoid*-Aktivierungsfunktion
+- Mehrschichtiges *kNN*, *MLP*, mit *ReLU*-Aktivierungsfunktion
+- *Stacked-Denoising-Autoencoer*, *SdA*
 
 ## Trainings- und Validationsdaten Unterteilung
 
@@ -77,17 +77,27 @@ Beim Analysieren der Trainingsdaten ist aufgefallen, dass zwei verschiedene Text
 
 Somit werden die Trainingsdaten in Trainings- und Validierungsdaten 50:50, anhand der verschiedenen Texte aufgeteilt. Dies soll eine möglichst reale Präzision beim Validieren ermöglichen.
 
-Um bei Kaggel trotz der Hälfte der Trainingsdaten gut abzuschneiden, wird das Beste eigene Modell erneut mit den selben Hyperparameter, Schichtkombinationen und Epochenanzahl auf allen Trainingsdaten trainiert.
+Um beim Kaggle-Wettbewerb so gut wie möglich abzuschneiden, wird das beste eigene Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl mit allen verfügbaren Trainingsdaten trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die Testdaten von Kaggle, ist das Aufzeichnen des Validierungsverlauf nicht möglich. Hier wird das Netz "blind" trainiert und an Ende durch das Hochladen direkt auf Kaggle validiert.
 
 ### Kleine Datenbasis für effiziente Hyperparametersuche
 
 Anhand der oben beschriebenen Methodik wird ebenfalls eine noch kleinere Datenbasis zusammengestellt. Darauf können schneller und effizienter verschiedene Kombinationen von Hyperparametern trainiert und validiert werden.
 
-Dies muss nicht zwingend auch zum besten Modell für die gesamten Trainingsmenge führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation). Aus Zeitgründen, wird diese Methode angewendet.
+Dies muss nicht zwingend auch zum besten Modell für die große Trainingsmenge führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation in Kapitel \ref{head:kNN}). Aus Zeitgründen, wird diese Methode angewendet, da angenommen wird, das Tendenzen auch auf der kleinen Datenbasis sichtbar werden.
 
-### Deklaration der Datenbasis
+### Eigener Datensatz für das Trainieren der Denoising-Autoencoder
 
-**Mittlere Datenbasis**
+Der Datensatz für das schichtweise Training der *Denoising-Autoencoder* beinhaltet ausschließlich bereits bereinigte Schriftbilder. Dabei werden pro Trainingsdatensatz nur Bilder mit Schriften gewählt, welche auch in den Trainings- und Validierungsdaten vorkommen.
+
+Der Grund, wieso bereinigte Bilder verwendet werden liegt darin, da der *Denoising-Autoencoder* die eingehenden Subbilder selbst Verunreinigt. Durch diesen automatisch generierten *Schmutz* wird erhofft, dass zusätzlich zu den bestehenden Hintergrundbilder neue generiert werden und somit das *Unsupervised-Feature-Learning* in sofern unterstützen, dass es besser generalisiert.
+
+**Alternative**
+
+Anstatt automatisch die Eingabedaten zu mutieren, könnte dem *Denoising-Autoencoder* auch die bereits verunreinigten sowie die bereinigten Bilder mitgegeben werden. Diese Variante wurde aus Zeitgründen nicht weiter verfolgt, sollte jedoch nach den Resultaten im Kapitel \ref{head:evaluierung} in Betracht gezogen werden.
+
+### Deklaration der Datenbasen
+
+**Große Datenbasis**
 
 Trainingsdaten
 
@@ -96,6 +106,10 @@ Trainingsdaten
 Validationsdaten
 
 >72 Bilder; 24 Bilder (540x258); 48 Bilder (540x420); 6 neue Hintergründe; 2 Hintergründe identisch den Trainingsdaten; 1 neuer Text; alle Schriften und Stile gleich.
+
+Autoencoder-Trainingsdaten
+
+>Alle bereinigten Trainingsbilder, wobei doppelte ausgeschlossen wurden (Bilder mit verschiedenen Hintergründe, jedoch dem selben Text besitzen gleiche Zielbilder)
 
 **Kleine Datenbasis**
 
@@ -106,3 +120,21 @@ Trainingsdaten
 Validationsdaten
 
 >20 Bilder, 12 Bilder (540x258), 8 Bilder (540x420), 3 neue Hintergründe, 1 Hintergrund identisch zu den Trainingsdaten, 1 neuer Text, 5 gleiche Schriften in 5 Stile.
+
+Autoencoder-Trainingsdaten
+
+>Alle bereinigten Trainingsbilder, wobei doppelte ausgeschlossen wurden (Bilder mit verschiedenen Hintergründe, jedoch dem selben Text besitzen gleiche Zielbilder)
+
+**Kaggle Datenbasis**
+
+Trainingsdaten
+
+> Alle von Kaggle zur Verfügung gestellten Trainingsdaten.
+
+Validierungsdaten
+
+> Alle von Kaggle zur Verfügung gestellten Testdaten. Da für diese Testdaten keine Zielbilder vorhanden sind, wird die Validierung auf der Kaggle-Webseite vorgenommen.
+
+Autoencoder-Trainingsdaten
+
+> Alle bereinigten Trainingsbilder.

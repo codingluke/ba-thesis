@@ -90,7 +90,8 @@ $endif$
 }
 \makeatother
 
-\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
+\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded, resolution=72,keepaspectratio}%
+%\setkeys{Gin}{resolution=1000,keepaspectratio}%
 
 % Margins of chapter heading
 $if(chapterheadstartvskip)$
@@ -219,6 +220,17 @@ $if(toc)$
     \cleardoublepage
 $endif$
 
+
+$if(scrlayer-scrpage)$
+  $for(scrlayer-scrpage)$
+    $scrlayer-scrpage$
+  $endfor$
+$endif$
+
+\mainmatter
+
+$body$
+
 $if(lot)$
   \renewcommand*\listtablename{Tabellenverzeichnis}
   \newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
@@ -234,17 +246,6 @@ $if(lof)$
   \restoregeometry
   %\clearpage
 $endif$
-
-$if(scrlayer-scrpage)$
-  $for(scrlayer-scrpage)$
-    $scrlayer-scrpage$
-  $endfor$
-$endif$
-
-\mainmatter
-
-
-$body$
 
 $for(include-chapters)$
   \input($include-chapters$)
