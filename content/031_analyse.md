@@ -4,13 +4,11 @@ Im Kapitel Analyse, werden die nötigen Prozesse zur Umsetzung der Anforderungen
 
 ## Bereinigungsprozess \label{head:bereinigungsprozess}
 
-Die Trainings- und Testdaten bestehen aus verschieden großen Bildern. Um ein Bild als Ganzes von einem *kNN* bereinigen zu lassen, müsste die Eingangsschicht aus den Graustrufenwerten der einzelnen Pixel des Bildes bestehen. Dadurch definiert die Bildgröße auch die Eingangsgröße des *kNN*.
-
-Der Aufbau eines *kNN* kann nachträglich nicht verändert werden. Dies bedeutet, dass in diesem Falle für jedes Bild mit einer anderen Bildgröße ein eigenes *kNN* zugeschnitten werden muss.
+Die Trainings- und Testdaten bestehen aus verschieden großen Bildern. Um ein Bild als Ganzes von einem *kNN* bereinigen zu lassen, müsste die Eingangsschicht aus den Graustrufenwerten der einzelnen Pixel des Bildes bestehen. Dadurch definiert die Bildgröße auch die Eingangsgröße des *kNN*. Der Aufbau eines *kNN* kann nachträglich nicht verändert werden. Dies bedeutet, dass in diesem Falle für jedes Bild mit einer anderen Bildgröße ein eigenes *kNN* zugeschnitten werden muss.
 
 Um dieses Problem zu lösen, wird ein Vorverarbeitungsschritt eingeführt. Die Bilder werden nicht als Ganzes bereinigt, sondern werden zuerst in gleich große Subbilder (wie in Abbildung \ref{fig:sliding-window}) unterteilt. Dieses Verfahren wird in der Arbeit "Enhancement and Cleaning of Handwritten Data by Using Neural Networks" [@cleaning-handwritten-data2005] für die Handschriftbereinigung vorgeschlagen.
 
-![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN \label{fig:sliding-window}](images/Bereinigungsprozess.pdf)
+![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN [Hodel] \label{fig:sliding-window}](images/Bereinigungsprozess.pdf)
 
 Um ebenfalls die Randpixel bereinigen zu können, wird das Bild vor dem Prozess mit einem schwarzen Rand erweitert. Der Rand besitzt dieselbe Größe wie die Anzahl der berücksichtigten Nachbarn. Am Ende muss das bereinigte Bild aus den einzelnen, bereinigten Pixeln wiederhergestellt werden. Deswegen ist es wichtig, das die Subbilder bei der Bereinigung sortiert vorliegen.
 
@@ -32,7 +30,7 @@ Auf die Implementation der Trainingsalgorithmen wird im Kapitel \ref{head:networ
 
 Während dem Trainieren wird der Trainingsverlauf in einer *MongoDB* aufgezeichnet. Das Trainieren findet auf dem Server *deepgreen02* statt. Durch die Aufzeichnung kann der Trainingsverlauf auf einem Laptop, welcher sich über *VPN* im HTW-Berlin Netzwerk befindet, visualisiert und analysiert werden.
 
-![Kontextdiagram der Trainingsumgebung \label{fig:training-kontext}](images/VPN-Umgebung.pdf)
+![Kontextdiagramm der Trainingsumgebung [Hodel] \label{fig:training-kontext}](images/VPN-Umgebung.pdf)
 
 \FloatBarrier
 
@@ -77,13 +75,13 @@ Beim Analysieren der Trainingsdaten ist aufgefallen, dass zwei verschiedene Text
 
 Somit werden die Trainingsdaten in Trainings- und Validierungsdaten 50:50, anhand der verschiedenen Texte aufgeteilt. Dies soll eine möglichst reale Präzision beim Validieren ermöglichen.
 
-Um beim Kaggle-Wettbewerb so gut wie möglich abzuschneiden, wird das beste eigene Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl mit allen verfügbaren Trainingsdaten trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die Testdaten von Kaggle, ist das Aufzeichnen des Validierungsverlauf nicht möglich. Hier wird das Netz "blind" trainiert und an Ende durch das Hochladen direkt auf Kaggle validiert.
+Um beim Kaggle-Wettbewerb so gut wie möglich abzuschneiden, wird das beste eigene Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl mit allen verfügbaren Trainingsdaten trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die Testdaten von Kaggle, ist das Aufzeichnen des Validierungsverlauf nicht möglich. Das Netz wird "blind" trainiert und anschließend durch das Hochladen direkt auf *Kaggle* validiert.
 
 ### Kleine Datenbasis für effiziente Hyperparametersuche
 
 Anhand der oben beschriebenen Methodik wird ebenfalls eine noch kleinere Datenbasis zusammengestellt. Darauf können schneller und effizienter verschiedene Kombinationen von Hyperparametern trainiert und validiert werden.
 
-Dies muss nicht zwingend auch zum besten Modell für die große Trainingsmenge führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation in Kapitel \ref{head:kNN}). Aus Zeitgründen, wird diese Methode angewendet, da angenommen wird, das Tendenzen auch auf der kleinen Datenbasis sichtbar werden.
+Dies muss nicht zwingend auch zum besten Modell für die große Trainingsmenge führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation in Kapitel \ref{head:kNN}). Aus Zeitgründen, wird diese Methode angewendet, da angenommen wird, dass Tendenzen auch auf der kleinen Datenbasis sichtbar werden.
 
 ### Eigener Datensatz für das Trainieren der Denoising-Autoencoder
 

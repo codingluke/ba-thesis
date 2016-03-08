@@ -10,7 +10,7 @@ Theano arbeitet Hand-in-Hand mit der *Python* Bibliothek *numpy* und ergänzt di
 
 Möglich macht dies die von *Theano* verwendete Graphenstruktur zur Abbildung der mathematischen Ausdrücke. In der Abbildung \ref{fig:thano_graph} ist zu sehen, wie der Ausdruck $z=x+y$ abgebildet wird, wobei x, y und z vom Typ *theano.thensor.matrix* sind.
 
-![Theano Graphenstruktur: Z = matrix(X) + matrix(Y) \label{fig:thano_graph}](images/theano_graph.png)
+![Theano Graphenstruktur: Z = matrix(X) + matrix(Y) [@deeplearning.net-2015] \label{fig:thano_graph}](images/theano_graph.png)
 
 Diese Darstellung bringt mehrere Vorteile mit sich:
 
@@ -30,8 +30,7 @@ Die Graphen können in verschiedene Zielsprachen kompiliert werden. Momentan wir
 
 *TensorFlow* von *Google* ist eine *C++* Bibliothek, welche viele Konzepte mit *Theano* teilt. Für *TensorFlow* gibt es auch eine *Python* Schnittstelle.
 
-*TensorFlow* hat bereits viele Algorithmen für kNN zur Verwendung implementiert und ist darauf ausgelegt in verteilten Systemen komfortabel einsetzbar zu sein.
-Ebenfalls die Dokumentation von *TensorFlow* ist der von *Theano* voraus, obwohl das Projekt jünger ist.
+*TensorFlow* hat bereits viele Algorithmen für *kNN* zur Verwendung implementiert und ist darauf ausgelegt, in verteilten Systemen komfortabel einsetzbar zu sein. Ebenfalls die Dokumentation von *TensorFlow* ist der von *Theano* voraus, obwohl das Projekt jünger ist.
 
 Da *Theano* ein reines *open-source*-Projekt ist und *TensorFlow* von Google stammt, wurde für diese Arbeit *Theano* vorgezogen.
 

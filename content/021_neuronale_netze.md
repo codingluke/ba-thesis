@@ -2,7 +2,7 @@
 
 ### Ursprung
 
-Künstliche neuronale Netze, kurz *kNN*, sind der Versuch, die aus der Neurowissenschaft bekannten Konzepte der neuronalen Netze, künstlich, mittels Programmcode, nachzubauen. Erste logische Nachahmungen eines organischen Neuron und deren Verknüpfungen zu Netze wurde bereits 1943 von McCulloch und Pitts beschrieben [@mcculloch].
+Künstliche neuronale Netze, kurz *kNN*, sind der Versuch die aus der Neurowissenschaft bekannten Konzepte der neuronalen Netze, künstlich, mittels Programmcode, nachzubauen. Erste logische Nachahmungen eines organischen Neuron und deren Verknüpfungen zu Netze wurde bereits 1943 von McCulloch und Pitts beschrieben [@mcculloch].
 
 Weiterentwickelt wurde es durch Frank Rosenblatt. Dieser entwickelte vor allem Ende der 1950er Jahre das Konzept des Perzeptrons [@rosenblatt1958perceptron].
 
@@ -52,13 +52,13 @@ g(in_j) =
   \end{cases}
 \end{equation}
 
-Wird als Aktivierungsfunktion die Sigmoid-Funktion (Gleichung \ref{eq:sigmoid}) verwendet, ist das Resultat immer eine Gleitkommazahl zwischen $0$ und $1$. Somit ist ein Neuron nicht aktiv oder inaktiv, sondern eher aktiv oder eher inaktiv. Eine kleine Änderung and den Bias oder Gewichten führt ebenfalls zu einer kleinen Veränderung des Resultats. Das Sigmoid-Perzeptron ist daher berechenbarer und besser zu trainieren. [vgl. @nielsen_2015, K.1]
+Wird als Aktivierungsfunktion die Sigmoid-Funktion (Gleichung \ref{eq:sigmoid}) verwendet, ist das Resultat immer eine Gleitkommazahl zwischen $0$ und $1$. Somit ist ein Neuron nicht aktiv oder inaktiv, sondern eher aktiv oder eher inaktiv. Eine kleine Änderung an den Bias oder Gewichten führt ebenfalls zu einer kleinen Veränderung des Resultats. Das Sigmoid-Perzeptron ist daher berechenbarer und besser zu trainieren. [vgl. @nielsen_2015, K.1]
 
 \begin{equation} \label{eq:sigmoid}
 g(in_j) = \frac{1}{1 + e^{-in_j}}
 \end{equation}
 
-Der Tangens Hyperbolicus, hat ähnliche Eigenschaften wie die Sigmoid-Funktion. Der Wertebereich befindet sich jedoch zwischen $-1$ und $1$. Es sind also auch Negativwerte möglich. [vgl. @nielsen_2015, K.6]
+Der *Tangens Hyperbolicus* besitzt ähnliche Eigenschaften wie die *Sigmoid-Funktion*. Der Wertebereich befindet sich jedoch zwischen $-1$ und $1$. Es sind also auch Negativwerte möglich. [vgl. @nielsen_2015, K.6]
 
 Die *Rectified-Linear-Unit*, *ReLU*, zu deutsch Gleichgerichtete Lineare Einheit, auch bekannt als "Rampenfunktion", ist eine Lineare Funktion, welche alle Negativwerte auf $0$ anhebt und die positiven Werte unverändert stehen lässt. Die Rampenfunktion hat sich gegenüber der Sigmoid-Funktion als natürlicher und plausibler erwiesen und erhält immer mehr Beachtung, vor allem im *Deep-Learning* [@GlorotBB11].
 
@@ -90,7 +90,7 @@ Besitzt ein *kNN* keine unsichtbare Schicht handelt es sich um ein Kernel-Perzep
 
 Besitzt ein *kNN* eine unsichtbare Schicht, handelt es sich um ein einschichtiges *kNN*. Einschichtige *kNN* sind universal; das heißt sie sind theoretisch im Stande jede beliebige Funktion darzustellen.
 
-Besitzt ein *kNN* mehrere unsichtbare Schichten, spricht man auch von einem mehrschichtigen *kNN*, im Englischen auch MLP, Multi Layered Perzeptron, genannt. Bei der Verwendung von mehrschichtigen *kNN* wird häufig von *Deep-Learning* gesprochen. Deep, da diese eine gewisse Tiefe durch die unsichtbaren Schichten besitzen. [vgl. @ki-norvig, S.846-850]
+Besitzt ein *kNN* mehrere unsichtbare Schichten, spricht man auch von einem mehrschichtigen *kNN*, im Englischen auch *Multi Layered Perceptron*, *MLP*, genannt. Bei der Verwendung von mehrschichtigen *kNN* wird häufig von *Deep-Learning* gesprochen. Deep, da diese eine gewisse Tiefe durch die unsichtbaren Schichten besitzen. [vgl. @ki-norvig, S.846-850]
 
 ### KNN als Funktion
 
@@ -104,7 +104,7 @@ Je nach Konfiguration kann das *kNN* einem Klassifikator, Regressor oder einer b
 
 ### Trainieren eines kNN
 
-Beim Trainieren eines *kNN*, wird versucht die Gewichte der einzelnen Eingangsverknüpfungen so zu modifizieren, dass bei einem bestimmten Eingangsvektor $X$ der entsprechende Ausgangsvektor $y$ resultiert.
+Beim Trainieren eines *kNN* wird versucht, die Gewichte der einzelnen Eingangsverknüpfungen so zu modifizieren, dass bei einem bestimmten Eingangsvektor $X$ der entsprechende Ausgangsvektor $y$ resultiert.
 
 Um das Resultat zu überprüfen wird eine *Kostenfunktion* verwendet. Die Modifikation der Gewichte wird mehrmals in kleinen Schritten ausgeführt. Dabei versucht man den Kostenfunktionswert zu minimieren.
 
@@ -114,7 +114,7 @@ Um zu wissen in welche Richtung die Gewichte angepasst werden müssen, wird das 
 
 Die Kostenfunktion^[Die Kostenfunktion wird im Englischen als *cost*, oder auch *loss* bezeichnet] berechnet die Abweichung, bzw. den Fehler, vom aktuell berechneten Ausgangswert zum gewünschten Zielwert. Anhand dieser Abweichung werden für jedes Neuron im Netz das Gewicht und den Bias modifiziert.
 
-Die klassische und auch von dem Kaggle Wettbewerb [@kaggleDDD] vorgeschriebene Kostenfunktion ist der *Root Mean Squared Error*, *RMSE*. Der *RMSE* \ref{eq:mse} berechnet die Distanz von jeder Stelle des Zielvektors mit der entsprechenden Stelle des berechneten Ausgangsvektors. Die einzelnen Distanzen werden quadriert und miteinander aufsummiert. Die Distanzen werden quadriert, um dem Fehler ein höheres Gewicht zu geben. Wenn diese nicht quadriert würden, wäre der Lernfortschritt kleiner. Am Schluss wird davon wieder die Wurzel gezogen.
+Die klassische und auch von dem Kaggle Wettbewerb [@kaggleDDD] vorgeschriebene Kostenfunktion ist der *Root Mean Squared Error*, *RMSE*. Der *RMSE*, dargestellt in Gleichung \ref{eq:rmse}, berechnet die Distanz von jeder Stelle des Zielvektors mit der entsprechenden Stelle des berechneten Ausgangsvektors. Die einzelnen Distanzen werden quadriert und miteinander aufsummiert. Die Distanzen werden quadriert, um dem Fehler ein höheres Gewicht zu geben. Wenn diese nicht quadriert würden, wäre der Lernfortschritt kleiner. Am Schluss wird davon wieder die Wurzel gezogen.
 
 \begin{equation} \label{eq:rmse}
   RMSE(w, b) \equiv \sqrt{\frac{1}{2n} \displaystyle\sum_{X} \|y(X) - a \|^2}
@@ -222,7 +222,7 @@ Werden diese zwei Gleichungen mit den im Kapitel \ref{gradientenabstiegsverfahre
 
 #### RMSProp / Root Mean Square Propagation
 
-Die *RMSProp* wurde von Tijemen Tieleman [@Tieleman2012] vorgeschlagen und wird von Geoffrez Hinton im Kurs *COURSERA: Neural Networks for Machine Learning* vermittelt. Besagtes Verfahren zur Gewichtsmodifikation hat in der vorliegenden Bachelorarbeit zu sehr guten Ergebnissen geführt. Leider gibt es keine offizielle Veröffentlichung des Verfahrens.
+Die *RMSProp* wurde von Tijemen Tieleman [@Tieleman2012] vorgeschlagen und wird von Geoffrez Hinton im Kurs *COURSERA: Neural Networks for Machine Learning* vermittelt. Besagtes Verfahren zur Gewichtsmodifikation hat in der vorliegenden Bachelorarbeit zu sehr guten Ergebnissen geführt. Zur Zeit gibt es keine offizielle Veröffentlichung des Verfahrens.
 
 Das Verfahren erweitert das *stochastische Gradientenabstiegsverfahren* insofern, dass der Gradient durch den *root-mean-square* aller vorhergehenden Gradienten skaliert wird. Dadurch haben die Gradienten vorhergehender Lernintervallen Einfluss auf den aktuellen Gradienten.
 
@@ -238,7 +238,7 @@ Die Gleichung \ref{eq:rmsprop-1} zeigt, wie der durch Backpropagation angenommen
 
 Der für die Gewichtsanpassung analog der *stochastischen Gradientenabstiegsverfahren* zu verwendende Gradient $G$ wird berechnet, indem der durch Backpropagation angenommene Gradient $G^{lt}_{jk}$ durch die Wurzel des mitgeführten, gemittelten Gradienten geteilt wird.
 
-![Vergleich verschiedener Backpropagation Methoden \label{rmsprop-compair}](images/rmsprop_comairation.png)
+![Vergleich verschiedener Backpropagation Methoden \label{rmsprop-compair} [@rnn, Min.18]](images/rmsprop_comairation.png)
 
 In der Abbildung \ref{rmsprop-compair} ist sichtbar, dass der Rmsprop (Schwarz) gegenüber dem SGD (Rot) viel schneller das Optimum (Stern) erreicht. SGD mit Momentum (grün), welches als nächstes erläutert wird, schneidet besser ab als der SGD, legt jedoch einen viel weiteren Weg als der Rmsprop zurück. Auf die drei anderen aufgeführten Methoden NAG, Adagrad und Adadelta wird in dieser Bachelorarbeit nicht eingegangen.
 
@@ -260,7 +260,7 @@ In der Gleichung \ref{eq:momentum-1} steht die Variable $v$ für *velocity*, was
 *Overfitting* entsteht, wenn ein Modell die Trainingsdaten so gut gelernt hat, dass es für genau diesen Datensatz sehr gute Resultate liefert, für einen anderen jedoch wieder signifikant schlechte. Das Modell hat zu wenig generalisiert und zu viele spezielle Details gelernt. Um *Overfitting* zu vermeiden gibt es mehrere Strategien:
 
 - Einen möglichst großen Trainingsdatensatz erstellen
-- Ein *kNN* mit weniger Parametern (Neuronen) wählen. Nur im Notfall!
+- Ein *kNN* mit weniger Parametern (Neuronen) wählen. Dies sollte nur im Notfall in Betracht gezogen werden.
 - Anhand eines vom Trainingsdatensatz ausgegliederten Validationsdatensatzes die Präzision regelmäßig überprüfen und das Training stoppen, wenn diese abnimmt (*early-stopping*)
 - L2 Regularisation und Dropout, welche in den Folgekapiteln erläutert werden.
 
@@ -268,7 +268,7 @@ In dieser Bachelorarbeit werden alle Methoden angewendet.
 
 #### L2 Regularisation
 
-Die *L2-Regularisation* versucht dem *Overfitting* entgegenzuwirken, indem es die Kostenfunktion mit einem zusätzlichen Term, den sogenannten *regularisation-term*, ergänzt.
+Die *L2-Regularisation* versucht dem *Overfitting* entgegenzuwirken, indem es die Kostenfunktion mit einem zusätzlichen Term, den sogenannten *Regularisation-Term*, ergänzt.
 
 \begin{eqnarray} \label{eq:l2}
   C = C_0 + \frac{\lambda}{2n}
@@ -277,7 +277,7 @@ Die *L2-Regularisation* versucht dem *Overfitting* entgegenzuwirken, indem es di
 
 Die Gleichung \ref{eq:l2} zeigt diesen Term, der dem Kostenfunktionswert $C_0$ hinzuaddiert wird. Er entspricht der Summe der Quadrate aller Gewichte im Netzwerk. Dieser wird mit dem Faktor $\lambda / 2n$ skaliert. Dabei entspricht $\lambda$ dem *Regularisations-Parameter* und $n$ der Größe vom Trainingsdatensatz.
 
-Eine Interpretation der *L2-Regularisation* ist, kleine Gewichte großen Gewichten vorzuziehen. Je größer der *Regularisations-Parameter* $\lambda$ gewählt wird, desto eher werden kleine Gewichte bevorzugt. Größere Gewichte werden gleich behandelt. Ist der $\lambda$ klein, wird das Minimieren der ursprünglichen Kostenfunktion bevorzugt. Bei dem Wert 0 wird der gesamte Regularisierungs-Term eliminiert.
+Eine Interpretation der *L2-Regularisation* ist das Vorziehen von kleinen vor großen Gewichten. Je größer der *Regularisations-Parameter* $\lambda$ gewählt wird, desto eher werden kleine Gewichte bevorzugt. Größere Gewichte werden gleich behandelt. Ist der $\lambda$ klein, wird das Minimieren der ursprünglichen Kostenfunktion bevorzugt. Bei dem Wert 0 wird der gesamte Regularisierungs-Term eliminiert.
 
 Eine mögliche Erklärung für das Funktionieren der *L2-Regularisation* lautet, dass kleinere Gewichte eine kleinere Komplexität besitzen und damit eine einfachere und mächtigere Beschreibung der Daten ermöglichen. Eine andere Annahme geht davon aus, dass durch das Gleichbehandeln von großen Mustern die kleinen oft vorkommenden Muster, welche eher dem generellen Modell entsprechen, bevorzugt werden. Das *kNN* lernt also ein einfacheres, generelleres Modell, welches auch mit komplett neuen Daten gut funktioniert.
 

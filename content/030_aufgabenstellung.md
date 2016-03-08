@@ -134,15 +134,15 @@ Ebenfalls ist auffällig, dass die Hintergrundbilder der Testdaten zwar anders a
 
 Eine simple Möglichkeit automatisiert einen gewissen Grad an Bereinigung verrauschter Schriftbilder zu erlangen bieten Schwellenwert- und Kontrast-Algorithmen. Bei Graustufenbildern repräsentiert der Wert 0 eines Pixel Schwarz und der Wert 1 Weiß.
 
-Beim Schwellenwert wird für jedes Pixel des Bildes überprüft, ob dieser eine Schwelle an Grauwert überschreitet. Wenn er dies tut, wird der Wert gelassen, wenn nicht wird der Wert auf Weiß gesetzt. Dadurch entsteht automatisch ein größerer Kontrast.
+Beim Schwellenwert wird für jedes Pixel des Bildes überprüft, ob dieser eine Schwelle an Grauwert überschreitet. Wenn er dies tut, wird der Wert belassen, wenn nicht wird der Wert auf Weiß gesetzt. Dadurch entsteht automatisch ein größerer Kontrast.
 
 Mit dieser Methode, kann feines Hintergrundrauschen und leichter Graustich entfernt werden. Flecken, welche über die gleiche Intensität wie die des Textes verfügen, können damit nicht entfernt werden, da diese einfache Funktion das "Wesen" von Text nicht kennt.
 
 #### Resultat
 
-Das unter dem Wettbewerb öffentlich hochgeladene Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. In der Mitte der Abbildung \ref{fig:threshold} ist die Bereinigung eines Bildausschnittes zu sehen, links und rechts davon sind die verrauschte und die optimal bereinigte Variante angegeben. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein *Kaggle*-Resultat vorhanden. Optisch ist jedoch ersichtlich, dass das Resultat weit hinter der *kNN*s des Kaptitels \ref{head:evaluierung}, liegen dürfte.
+Das unter dem Wettbewerb veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. In der Mitte der Abbildung \ref{fig:threshold} ist die Bereinigung eines Bildausschnittes zu sehen, links und rechts davon sind die verrauschte und die optimal bereinigte Variante angegeben. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein *Kaggle*-Resultat vorhanden. Optisch ist jedoch ersichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
 
-![Bereinigung durch eine Schwellenwertfunktion \label{fig:threshold}](images/threshold.png)
+![Bereinigung durch eine Schwellenwertfunktion [Hodel] \label{fig:threshold}](images/threshold.png)
 
 Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fourier-Transformation* zu einem Hochpassfilter. Diese Lösung erreichte ein *RMSE* von $0.09568$ und somit den 95 Platz auf Kaggle.
 
@@ -150,7 +150,7 @@ Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fou
 
 Eine verbesserte Möglichkeit Bilder zu bereinigen bieten klassische probabilistische Modelle des maschinellen Lernens. Dabei kann eine logistische Regression oder auch ein Entscheidungsbaum wie der *Random Forest* zum Einsatz kommen.
 
-Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei Bildern meistens um nicht-lineare Daten handelt. Es gibt zwar ebenfalls probabilistische Modelle, welche in der Lage sind nicht-lineare Daten zu verarbeiten, wie die *Support-Vector-Machine* mit dem entsprechenden Kernel, diese sprengen jedoch den Rahmen dieser Arbeit.
+Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei Bildern meistens um nicht-lineare Daten handelt. Es gibt ebenfalls probabilistische Modelle, welche in der Lage sind nicht-lineare Daten zu verarbeiten. Ein Beispiel ist die *Support-Vector-Machine* mit dem entsprechenden Kernel. Diese sprengen jedoch den Rahmen dieser Arbeit.
 
 #### Resultat
 
@@ -158,7 +158,7 @@ Ein im *Kaggle*-Forum geteiltes *Random-Forest*-Modell erzielt mit einem *RMSE* 
 
 ### Andere Programmiersprachen
 
-Der in diese Bachelorarbeit verwendete Programmcode ist in *Python* geschrieben. Es wäre auch möglich *Java*, *Lua*, *C++* oder *R* zu verwenden. Alle diese Sprachen verfügen über gute Bibliotheken. So besitzt *Java* unter anderem die *Frameworks* *deeplearning4j* und *h2o*, wobei letzteres über eine *API* auch von *R* verwendet werden kann. In *LUA* wurde *Torch* geschrieben und *C++* kennt neben *Caffe* auch *TensorFlow* von Google sowie viele weitere.
+Der in dieser Bachelorarbeit verwendete Programmcode ist in *Python* geschrieben. Es wäre auch möglich *Java*, *Lua*, *C++* oder *R* zu verwenden. Alle diese Sprachen verfügen über gute Bibliotheken. So besitzt *Java* unter anderem die *Frameworks* *deeplearning4j* und *h2o*, wobei letzteres über eine *API* auch von *R* verwendet werden kann. In *LUA* wurde *Torch* geschrieben und *C++* kennt neben *Caffe* auch *TensorFlow* von Google sowie viele weitere.
 
 ## Begründung der Wahl
 
@@ -170,7 +170,7 @@ Es soll mit dieser Bachelorarbeit bewiesen werden, dass *kNN* ebenfalls für das
 
 ### Die Programmiersprache Python
 
-Die Programmiersprache *Python* wurde gewählt, da es dafür die besten Ressourcen und Tutorien gibt. *Python* genießt in der Welt der Wissenschaft eine große Beliebtheit, so gibt es im Internet ausführliche Beschreibungen der Techniken, welche auch in dieser Arbeit verwendet werden. Zusätzlich ist *Python* mit geringem Aufwand installiert, sehr portabel und hat eine komfortable Syntax.
+Die Programmiersprache *Python* wurde gewählt, da es dafür die besten Ressourcen und Tutorien gibt. *Python* genießt in der Welt der Wissenschaft große Beliebtheit. So gibt es im Internet ausführliche Beschreibungen der Techniken, welche auch in dieser Arbeit Verwendung finden. Zusätzlich ist *Python* mit geringem Aufwand installiert, sehr portabel und hat eine komfortable Syntax.
 
 Mit dem Server *deepgreen02* steht ein für *Deep-Learning* mit *Python* optimierter Server der *Hochschule für Technik und Wirtschaft* zur Verfügung. Auch die Bibliothek *Theano* trägt viel zur Wahl von *Python* bei. Mit ihr ist es so einfach wie noch nie in einer komfortablen, dynamischen Programmiersprache die Algorithmen zu definieren, um diese später, hoch performant, auf einer *GPU* auszuführen.
 

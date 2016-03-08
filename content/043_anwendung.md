@@ -26,11 +26,11 @@ net.train(tdata=td, vdata=vd, metric_recorder=mr, mbs=500,
           save_dir='./models/train_', lambda=0.0, epochs=15)
 ~~~~~~~
 
-Für die Train-, Pretrain- und Validierungsdaten werden je eine *BatchProcessor*-Instanz erstellt (*td*, *pd* und *vd*). Bei der Erstellung wird mitgegeben, wie viele Nachbarpixel berücksichtigt werden sollen und wie die *Batchgröße* pro Iteration sein soll. Dem *BatchProcessor* für die Training- sowie Pretaindaten, sollten zusätzlich der Parameter *random* auf *True* gesetzt werden. Damit wird sichergestellt, dass die Trainingsdaten durchmischt werden. Dem *BatchProcessor* für die Validierungsdaten, muss nicht durchmischen, dies benötigt unnötige Zeit.
+Für die Train-, Pretrain- und Validierungsdaten wird je eine *BatchProcessor*-Instanz erstellt (*td*, *pd* und *vd*). Bei der Erstellung wird mitgegeben, wie viele Nachbarpixel berücksichtigt werden sollen und wie die *Batchgröße* pro Iteration sein soll. Den *BatchProcessor*en für die Training- sowie Pretaindaten sollten zusätzlich der Parameter *random* auf *True* gesetzt werden. Damit wird sichergestellt, dass die Trainingsdaten durchmischt werden. Der *BatchProcessor* für die Validierungsdaten darf die Daten nicht mischen, dies benötigt unnötig Zeit.
 
-Zusätzlich wird eine *MetricRecorder*-Instanz, *mr*, erstellt. Mit Hilfe des *MetricRecorder*s wird beim Training der Verlauf aufgezeichnet. Beim Instanziieren, muss eine Konfigurationsdatei angegeben werden, welche einen beliebigen Experimentname sowie die Datenbankverbindung beinhaltet.
+Zusätzlich wird eine *MetricRecorder*-Instanz, *mr*, erstellt. Mit Hilfe des *MetricRecorder*s wird beim Training der Verlauf aufgezeichnet. Beim Instanziieren muss eine Konfigurationsdatei angegeben werden, welche einen beliebigen Experimentname sowie die Datenbankverbindung beinhaltet.
 
-Als nächstes werden beliebig viele Klasseninstanzen, vom Basistyp *Layer*, mit beliebiger Anzahl Ein- und Ausgänge erstellt. Es stehen die Typen *AutoencoderLayer* und *FullyConnectedLayer* zur Verfügung. Hier muss beachtet werden, dass die Anzahl Ausgänge des Vorgängers mit der Anzahl Eingänge der Folgeschicht übereinstimmen muss. Diese Schichtinstanzen werden bei der darauffolgenden Instanziierung der Klasse *Network* als Liste mitgegeben. Der *AutoencoderLayer* Klassen können zusätzlich den *corruption_level*, Maß der Verunreinigung, gesetzt werden.
+Als nächstes werden beliebig viele Klasseninstanzen, vom Basistyp *Layer*, mit beliebiger Anzahl Ein- und Ausgänge erstellt. Es stehen die Typen *AutoencoderLayer* und *FullyConnectedLayer* zur Verfügung. Hier muss beachtet werden, dass die Anzahl Ausgänge des Vorgängers mit der Anzahl Eingänge der Folgeschicht übereinstimmen. Diese Schichtinstanzen werden bei der darauffolgenden Instanziierung der Klasse *Network* als Liste mitgegeben. Der *AutoencoderLayer* Klassen können zusätzlich den *corruption_level*, Maß der Verunreinigung, gesetzt werden.
 
 Mit der Methode *pretrain_autoencoders* können nun die *AutoencoderLayer* im Voraus trainiert werden. Hier muss als Trainingsmenge *tdata* die *BatchProcessor*-Instanz, *pd*, welche zum Ordner mit den Pretraindaten zeigt, mitgegeben werden.
 
@@ -40,7 +40,7 @@ Ist das Training zu Ende, werden die Validierungskosten der besten Validierung a
 
 ## Trainieren mit Spearmint
 
-Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden. Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *Python-Dictionary* mit den ausgewählten Werte der zu überprüfenden *Hyperparametern* für einen Test. Zurückgeben, muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
+Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden. Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *Python-Dictionary* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
 
 ~~~~~~~{#lst:spearmint .python caption="Minimalsetup zum Trainineren durch Spearmint."}
 from network import Network,
@@ -57,7 +57,7 @@ def main(job_id, params):
                    metric_recorder=mr, params[...])
 ~~~~~~~
 
-*Spearmint* wird durch das Aufrufen der Datei *main.py* im *Spearmint* Projektordner gestartet. Der Pfad zum Ordner Trainingsdatei wird als Parameter mitgegeben. In dem Ordner wird nach der Datei *config.json* gesucht. Innerhalb der Datei *config.json* werden die gewünschten *Hyperparameter* deklariert, sowie der Namen der Trainingsdatei, die Datenbankverbindung und einen Experimentnamen. Jedes *Spearmint*-Experiment befindet sich somit in einem eigenen Ordner. In dieser Arbeit befinden sich diese als Unterordner des Ordners */trainings*.
+*Spearmint* wird durch das Aufrufen der Datei *main.py* im *Spearmint* Projektordner gestartet. Der Pfad zum Ordner Trainingsdatei wird als Parameter mitgegeben. In dem Ordner wird nach der Datei *config.json* gesucht. Innerhalb der Datei *config.json* werden die gewünschten *Hyperparameter* deklariert, sowie der Name der Trainingsdatei, die Datenbankverbindung und ein Experimentname. Jedes *Spearmint*-Experiment befindet sich somit in einem eigenen Ordner. In dieser Arbeit befinden sich diese als Unterordner des Ordners */trainings*.
 
 
 ## Verwenden eines gespeicherten Modells
@@ -81,4 +81,3 @@ c = BatchCleaner(dirty_dir='/pfad/zum/eingabe/ordner/',
 c.clean_and_save(output_dir='/pfad/zum/ausgabe/ordner')
 c.clean_for_submission(output_dir='/pfad/zum/ausgabe/ordner')
 ~~~~~~~
-

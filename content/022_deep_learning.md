@@ -26,7 +26,7 @@ Das Konzept des *Autoencoder* wird von Bengio Yoshua im Artikel "Learning Deep A
 
 Der *Autoencoder* ist ein *kNN* mit der Form $X-h-X$, wobei die Eingangs- und Ausgangsschicht (X) dieselbe Anzahl Neuronen besitzen und die unsichtbare Schicht (h) eine beliebige Größe haben kann.
 
-![Autoencoder: Wiederverwendung der unsichtbaren Schicht \label{fig:autoencoder}](images/Autoencoder.pdf)
+![Autoencoder: Wiederverwendung der unsichtbaren Schicht [Hodel] \label{fig:autoencoder}](images/Autoencoder.pdf)
 
 Es wird versucht die zu lernenden Daten so in der unsichtbaren Schicht abzubilden (encode), damit sie wieder möglichst gut auf die Ausgangsschicht reproduziert (decode) werden können. Der *Autoencoder* versucht somit die *Identitätsfunktion* zu lernen.
 
@@ -36,15 +36,15 @@ Die gelernten Gewichte aus der unsichtbaren Schicht, bilden die Trainingsdaten i
 
 In der Arbeit "Extracting and Composing Robust Features with Denoising Autoencoders" [@VincentPLarochelleH2008] wird beschrieben, dass die Identitätsfunktion noch abstrakter gelernt werden kann, wenn die Trainingsdaten bei der Eingabe zufällig verrauscht werden.
 
-Ein *Denoising-Autoencoder* ist somit ein *Autoencoder*, welche die Eingangsdaten zuerst zufällig verrauscht, auf die unsichtbare Schicht abbildet und schlussendlich versucht diese bereinigt an der Ausgangsschicht auszugeben.
+Ein *Denoising-Autoencoder* ist somit ein *Autoencoder*, welcher die Eingangsdaten zuerst zufällig verrauscht, auf die unsichtbare Schicht abbildet und schlussendlich versucht diese bereinigt an der Ausgangsschicht auszugeben.
 
-Das Rauschen veranlasst den *Autoencoder* dazu, die wesentlichen Eigenschaften der Daten zu finden. Ansonsten ist es nicht möglich diese zu bereinigen. Ist das Training erfolgreich, wurde das "Wesen" der Daten erkannt und die Gewichte und Bias der unsichtbaren Schicht können als Initialgewichte verwendet werden.
+Das Rauschen veranlasst den *Denoising-Autoencoder* dazu, die wesentlichen Eigenschaften der Daten zu finden. Ansonsten ist es nicht möglich diese zu bereinigen. Ist das Training erfolgreich, wird das "Wesen" der Daten erkannt und die Gewichte und Bias der unsichtbaren Schicht können als Initialgewichte verwendet werden.
 
 ### Stacked-Denoising-Autoencoder \label{head:stacked-autoencoder}
 
 Der *Stacked-Denoising-Autoencoder*, *SdA*, ist die Kombination von mehreren Autoencodern zu einem "Stapel" und soll dem *Gradientenschwund* entgegenwirken. Es werden mehrere *Autoencoder* so aneinander gekoppelt, dass die unsichtbare Schicht des Vorgehenden zur Eingangsschicht des Nachfolgenden wird.
 
-![Stacked Autoencoder mit zwei unsichtbaren Schichten \label{fig:stacked-autoencoder}](images/Stacked-Autoencoder.pdf)
+![SdA mit zwei unsichtbaren Schichten [Hodel] \label{fig:stacked-autoencoder}](images/Stacked-Autoencoder.pdf)
 
 Die jeweiligen *Autoencoder* werden einzeln, beim vordersten beginnend, autonom trainiert. So werden die unsichtbaren Schichten nicht alle miteinander, sondern nacheinander trainiert und umgehen den *Gradientenschwund*.
 
