@@ -1,4 +1,4 @@
-# Test Driven Development
+# Test Driven Development \label{head:tdd}
 
 Das Testen wurde nach dem *TDD*-Prinzip, *Test Driven Development*, umgesetzt. Die Tests werden beim *TDD* nicht am Ende hinzugefügt, sondern direkt während der Implementation erstellt. Anstatt in der *Python*-Konsole einzelne Funktionalitäten durch manuelles Eintippen zu testen, und sich dadurch häufig zu wiederholen, geschieht dies in Form von Unittests. Dieses Vorgehen spart Zeit, dient als Dokumentation und vereinfacht die spätere Weiterentwicklung sowie das Refactoring. Alle in diesem Kapitel verwendeten Pfadangaben sind als relativ zum Projektordner zu betrachten.
 
@@ -36,7 +36,7 @@ Beim Modul *metric.py* wird überprüft, ob die Verbindung zur Datenbank erstell
 
 Zum Testen des Moduls *network.py*, wird ein *kNN* der Klasse *Network* instanziiert, welches über die Schichten *FullyConnectedLayer* und *AutoencoderLayer*, verfügt und mit einem kleine Datensatz trainiert wird. Die *AutoencoderLayer* werden ebenfalls im Voraus trainiert.
 
-Damit handelt es sich streng genommen um Integrations- und nicht um Unittests. Die Tests dienen zur Sicherstellung, dass alle Schichten korrekt implementiert sind und ebenfalls als Vorlage für die Verwendung des Moduls *network.py*. Um sicher zu stellen, dass das *kNN* trainiert, müssen die Validierungskosten kleiner als 1 sein.
+Damit handelt es sich um Integrations- und nicht um Unittests. Die Tests dienen zur Sicherstellung, dass alle Schichten korrekt implementiert sind und ebenfalls als Vorlage für die Verwendung des Moduls *network.py*. Um sicher zu stellen, dass das *kNN* trainiert, müssen die Validierungskosten kleiner als 1 sein.
 
 **Die Tests garantieren nicht, dass die Algorithmen korrekt implementiert wurden**, aber, dass das Netz mit Trainingsdaten trainiert werden kann, ohne dass ein Fehler auftaucht.
 
@@ -44,7 +44,7 @@ Um die Algorithmen testen zu können, bräuchte es vorgegebene Test- und Validie
 
 ## Cleaner
 
-Das Modul *cleaner.py* wird getestet, indem ein trainiertes und gespeichertes *kNN* geladen und damit ein Testbild der Kaggle Daten bereinigt und angezeigt wird. So ist vom Auge aus ersichtlich ob das Bereinigen funktioniert.
+Das Modul *cleaner.py* wird getestet, indem ein trainiertes und gespeichertes *kNN* geladen und damit ein Testbild der Kaggle Daten bereinigt und angezeigt wird. So ist vom Auge aus ersichtlich, ob das Bereinigen funktioniert.
 
 Zudem wird beim *BatchCleaner* überprüft, ob die generierte Datei zur Einreichung auch in dem von Kaggle definierten Format vorliegt. Damit wird sichergestellt, dass die generierte Einreichung auch korrekt formatiert ist.
 

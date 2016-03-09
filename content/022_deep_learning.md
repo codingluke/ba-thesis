@@ -2,29 +2,29 @@
 
 ### Definition
 
-Sobald ein *kNN* über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes, mehrschichtiges *kNN*, welches auch auch *Multi-Layered-Perceptron*, *MLP*, genannt wird. Kommen *MLP* zum Einsatz, wird generell von *Deep-Learning* gesprochen.
+Sobald ein *kNN* über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes, mehrschichtiges *kNN*, welches auch auch *Multi-Layered-Perceptron*, *MLP*, genannt wird. Kommen *MLP* zum Einsatz, wird generell von *Deep-Learning* gesprochen [vgl. @nielsen_2015, K.6].
 
-Das Verwenden von mehren Schichten, kann sich dadurch positiv auf das Resultat auswirken, dass jede weitere Schicht die gelernten Eigenschaften der vorhergehenden wiederverwenden und verfeinern kann. Dies führt zu höheren, abstrakteren Eigenschaften pro zusätzlicher Schicht.
+Das Verwenden von mehren Schichten, kann sich dadurch positiv auf das Resultat auswirken, dass jede weitere Schicht die gelernten Eigenschaften der vorhergehenden wiederverwenden und verfeinern kann. Dies führt zu höheren, abstrakteren Eigenschaften pro zusätzlicher Schicht [vgl. @nielsen_2015, K.6].
 
-Vor allem in der Bild- und Sprachverarbeitung wurden durch *Deep-Learning* neue Standards gesetzt. Google Now, Microsoft's Cortana und auch Apple's Siri verwenden unter anderem alle mehrschichtige *kNN*. [@deep-learning-commerz]
+Vor allem in der Bild- und Sprachverarbeitung wurden durch *Deep-Learning* neue Standards gesetzt. Google Now, Microsoft's Cortana und auch Apple's Siri verwenden unter anderem alle mehrschichtige *kNN*. [vgl. @deep-learning-commerz]
 
 ### Gradientenschwund \label{gradietenschwund}
 
-Das Trainieren von *MLP* mit mehr als drei Schichten, war lange Zeit durch Rechenkapazität beschränkt. Ein großes Problem stellte vor allem der *vanishing-gradient* (deut. *Gradientenschwund*) dar.
+Das Trainieren von *MLP* mit mehr als drei Schichten, war lange Zeit durch Rechenkapazität beschränkt. Ein großes Problem stellte vor allem der *vanishing-gradient* (deut. *Gradientenschwund*) dar. [vgl. @nielsen_2015, K.6]
 
-Der *Gradientenschwund* findet durch den *Backpropagation Algorithmus* zwischen den Schichten statt. Beim *Backpropagation Algorithmus* wird der Fehler von der Ausgangsschicht zur Eingangsschicht zurück geleitet. Nun verliert der Gradient der partiell abgeleiteten *Aktivierungsfunktion* jeder vorhergehenden Schicht an Größe, bis er fast nicht mehr existent ist. Dies hat zur Folge, dass die ersten Schichten in einem *MLP* sehr langsam bis gar nicht lernen.
+Der *Gradientenschwund* findet durch den *Backpropagation-Algorithmus* zwischen den Schichten statt. Beim *Backpropagation-Algorithmus* wird der Fehler von der Ausgangsschicht zur Eingangsschicht zurück geleitet. Nun verliert jedoch der Gradient, der partiell abgeleiteten *Aktivierungsfunktion* jeder vorhergehenden Schicht, an Größe, bis er fast nicht mehr existent ist. Dies hat zur Folge, dass die ersten Schichten eines *MLP* nur sehr langsam lernen, was sich wiederum auf die Trainingszeit (Rechenkapazität) auswirkt. [vgl. @nielsen_2015, K.6]
 
-### Unsupervised Feature Learning \label{unsubervised-feature-learning}
+### Unsupervised-Feature-Learning \label{unsubervised-feature-learning}
 
-Ein weiteres Thema von *Deep-Learning* ist das *Unsupervised-Feature-Learning*, nicht beaufsichtigtes Lernen von Eigenschaften. Es wird versucht ein *kNN* dazu veranlassen Eigenschaften in den Eingabedaten selber zu erkennen und lernen.
+Ein weiteres Thema von *Deep-Learning* ist das *Unsupervised-Feature-Learning* (deut. nicht überwachtes Lernen von Eigenschaften). Dabei wird versucht einem *kNN* zu ermöglichen, Eigenschaften in den Eingabedaten von Selbst zu erkennen und zu lernen. [vgl. @Bengio12]
 
-Das *Unsupervised-Feature-Learning* ist mit dem Gruppieren unbekannter Daten anhand ähnlichen Eigenschaften (*Clustering*) zu vergleichen. Es werden Zusammenhänge neuer Daten ohne Zieldaten gefunden, wobei beim *Supervised-Feature-Learning* das Resultat mit erlesenen Zieldaten validiert wird.
+Das *Unsupervised-Feature-Learning* steht dem Gruppieren unbekannter Daten anhand ähnlichen Eigenschaften (*Clustering*) nahe. Bei Beiden werden Zusammenhänge in Trainingsdaten ohne zugewiesene Zieldaten gefunden, wogegen das klassische *Supervised-Feature-Learning* das Resultat mit erlesenen Zieldaten validiert. [vgl. @ki-norvig, S.811]
 
 ### Autoencoder
 
-Das Konzept des *Autoencoder* wird von Bengio Yoshua im Artikel "Learning Deep Architectures for AI" [@Bengio09] beschrieben und ist ein Ansatz die Probleme der vorhergehenden Kapitel \ref{gradietenschwund} und \ref{unsubervised-feature-learning} zu lösen.
+Das Konzept des *Autoencoders* wird von Bengio Yoshua im Artikel "Learning Deep Architectures for AI" [@Bengio09] beschrieben und ist ein Ansatz die Probleme der vorhergehenden Kapitel \ref{gradietenschwund} und \ref{unsubervised-feature-learning} anzugehen.
 
-Der *Autoencoder* ist ein *kNN* mit der Form $X-h-X$, wobei die Eingangs- und Ausgangsschicht (X) dieselbe Anzahl Neuronen besitzen und die unsichtbare Schicht (h) eine beliebige Größe haben kann.
+Der *Autoencoder* ist ein *kNN* mit der Form $X-h-X$, wobei die Eingangs- und Ausgangsschicht (X) dieselbe Anzahl Neuronen besitzen müssen und nur die unsichtbare Schicht (h) eine beliebige Größe besitzen darf.
 
 ![Autoencoder: Wiederverwendung der unsichtbaren Schicht [Hodel] \label{fig:autoencoder}](images/Autoencoder.pdf)
 
@@ -34,7 +34,7 @@ Die gelernten Gewichte aus der unsichtbaren Schicht, bilden die Trainingsdaten i
 
 ### Denoising-Autoencoder
 
-In der Arbeit "Extracting and Composing Robust Features with Denoising Autoencoders" [@VincentPLarochelleH2008] wird beschrieben, dass die Identitätsfunktion noch abstrakter gelernt werden kann, wenn die Trainingsdaten bei der Eingabe zufällig verrauscht werden.
+In der Arbeit "Extracting and Composing Robust Features with Denoising Autoencoders" [@VincentPLarochelleH2008] wird beschrieben, dass die Identitätsfunktion noch abstrakter gelernt werden kann, wenn die Trainingsdaten während derer Eingabe zufällig verrauscht werden.
 
 Ein *Denoising-Autoencoder* ist somit ein *Autoencoder*, welcher die Eingangsdaten zuerst zufällig verrauscht, auf die unsichtbare Schicht abbildet und schlussendlich versucht diese bereinigt an der Ausgangsschicht auszugeben.
 
@@ -42,15 +42,12 @@ Das Rauschen veranlasst den *Denoising-Autoencoder* dazu, die wesentlichen Eigen
 
 ### Stacked-Denoising-Autoencoder \label{head:stacked-autoencoder}
 
-Der *Stacked-Denoising-Autoencoder*, *SdA*, ist die Kombination von mehreren Autoencodern zu einem "Stapel" und soll dem *Gradientenschwund* entgegenwirken. Es werden mehrere *Autoencoder* so aneinander gekoppelt, dass die unsichtbare Schicht des Vorgehenden zur Eingangsschicht des Nachfolgenden wird.
+Der *Stacked-Denoising-Autoencoder*, *SdA*, wird in der Arbeit "Stacked denoising autoencoders: learning useful representations in a deep network with a local denoising criterion" [@Vincent10stackeddenoising] beschrieben. Es werden dabei mehrere *Denoising-Autoencoder* so aneinander gekoppelt, dass die unsichtbare Schicht des Vorgehenden zur Eingangsschicht des Nachfolgenden wird (siehe Abbildung \ref{fig:stacked-autoencoder}).
 
 ![SdA mit zwei unsichtbaren Schichten [Hodel] \label{fig:stacked-autoencoder}](images/Stacked-Autoencoder.pdf)
 
-Die jeweiligen *Autoencoder* werden einzeln, beim vordersten beginnend, autonom trainiert. So werden die unsichtbaren Schichten nicht alle miteinander, sondern nacheinander trainiert und umgehen den *Gradientenschwund*.
-
-Sind alle Schichten fertig trainiert, wird das gesamte Netz nochmals, *"supervised"* nachtrainiert (*Fine-tunig*).
+Die jeweiligen *Denoising-Autoencoder* werden einzeln, beim Vordersten beginnend, autonom trainiert. So werden die unsichtbaren Schichten nicht miteinander, sondern nacheinander trainiert und umgehen dadurch den *Gradientenschwund*. Die Trainingsdaten werden jeweils von den vorhergehenden Schichten modifiziert, bevor eine nachfolgende Schicht trainiert wird. Wurden alle Schichten einzeln trainiert, wird das gesamte Netz abschließend nochmals "normal" trainiert. Dieser Schritt wird auch *Fine-tunig* genannt.
 
 ### ReLU / Rampenfunktion
 
-Beim *Fine-tuning* des Netzes ist das Problem vom *Gradientenschwund* immer noch vorhanden. Die *Aktivierungsfunktion* *ReLU* hat sich im *Deep-Learning* dadurch durchgesetzt, dass bei ihr der *Gradientenschwund* nicht so ausgeprägt ist wie bei der *Sigmoid-Funktion*. [@GlorotBB11]
-
+Beim *Fine-tuning* des Netzes ist das Problem vom *Gradientenschwund* immer noch präsent. Die *Aktivierungsfunktion* *ReLU* hat sich im *Deep-Learning* dadurch durchgesetzt, dass bei ihr der *Gradientenschwund* nicht so ausgeprägt ist wie bei der *Sigmoid-Funktion*. Dies wurde vor allem in der Arbeit "Deep Sparse Rectifier Neural Networks" [@GlorotBB11] beschrieben.

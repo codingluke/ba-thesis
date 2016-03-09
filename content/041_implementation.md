@@ -1,4 +1,4 @@
-# Implementierung
+# Implementierung \label{head:implementierung}
 
 ## Kontextdiagramm
 
@@ -12,7 +12,7 @@ Das Modul *metric.py* beinhaltet Klassen, um Trainingsvorgänge in einer *MongoD
 
 Das Modul *network.py* repräsentiert das eigentliche *kNN*. Es beinhaltet die Klasse *Network*, welche Instanzen der Klassen *FullyConnectedLayer* und *AutoencoderLayer* zu einem *kNN* verbindet und diese trainieren kann. Dafür wird die Klasse *BatchProcessor* und auch optional die Klasse *MetricRecorder* verwendet. Ein trainiertes *kNN* wird als *Artefakt* in einer Datei persistent gespeichert.
 
-Das Modul *cleaner.py* beinhaltet die Klasse *Cleaner* mit welcher ein gespeichertes *kNN* geladen und damit beliebige Bilder bereinigt werden können. Die Klasse *BatchCleaner* macht Verwendung der Klasse *Cleaner* und kann Bilder eines ganzen Ordners bereinigen. Es besteht ebenfalls die Möglichkeit eine komprimierte Datei im von *Kaggle* vorgegebenen Dateiformat zu erstellen. Mit dieser kann das *kNN* anschließend auf *Kaggle* bewertet werden.
+Das Modul *cleaner.py* beinhaltet die Klasse *Cleaner*, mit welcher ein gespeichertes *kNN* geladen und damit beliebige Bilder bereinigt werden können. Die Klasse *BatchCleaner* macht Verwendung der Klasse *Cleaner* und kann Bilder eines ganzen Ordners bereinigen. Es besteht ebenfalls die Möglichkeit eine komprimierte Datei im von *Kaggle* vorgegebenen Dateiformat zu erstellen. Mit dieser kann das *kNN* anschließend auf *Kaggle* bewertet werden.
 
 ## Preprocessor
 
@@ -22,9 +22,9 @@ Das Modul *preprocessor.py* beinhaltet die Klassen *Processor* und *BatchProcess
 
 Das Generieren der Subbilder wird mit der *Python*-Klasse *Processor* implementiert. Der Klasse wird der Pfad zum verrauschten Bild, der Pfad zum bereinigten Bild, sowie Parameter für die Anzahl der berücksichtigten Nachbarpixel übergeben.
 
-Über die Methode *get_dataset* können nun die Subbilder als *tupel*, mit den jeweiligen Zielpixeln verbunden, ausgegeben werden. Es sind dafür drei verschiedene Algorithmen implementiert. Dabei ist der erste Algorithmus in reinem *Python*-Code realisiert. Der zweite Algorithmus verwendet spezielle *numpy*-Matrix-Operationen. Die beiden Algorithmen unterscheiden sich erheblich in der Performance, was in Kapitel \ref{head:sliding_window} beschrieben ist. Bei beiden werden alle Subbilder in sortierter Form als *numpy.ndarray* ausgegeben.
+Über die Methode *get_dataset* können nun die Subbilder als *tupel*, mit den jeweiligen Zielpixeln verbunden, ausgegeben werden. Es sind dafür drei verschiedene Algorithmen implementiert. Dabei ist der erste Algorithmus in reinem *Python*-Code realisiert. Der zweite Algorithmus verwendet spezielle *numpy*-Matrix-Operationen. Die beiden Algorithmen unterscheiden sich erheblich in der Performance, was in Kapitel \ref{head:sliding_window} beschrieben ist. Bei Beiden werden alle Subbilder in sortierter Form als *numpy.ndarray* ausgegeben.
 
-Die dritte Version unterscheidet sich insofern, dass sie zufällig nur ein Subbild und das dazugehörige Zielpixel ausgibt. Es werden also nicht alle Datensätze ausgegeben. Diese ist über die Methode *get_random_patch* implementiert.
+Die dritte Version unterscheidet sich insofern, dass sie zufällig nur ein Subbild und das dazugehörige Zielpixel ausgibt. Es werden diesmal nicht alle Datensätze gleichzeitig ausgegeben. Diese Version ist in der Methode *get_random_patch* implementiert.
 
 ### Die Klasse BatchProcessor
 
@@ -38,17 +38,19 @@ Wird der *BatchProcessor* als Iterator verwendet, wird bei jeder Iteration die M
 
 #### Zufälligkeit
 
-Der *Backpropagation-Algorithmus* verlangt, dass die Trainingsdaten nach jedem Durchlauf zufällig durchmischt werden. Da nicht alle Trainingsdaten im Arbeitsspeicher Platz finden, werden immer nur die Subbilder einer Gruppe (*Batch*) zusammen durchmischt. Um die Gruppen pro Iteration neu aufzustellen, werden die Bilder, repräsentiert durch *Processor*-Instanzen, nach jeder Iteration neu gemischt. Wie in Kapitel \ref{head:evaluierung} beschrieben, ist die Durchmischung dadurch nicht optimal.
+Der *Backpropagation-Algorithmus* verlangt, dass die Trainingsdaten nach jedem Durchlauf zufällig durchmischt werden (siehe Kapitel \ref{head:backprop}). Da nicht alle Trainingsdaten im Arbeitsspeicher Platz finden, werden immer nur die Subbilder einer Gruppe (*Batch*) zusammen durchmischt. Um die Gruppen pro Iteration neu aufzustellen, werden die Bilder, repräsentiert durch *Processor*-Instanzen, nach jeder Iteration neu gemischt. Wie in Kapitel \ref{head:evaluierung} beschrieben, ist die Durchmischung dadurch nicht optimal.
 
 Auf Grund dieser Tatsache ist eine weitere zufällige Variante implementiert worden. Diese wird *Totaler Zufall* genannt. Beim *Totalen Zufall* wählt der *BatchProcessor* zufällig einen *Processor* aus und lässt sich ein Subbild inklusive Zielpixel ausgeben (Aufruf der Methode *get_random_patch*). Dieser Prozess wird so oft wiederholt, bis die gewünschte Gruppengröße erreicht ist.
 
-Beim *Totalen-Zufall* werden die Subbilder bereits bei ihrer Generierung zufällig angeordnet. Dies ist zum Einen schneller, da die Durchmischung nicht nachträglich gemacht werden muss, und ermöglicht zum Anderen eine zufällige Durchmischung der Subbilder aller Bilder. In Abbildung \ref{fig:batch_vs_fully} wird im Trainingsverlauf der Unterschied sichtbar.
+Beim *Totalen-Zufall* werden die Subbilder bereits bei ihrer Generierung zufällig angeordnet. Dies ist zum einen schneller, da die Durchmischung nicht nachträglich gemacht werden muss, und ermöglicht zum anderen eine zufällige Durchmischung der Subbilder aller Bilder. In Abbildung \ref{fig:batch_vs_fully} wird im Trainingsverlauf der Unterschied sichtbar.
 
 ## Netzwerk \label{head:network}
 
-### Verwendete Ressource
+### Verwendetes Material
 
-Der Aufbau der Klassen *Network* und *FullyConnectedLayer* wurde aus der Datei *network3.py*, welche von Michael Nielson zusammen mit seinem Online-Buch *Neural Networks and Deep Learning* [@nielsen_2015] veröffentlicht wurde, übernommen und angepasst. Vor allem wurde daraus der *Stochastic-Gradient-Descent*, *L2-Regularisation*, *Dropout* übernommen. Hinzugefügt wurden der *RMSprop*-Algorithmus, *Momentum*, Datenübergabe durch ein Iterator, early-stopping, Trainingsveralaufaufzeichung, sowie die gesamte Klasse *AutoencoderLayer*. Der Programmcode des *AutoencoderLayer* wurde überwiegend dem Tutorial *Stacked Denoising Autoencoders (SdA)* [@deeplearning.net-2015] entnommen und der Struktur des *FullyConnectedLayer* angepasst.
+Der Aufbau der Klassen *Network* und *FullyConnectedLayer* wurde aus der Datei *network3.py*, welche von Michael Nielson zusammen mit seinem Online-Buch "Neural Networks and Deep Learning" [@nielsen_2015] veröffentlicht wurde, übernommen und angepasst. Vor allem wurde daraus der *Stochastic-Gradient-Descent*-Algorithmus, die *L2-Regularisation* sowie der *Dropout*-Mechanismus daraus entnommen.
+
+Hinzugefügt wurden der *RMSprop*-Algorithmus, der *Momentum*-Mechanismus, die Datenübergabe mittels Iterator-Klasse, das early-stopping, die Trainingsveralaufaufzeichung, sowie die gesamte Klasse *AutoencoderLayer*. Der Programmcode des *AutoencoderLayer* wurde überwiegend dem Tutorial "Stacked Denoising Autoencoders (SdA)" der *Theano*-Webseite [@deeplearning.net-2015] entnommen und der Struktur der eingens erstellten Basisklasse *Layer* angepasst.
 
 ### Persistente Speicherung
 
@@ -66,11 +68,11 @@ for j in xrange(1, len(self.layers)):
   layer.set_input(prev_layer.output, prev_layer.output_dropout, self.mbs)
 ~~~~~~~
 
-Ebenfalls ist in der Klasse *Network* der Trainingsalgorithmus implementiert. Dafür ist die Methode *train* zuständig. Der Methode *train* werden die Trainings- und Validierungsdaten in Form von *BatchProcessor*-Instanzen sowie die Hyperparameter für die Lernrate, L2-Regularisation und auch die Art des Gradientenabstiegsverfahrens mitgegeben. Optional kann auch eine Instanz der Klasse *MetricRecorder* mitgegeben werden. Ist dies der Fall, werden nach jeder Validierung die Zwischenergebnisse aufgezeichnet. Der Trainingsablauf ist in Form eines Flussdiagramms in Abbildung \ref{fig:trainingsprozess} grob skizziert.
+Ebenfalls ist in der Klasse *Network* der Trainingsalgorithmus implementiert. Dafür ist die Methode *train* zuständig. Der Methode *train* werden die Trainings- und Validierungsdaten in Form von *BatchProcessor*-Instanzen sowie die Hyperparameter für die Lernrate, *L2-Regularisation* sowie die Art des *Gradientenabstiegsverfahrens* mitgegeben. Optional kann zusätzlich eine Instanz der Klasse *MetricRecorder* mitgegeben werden. Ist dies der Fall, werden nach jeder Validierung die Zwischenergebnisse aufgezeichnet. Der Trainingsablauf ist in Form eines Flussdiagramms in Abbildung \ref{fig:trainingsprozess} grob skizziert.
 
 ![Trainingsprozess Implementation [Hodel] \label{fig:trainingsprozess}](images/Training-Flowchart.pdf)
 
-Werden beim Instanziieren Schichten vom Typ *AutoencoderLayer* mitgegeben, können diese mit der Methode *pretrain_autoencoders* vorausgehend trainiert werden. Die Methode erkennt automatisch alle *AutoencoderLayer* und ruft bei diesen schrittweise deren Methode *train* auf (siehe Codebeispiel \ref{lst:autoencoder}).
+Werden beim Instanziieren Schichten vom Typ *AutoencoderLayer* mitgegeben, können diese mittels der Methode *pretrain_autoencoders* vorausgehend trainiert werden. Diese Methode erkennt automatisch alle *AutoencoderLayer* und ruft bei diesen schrittweise deren Methode *train* auf (siehe Codebeispiel \ref{lst:autoencoder}).
 
 ~~~~~~~{#lst:autoencoder .python caption="Schichtweises trainieren der Autoencoder"}
 aes = [layer for layer in self.layers
@@ -81,31 +83,31 @@ for index, ae in enumerate(aes):
            level=index)
 ~~~~~~~
 
-Sind mehrere *AutoencoderLayer* vorhanden, handelt es sich um einen *Stacked-Autoencoder*. Hier werden der nächsten Schicht alle vorhergehenden Schichten mitgegeben, damit die Trainingsdaten zunächst von den vorgehenden Schichten verarbeitet werden können. Die *Netzwerk* Klasse übernimmt hier abermals die Rolle des Bindeglieds.
+Sind mehrere *AutoencoderLayer* vorhanden, handelt es sich um einen *Stacked-Denoising-Autoencoder*. Hier werden der nächsten Schicht alle vorhergehenden Schichten mitgegeben, damit die Trainingsdaten zunächst von den vorgehenden Schichten verarbeitet werden können. Die *Netzwerk* Klasse übernimmt hier abermals die Rolle des Bindeglieds.
 
 \FloatBarrier
 
 ### Die Basisklasse Layer
 
-Die Klasse *Layer* dient als Basisklasse für mögliche Schichten. Die wichtigste Methode spielt dabei die Methode *set_inpt*. Diese wird von der Klasse *Network* dazu verwendet, die Schichten miteinander zu verbinden.
+Die Klasse *Layer* dient als Basisklasse für mögliche Schichten. Die wichtigste Methode spielt dabei die Methode *set_inpt*. Diese wird von der Klasse *Network* dazu verwendet, die Schichten miteinander zu verbinden. Zusätzlich werden die Methoden zur Persistenten Speicherung implementiert.
 
-Die Basisklasse dient vor allem zur Übersicht, nicht aber als ein von statischen Sprachen bekanntes Interface.
+Die Basisklasse dient vor allem zur Übersicht, nicht aber als ein aus statischen Sprachen bekanntes Interface. Fehlt eine benötigte Methode, wird die *Exception* *NotImplementet* aufgerufen.
 
-#### Attribut self.params
+#### Das Attribut self.params
 
 Beim Trainieren greift die Klasse *Network* über das Attribut *self.params* direkt auf die Gewichte und Bias der Schichtklassen zu. Da in *Python* Instanz-Attribute direkt in der Konstruktor-Methode *\_\_init\_\_* definiert werden, gibt es keine Möglichkeit Instanz-Attribute in einer Basisklasse zu definieren.
 
 ### Die Klasse FullyConnectedLayer \label{head:fully-connected}
 
-Die Klasse *FullyConnectedLayer* repräsentiert eine Schicht, bei der alle Ausgangsneuronen der vorgehenden Schicht allen eigenen Eingangsneuronen zugeordnet werden. Dem *FullyConnectedLayer* kann beim Instanziieren die Aktivierungsfunktion sowie eine *Dropout* Prozentzahl mitgegeben werden.
+Die Klasse *FullyConnectedLayer* repräsentiert eine Schicht, bei der alle Ausgangsneuronen der vorgehenden Schicht allen eigenen Eingangsneuronen zugeordnet werden. Dem *FullyConnectedLayer* kann beim Instanziieren die Aktivierungsfunktion sowie die *Dropout* Prozentzahl, *p_dropout*, mitgegeben werden.
 
-Ist der *Dropout* Prozentsatz größer als $0.0$ gesetzt, werden beim Trainieren der unsichtbaren Schicht, wie in Kapitel \ref{head:dropout} beschrieben, zufällig diverse Neuronen deaktiviert.
+Ist der *p_dropout* größer als $0.0$ gewählt, werden beim Trainieren der unsichtbaren Schicht, wie in Kapitel \ref{head:dropout} beschrieben, zufällig diverse Neuronen deaktiviert.
 
 Mit dem Parameter *activation\_fn* kann die Art der Neuronen definiert werden. Zur Auswahl stehen die Aktivierungsfunktionen *sigmoid* und *ReLU*. Diese sind im Modul *network.py* als alleinstehende Funktionen definiert.
 
 #### Gewichte und Bias
 
-Für die Gewichte und Bias werden zwei *Theano-Shared-Variablen* (*self.w* und *self.b*) initialisiert.  Die *Theano-Shared-Variablen* sind Variablen, die zwischen dem CPU-Arbeitsspeicher und dem GPU-Arbeitsspeicher geteilt und synchronisiert werden. Die Initialwerte der beiden Vektoren werden durch den Algorithmus von Glorot & Bengio [@GlorotBB11], wie in Codebeispiel \ref{lst:init}, gesetzt.
+Für die Gewichte und Bias werden zwei *Theano-Shared-Variablen* (*self.w* und *self.b*) initialisiert.  Die *Theano-Shared-Variablen* sind Variablen, die zwischen dem *CPU*-Arbeitsspeicher und dem *GPU*-Arbeitsspeicher geteilt und synchronisiert werden. Die Initialwerte der beiden Vektoren werden durch den Algorithmus von Glorot & Bengio [@GlorotBB11], wie in Codebeispiel \ref{lst:init}, gesetzt.
 
 ~~~~~~~{#lst:init .python caption="Initialisieren der Gewichte und Bias"}
 self.w = tshared(self.rnd.uniform(
@@ -119,7 +121,7 @@ Das Attribut *self.params* ist eine Liste, welche Referenzen auf die Gewichts- u
 
 #### Verknüpfung der Schicht
 
-Die Methode *set_input* dient zur Verknüpfung der Schicht. Die Eingabeverknüpfung wird als Parameter in Form eines symbolischen *Theano-Tensors* des Typs *Tensor.dmatrix* übergeben.
+Die Methode *set_input* dient zur Verknüpfung der jeweiligen Schicht. Die Eingabeverknüpfung wird als Parameter in Form eines symbolischen *Theano-Tensors* des Typs *tensor.dmatrix* übergeben.
 
 Die Eingabeverknüpfung wird im Attribut *self.inpt* gespeichert.
 Des Weiteren wird das Attribut *self.output* definiert, in dem die Aktivierungsfunktion (*self.activation\_fn*) auf das Resultat der Eingabefunktion für die Eingabeverknüpfung (*self.inpt*), die Gewichte (*self.w*) und die Bias (*self.b*) angewendet wird. Dies entspricht dem Schema der Gleichung \ref{eq:aktivierungsfunktion} in Kapitel Aktivierungsfunktion \ref{head:aktivierungsfunktion}.
@@ -140,9 +142,9 @@ Die Kostenfunktion *cost* verwendet die von *Theano* zur Verfügung gestellte Fu
 
 #### Präzision
 
-Für die Berechnung der Präzision bei der Validierung mit Validierungsdaten, wird nicht die *binary_crossentropy* sondern, wie vom Kaggle Wettbewerb vorgeschrieben, der *Root-Mean-Square-Error*, *RMSE*, verwendet. Hier wird nun als Ausgabeverknüpfung das Attribut *self.output* verwendet. *Dropout* ist nur beim Training von Relevanz. Wie die Kostenfunktion wird diese ebenfalls beim Trainieren von der Klasse *Network* verwendet und wird nur in der letzten Schicht im Netzwerk benötigt.
+Für die Berechnung der Präzision bei der Validierung mit Validierungsdaten, wird nicht die *binary_crossentropy* sondern, wie vom Wettbewerb [@kaggleDDD] vorgeschrieben, der *Root-Mean-Square-Error*, verwendet. Hier wird nun als Ausgabeverknüpfung das Attribut *self.output* verwendet. *Dropout* ist nur beim Training von Relevanz.
 
-Ein wesentliches Detail liegt in der "*Minibatch*-weisen" Bereinigung. Ein Bild hat meistens nicht genau so viele Pixel, dass diese ohne Rest durch die *Minibatchgröße* geteilt werden kann. Um trotzdem alle Pixel durch *Minibatch* bereinigen zu können, werden diese mit schwarzen Subbildern ergänzt, welche danach wieder entfernt werden.
+Ein wesentliches Detail liegt in der "*Minibatch*-weisen" Bereinigung. Ein Bild hat meistens nicht genau so viele Pixel, dass diese ohne Rest durch die *Minibatchgröße* geteilt werden können. Um trotzdem alle Pixel durch *Minibatch* bereinigen zu können, werden diese mit schwarzen Subbildern ergänzt, welche danach wieder entfernt werden.
 
 ### AutoencoderLayer \label{head:autoencoder-layer}
 
@@ -150,11 +152,9 @@ Der *AutoencoderLayer* baut auf dem *FullyConnectedLayer* auf. Es wird jedoch ke
 
 Die wichtigste Eigenschaft vom *AutoencoderLayer* ist, dass dieser zwei "Gesichter" besitzt. Wird der *AutoencoderLayer* in einem Netzwerk verwendet, ist die unsichtbare Schicht gleichzeitig auch die Ausgangsschicht.
 
-Wird der *AutoencoderLayer* durch die eigene Methode *train* trainiert, wird intern der unsichtbaren Schicht eine neue Ausgangsschicht angefügt. Diese besitzt die gleiche Anzahl Neuronen wie die Eingangsschicht. Beim Trainieren werden die Gewichte und der Bias der unsichtbaren Schicht angepasst. Dies ist in Abbildung \ref{fig:stacked-autoencoder} in Kapitel \ref{head:stacked-autoencoder} visualisiert.
+Wird der *AutoencoderLayer* durch die eigene Methode *train* trainiert, wird intern der unsichtbaren Schicht eine neue Ausgangsschicht angefügt. Diese besitzt die gleiche Anzahl Neuronen wie die Eingangsschicht. Beim Trainieren werden die Gewichte und der Bias der unsichtbaren Schicht angepasst. Dies ist in Abbildung \ref{fig:stacked-autoencoder} in Kapitel \ref{head:stacked-autoencoder} visualisiert. Der *Stacked-Denoising-Autoencoer* kann durch das Verbinden mehrerer *AutoencoderLayer* erreicht werden.
 
-Dadurch ist der *AutoencoderLayer* ein *FullyConnectedLayer*, welcher unabhängig vom Netzwerk, in welchem er sich befindet, im Voraus trainiert werden kann. Bei dem vorhergehenden Trainieren handelt es sich um unbeaufsichtigtes Trainieren zur besseren Initialisierung der Gewichte und Bias.
-
-Weitere Arten wie der *Sparse-Autoencoder* oder *Deep-Autoencoder* wurden aus Zeitgründen nicht umgesetzt. Der *Stacked-Autoencoder* kann durch das Verbinden mehrerer *AutoencoderLayer* erreicht werden.
+Weitere Arten wie der *Sparse-Autoencoder* oder *Deep-Autoencoder* wurden aus Zeitgründen nicht umgesetzt.
 
 #### Verrauschen der Eingabeverknüpfung
 
@@ -170,13 +170,13 @@ self.theano_rng.binomial(size=self.inpt.shape, n=1,
 
 Zur Berechnung der unsichtbaren Schicht dient die Methode *get_hidden_values*. Diese verwendet die Aktivierungsfunktion *sigmoid* und wendet diese auf eine übergebene Eingangsverknüpfung an. Bevor die Eingangsverknüpfung übergeben wird, wird diese mit Hilfe der Methode *get_corrupted_input* verrauscht. Dadurch handelt es sich um einen *Denoising-Autoencoder*.
 
-~~~~~~~{#lst:hidden_layer .python caption="Berechnung der Unsichtbaren Schicht"}
+~~~~~~~{#lst:hidden_layer .python caption="Berechnung der unsichtbaren Schicht"}
 sigmoid(T.dot(inpt, self.w) + self.b)
 ~~~~~~~
 
 #### Bereinigen des Inputs während dem Training (decode)
 
-Während dem Trainieren des *AutoencoderLayer* wird die unsichtbare Schicht durch die Methode *get_reconstructed_input* zu einem Ausgabevektor mit gleicher Form des Eingabevektor berechnet. Dazu wird die Aktivierungsfunktion *Sigmoid* verwendet. Als Gewichte und Bias werden hier nicht mehr *self.w* und *self.b*, sondern *self.w\_prime* und *self.b\_prime* verwendet, wobei der Gewichtsvektor *self.w\_prime* dem gespiegelten Gewichtsvektor *self.w* entspricht. Dadurch sind *self.w\_prime* und *self.w* hart aneinander gekoppelt. Der Biasvektor *self.b\_prime* ist eigenständig und wird mit Nullwerten initialisiert.
+Während dem Trainieren des *AutoencoderLayer* wird die unsichtbare Schicht durch die Methode *get_reconstructed_input* zu einem Ausgabevektor mit gleicher Form des Eingabevektor berechnet. Dazu wird abermals die Aktivierungsfunktion *sigmoid* verwendet. Als Gewichte und Bias werden hierbei jedoch nicht mehr *self.w* und *self.b*, sondern *self.w\_prime* und *self.b\_prime* verwendet, wobei der Gewichtsvektor *self.w\_prime* dem gespiegelten Gewichtsvektor *self.w* entspricht. Dadurch sind *self.w\_prime* und *self.w* hart aneinander gekoppelt. Der Biasvektor *self.b\_prime* ist eigenständig und wird mit Nullwerten initialisiert.
 
 ~~~~~~~{#lst:denois .python caption="Decodierung der unsichtbaren Schicht"}
 sigmoid(T.dot(hidden, self.w_prime) + self.b_prime)
@@ -206,7 +206,7 @@ for train_x, _ in tdata:
     c.append(train_mb(batch_index))
 ~~~~~~~
 
-Es wird pro Epoche durch alle Trainingsdaten iteriert, wobei die *Theano-Shared-Variable* kontinuierlich aktualisiert wird. Vor der Aktualisierung werden die Trainingsdaten mit vorhandenen vorhergehenden Schichten bearbeitet. Dann wird für alle *Minibatches* die kompilierte *Theano-Funktion* zum Trainieren aufgerufen. Die Kosten werden aufsummiert und nach jeder Epoche deren Durchschnitt durch den *MetricRecorder* aufgezeichnet.
+Als Nächstes wird pro Epoche durch alle Trainingsdaten iteriert, wobei die *Theano-Shared-Variable* kontinuierlich aktualisiert wird. Vor der Aktualisierung werden die Trainingsdaten mit vorhandenen vorhergehenden Schichten bearbeitet. Dann wird für alle *Minibatches* die kompilierte *Theano-Funktion* zum Trainieren aufgerufen. Die Kosten werden aufsummiert und nach jeder Epoche deren Durchschnitt durch den *MetricRecorder* aufgezeichnet.
 
 ## Metric
 
@@ -216,7 +216,7 @@ Zur Konfiguration der Datenbankverbindung und Identifikation der Trainingsvorgä
 
 ### MetricRecorder \label{head:metric-recorder}
 
-Dem *MetricRecorder* wird beim Instanziieren der Pfad zur *JSON*-Konfigurationsdatei mitgegeben. Darin ist die Datenbankverbindung sowie der Experimentname eingetragen. Mit Hilfe dieser Information baut der *MetricRecorder* eine Verbindung mit der *MongoDB* auf und erstellt zwei Kollektionen mit den Namen *experiment\_name.metrics* und *experiment\_name.trainings*, wobei *experiment_name* dynamisch dem in der Konfigurationsdatei festgelegten Experimentnamen entspricht. Pro Experiment werden dadurch eigene Kollektionen erstellt. Diese Logik wurde aus dem Projekt *Spearmint* übernommen. Dieses erstellt die Kollektionen *experiment_name.jobs* und *experiment_name.hypers* für die Hyperparametersuche.
+Dem *MetricRecorder* wird beim Instanziieren der Pfad zur *JSON*-Konfigurationsdatei mitgegeben. Darin ist die Datenbankverbindung sowie der Experimentname eingetragen. Mit Hilfe dieser Information baut der *MetricRecorder* eine Verbindung mit der *MongoDB* auf und erstellt zwei Kollektionen mit den Namen *experiment\_name.metrics* und *experiment\_name.trainings*, wobei *experiment_name* dynamisch dem in der Konfigurationsdatei festgelegten Experimentnamen entspricht. Pro Experiment werden dadurch eigene Kollektionen erstellt. Diese Logik wurde ebenfalls aus dem Projekt *Spearmint* übernommen. Dieses erstellt die Kollektionen *experiment_name.jobs* und *experiment_name.hypers* für die Hyperparametersuche.
 
 Die Kollektion *experiment\_name.trainings* enthält pro Trainingsgang einen Eintrag mit der gesamten Konfiguration des *kNN* und den Hyperparameter zum Trainieren. Dieser kann durch die Methode *record\_training\_info* gespeichert werden.
 

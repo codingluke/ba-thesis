@@ -1,4 +1,4 @@
-# Aufgabenstellung
+# Aufgabenstellung \label{head:aufgabenstellung}
 
 ## Anforderungensanalyse
 
@@ -41,9 +41,9 @@ Trainingsalgorithmus
 
   ~ : FA07
   ~ Als Trainingsalgorithmus soll das *Stochastische Gradientenabstiegsverfahren* sowie der *RMSProp* Verwendung finden.
-  ~ Regularisation soll durch *Dropout*, L2 erreicht werden
-  ~ Momentum soll implementiert werden.
-  ~ Trainieren  mit *Mini-Batch* soll möglich sein.
+  ~ Regularisation soll durch *Dropout* und *L2-Regularisation* erreicht werden
+  ~ *Momentum* soll implementiert werden.
+  ~ Trainieren  mit *Minibatch* soll möglich sein.
   ~ Die *early-stopping* Funktionalität soll eingebaut sein.
 
 Trainingsverlauf
@@ -84,10 +84,10 @@ Programmiersprache
 Python Bibliotheken
 
   ~ : NFA05
-  ~ Es darf keine umfassende *kNN* Bibliothek wie *Keras* verwendet werden. Die verwendeten Algorithmen sollen selbst geschrieben werden.
-  ~ *Theano* wird zur Optimierung der Algorithmen und deren Portierung auf GPU code verwendet.
-  ~ *Spearmint* wird für die Hyperparametersuche eingesetzt.
-  ~ *Pandas* und *matplotlib* werden für die Visualisierung und Analyse der Lerndaten eingesetzt.
+  ~ Es darf keine umfassende *kNN* Bibliothek, wie z.B. *Keras*, verwendet werden. Die verwendeten Algorithmen sollen selbst geschrieben werden.
+  ~ *Theano* soll zur Optimierung der Algorithmen und deren Portierung auf GPU code eingesetzt werden.
+  ~ *Spearmint* soll für die Hyperparametersuche eingesetzt werden.
+  ~ *Pandas* und *matplotlib* sollen zur Visualisierung und Analyse der Lerndaten verwendet werden.
 
 ### Abgrenzungen
 
@@ -97,11 +97,11 @@ Bereinigen von Farbbilder
   ~ Das Bereinigen von Farbbilder wird im Rahmen dieser Bachelorarbeit nicht bearbeitet.
   ~ Es werden ausschließlich Bilder in Graustufe mit schwarzer Schrift auf weißem Hintergrund berücksichtigt.
 
-Weitere Deep-Learning Techniken
+Weitere *Deep-Learning* Techniken
 
   ~ : AB02
-  ~ Auf weitere Deep-Learning Methoden wie die *Bolzmann Maschienen* und *Deep-Belief-Netze* wird nicht eingegangen.
-  ~ Ebenfalls werden nur *fast-forward* *kNN* untersucht. Auf weitere Methoden wie die *recurrent kNN* wird nicht eingegangen.
+  ~ Auf weitere *Deep-Learning* Methoden wie die *Bolzmann-Maschienen* und *Deep-Belief-Netze* wird nicht eingegangen.
+  ~ Ebenfalls werden nur *fast-forward-kNN* untersucht. Auf weiterführende Methoden, wie die der *recurrent-kNN*, wird nicht eingegangen.
 
 Schriftbilder
 
@@ -111,8 +111,7 @@ Schriftbilder
 
 ## Explorative Datenanalyse \label{head:explorative-datenanalyse}
 
-Die Trainings- und Testdaten werden direkt vom Kaggle Wettbewerb *Denoising Dirty Documnets* [@kaggleDDD] zur Verfügung gestellt.
-In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht:
+Die Trainings- und Testdaten werden direkt vom Kaggle Wettbewerb "Denoising Dirty Documnets" [@kaggleDDD] zur Verfügung gestellt. In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht:
 
 Trainingsdaten
 
@@ -122,39 +121,39 @@ Testdaten
 
   ~ 72 Bilder insgesamt; 24 Bilder in der Größe (540 x 258); 48 Bilder in der Größe (540 x 420); alle Bilder sind nur in verrauschter Form vorhanden; 4 verschiedene Hintergründe, welche sich von den Hintergründen der Trainingsdaten unterscheiden; 5 verschiedene Schriftarten identisch zu den Trainingsschriftarten; 3 verschiedene Schriftgrößen; 1 Text der sich von den 2 Trainingstexten unterscheidet; kursiv und normal; nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stil vorhanden; die größeren Bilder teilen sich die Hintergründe mit den kleineren Bildern und erweitern diese auf ihre Größe; Bildformat *PNG*.
 
-**Zusammenfassung**
+### Zusammenfassung
 
-Das wesentlichste Merkmal ist, dass sich in den Trainings- sowie in den Testdaten exakt die selben Schriftarten befinden. Der Unterschied liegt im neuen Text sowie in den Hintergrundbildern. Das trainierte *kNN* muss im Kaggle-Wettbewerb somit keine neuen Schriftarten erkennen können. Vielmehr ist ein Modell im Vorteil, welches extremes *Overfitting* auf die vorhandenen Schriften ausübt und nicht im Generellen Schriften bereinigen kann.
+Das wesentlichste Merkmal ist, dass sich in den Trainings- sowie in den Testdaten die exakt selben Schriftarten befinden. Der Unterschied liegt im neuen Text sowie in den Hintergrundbildern. Das trainierte *kNN* muss im Kaggle-Wettbewerb hiermit keine neuen Schriftarten erkennen können. Vielmehr ist ein Modell im Vorteil, welches extremes *Overfitting* auf die vorhandenen Schriften ausübt und nicht auf generelles bereinigen von Schriften ausgelegt ist.
 
-Ebenfalls ist auffällig, dass die Hintergrundbilder der Testdaten zwar anders ausfallen, jedoch sehr ähnlicher Struktur sind. Es scheint als ob die Trainings- und Testbilder aus gleichen Quellen stammen. Daher wird vermutet, dass Regularisierungstechniken wie die *L2-Regularisation* sowie *Dropout* nur bedingt Verbesserungen mit sich bringen.
+Ebenfalls ist auffällig, dass die Hintergrundbilder der Testdaten zwar anders ausfallen, dennoch sehr ähnlicher Struktur sind. Es scheint als ob die Trainings- und Testbilder aus gleicher Quelle stammen. Daher wird vermutet, dass Regularisierungstechniken, wie die bereits beschriebene *L2-Regularisation* und das *Dropout*, nur bedingt Verbesserungen mit sich bringen.
 
 ## Alternativen
 
-### Schwellenwert und Kontrast
+### Schwellenwertfunktion
 
-Eine simple Möglichkeit automatisiert einen gewissen Grad an Bereinigung verrauschter Schriftbilder zu erlangen bieten Schwellenwert- und Kontrast-Algorithmen. Bei Graustufenbildern repräsentiert der Wert 0 eines Pixel Schwarz und der Wert 1 Weiß.
+Eine simple Möglichkeit, automatisiert einen gewissen Grad an Bereinigung verrauschter Schriftbilder zu erlangen, bieten Schwellenwert- und Kontrast-Algorithmen. Bei Graustufenbildern repräsentiert der Wert 0 eines Pixel Schwarz und der Wert 1 Weiß.
 
-Beim Schwellenwert wird für jedes Pixel des Bildes überprüft, ob dieser eine Schwelle an Grauwert überschreitet. Wenn er dies tut, wird der Wert belassen, wenn nicht wird der Wert auf Weiß gesetzt. Dadurch entsteht automatisch ein größerer Kontrast.
+Bei der Schwellenwertfunktion wird für jedes Pixel des Bildes überprüft, ob dieser eine Schwelle an Grauwert überschreitet, oder nicht. Wenn er dies tut wird der Wert belassen, sonst wird der Wert auf Weiß gesetzt. Dadurch entsteht ein größerer Kontrast.
 
 Mit dieser Methode, kann feines Hintergrundrauschen und leichter Graustich entfernt werden. Flecken, welche über die gleiche Intensität wie die des Textes verfügen, können damit nicht entfernt werden, da diese einfache Funktion das "Wesen" von Text nicht kennt.
 
 #### Resultat
 
-Das unter dem Wettbewerb veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. In der Mitte der Abbildung \ref{fig:threshold} ist die Bereinigung eines Bildausschnittes zu sehen, links und rechts davon sind die verrauschte und die optimal bereinigte Variante angegeben. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein *Kaggle*-Resultat vorhanden. Optisch ist jedoch ersichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
+Das unter dem Wettbewerb [@kaggleDDD] veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus, wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. Mittig der Abbildung \ref{fig:threshold} ist ein bereinigter Bildausschnitt zu sehen, links und rechts davon befinden sich die verrauschte und die optimal bereinigte Varianten. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein *Kaggle*-Resultat vorhanden. Optisch ist jedoch offensichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
 
 ![Bereinigung durch eine Schwellenwertfunktion [Hodel] \label{fig:threshold}](images/threshold.png)
 
-Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fourier-Transformation* zu einem Hochpassfilter. Diese Lösung erreichte ein *RMSE* von $0.09568$ und somit den 95 Platz auf Kaggle.
+Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fourier-Transformation* zu einem Hochpassfilter. Diese Lösung erreichte im Wettbewerb ein *RMSE* von $0.09568$ und belegt damit den $95.$ Platz.
 
 ### Logistic Regression und Random Forest
 
-Eine verbesserte Möglichkeit Bilder zu bereinigen bieten klassische probabilistische Modelle des maschinellen Lernens. Dabei kann eine logistische Regression oder auch ein Entscheidungsbaum wie der *Random Forest* zum Einsatz kommen.
+Eine weiterentwickelte Möglichkeit Bilder zu bereinigen bieten klassische probabilistische Modelle des maschinellen Lernens. Dabei kann eine *Logistische-Regression* oder auch ein Entscheidungsbaum wie der *Random-Forest* zum Einsatz kommen.
 
-Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei Bildern meistens um nicht-lineare Daten handelt. Es gibt ebenfalls probabilistische Modelle, welche in der Lage sind nicht-lineare Daten zu verarbeiten. Ein Beispiel ist die *Support-Vector-Machine* mit dem entsprechenden Kernel. Diese sprengen jedoch den Rahmen dieser Arbeit.
+Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei Bildern meistens um nicht-lineare Daten handelt [@imagenet]. Es gibt ebenfalls probabilistische Modelle, welche in der Lage sind nicht-lineare Daten zu verarbeiten. Ein Beispiel ist die *Support-Vector-Machine* mit dem entsprechenden Kernel. Diese sprengen jedoch den Rahmen dieser Arbeit.
 
 #### Resultat
 
-Ein im *Kaggle*-Forum geteiltes *Random-Forest*-Modell erzielt mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
+Ein im Forum zum Wettbewerb [@kaggleDDD] geteiltes Resultat eines *Random-Forest*-Modells erzielte mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
 
 ### Andere Programmiersprachen
 
