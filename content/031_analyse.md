@@ -8,7 +8,7 @@ Die Trainings- und Testdaten bestehen aus verschieden großen Bildern. Um ein Bi
 
 Um dieses Problem zu lösen, wird ein Vorverarbeitungsschritt eingeführt. Die Bilder werden nicht als Ganzes bereinigt, sondern werden zuerst in gleich große Subbilder unterteilt (siehe Abbildung \ref{fig:sliding-window}). Dieses Verfahren wird in der Arbeit "Enhancement and Cleaning of Handwritten Data by Using Neural Networks" [@cleaning-handwritten-data2005] für die Handschriftbereinigung vorgeschlagen.
 
-![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN [Hodel] \label{fig:sliding-window}](images/Bereinigungsprozess.pdf)
+![Bereinigung eines verrauschten Bildes, durch pixelweises Bereinigen mit Hilfe der Nachbarpixel und eines kNN [@hodel] \label{fig:sliding-window}](images/Bereinigungsprozess.pdf)
 
 Um ebenfalls die Randpixel bereinigen zu können, wird das Bild vor dem Prozess mit einem schwarzen Rand erweitert. Der Rand besitzt dabei dieselbe Größe wie die Anzahl der berücksichtigten Nachbarn. Am Ende muss das bereinigte Bild aus den einzelnen, bereinigten Pixeln wiederhergestellt werden. Deswegen ist es wichtig, das die Subbilder bei der Bereinigung sortiert vorliegen.
 
@@ -30,7 +30,7 @@ Auf die Implementation der Trainingsalgorithmen wird im Kapitel \ref{head:networ
 
 Während dem Trainieren wird der Trainingsverlauf in einer *MongoDB* aufgezeichnet. Das Trainieren findet auf dem Server *deepgreen02* statt. Durch die Aufzeichnung kann der Trainingsverlauf auf einem Laptop, welcher sich über *VPN* im HTW-Berlin Netzwerk befindet, visualisiert und analysiert werden.
 
-![Kontextdiagramm der Trainingsumgebung [Hodel] \label{fig:training-kontext}](images/VPN-Umgebung.pdf)
+![Kontextdiagramm der Trainingsumgebung [@hodel] \label{fig:training-kontext}](images/VPN-Umgebung.pdf)
 
 \FloatBarrier
 
@@ -63,7 +63,7 @@ Arten von *kNN* welche untersucht werden:
 - Einschichtiges Denoising-Autoencoder *kNN*, *dA*
 - Mehrschichtiges *kNN*, *MLP*, mit *Sigmoid*-Aktivierungsfunktion
 - Mehrschichtiges *kNN*, *MLP*, mit *ReLU*-Aktivierungsfunktion
-- *Stacked-Denoising-Autoencoer*, *SdA*
+- *Stacked-denoising-Autoencoer*, *SdA*
 
 ## Trainings- und Validationsdaten Unterteilung
 

@@ -1,4 +1,4 @@
-## Theano
+## Theano \label{head:theano}
 
 Die folgende Beschreibung grundlegender Eigenschaften der *Python*-Bibliothek *Theano* basiert auf Informationen der offiziellen Projekt-Webseite [@deeplearning.net-2015].
 

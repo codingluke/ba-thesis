@@ -90,7 +90,7 @@ Besitzt ein *kNN* keine unsichtbare Schicht handelt es sich um ein Kernel-Perzep
 
 Besitzt ein *kNN* eine unsichtbare Schicht, handelt es sich um ein einschichtiges *kNN*. Einschichtige *kNN* sind universal; das heißt sie sind theoretisch im Stande jede beliebige Funktion darzustellen.
 
-Besitzt ein *kNN* mehrere unsichtbare Schichten, wird auch von einem mehrschichtigen *kNN* gesprochen. Im Englischen werden diese auch *Multi Layered Perceptron*, kurz *MLP*, genannt. Bei der Verwendung von *MLP* wird darauf Ableitend auch von *Deep-Learning* gesprochen. Deep, da diese eine gewisse Tiefe durch die unsichtbaren Schichten besitzen. [vgl. @ki-norvig, S.846-850]
+Besitzt ein *kNN* mehrere unsichtbare Schichten, wird auch von einem mehrschichtigen *kNN* gesprochen. Im Englischen werden diese auch *Multi-Layered-Perceptron*, kurz *MLP*, genannt. Bei der Verwendung von *MLP* wird darauf Ableitend auch von *Deep-Learning* gesprochen. Deep, da diese eine gewisse Tiefe durch die unsichtbaren Schichten besitzen. [vgl. @ki-norvig, S.846-850]
 
 ### KNN als Funktion
 
@@ -110,7 +110,7 @@ Um das Resultat zu überprüfen wird eine *Kostenfunktion* verwendet. Die Modifi
 
 Um zu wissen in welche Richtung die Gewichte angepasst werden müssen, wird das in Kapitel \ref{head:gradientenabstiegsverfahren} beschriebene *Gradientenabstiegsverfahren* angewandt.
 
-#### Kostenfunktion
+#### Kostenfunktion \label{head:kostenfunktion}
 
 Die Kostenfunktion^[Die Kostenfunktion wird im Englischen als *cost*, oder auch *loss* bezeichnet] berechnet die Abweichung, bzw. den Fehler, vom aktuell berechneten Ausgangswert zum gewünschten Zielwert. Anhand dieser Abweichung werden für jedes Neuron im Netz das Gewicht und den Bias modifiziert.
 
@@ -202,7 +202,7 @@ Der rechte Term der Gleichung \ref{eq:backprop-2} schließt auf die Fehlerdiffer
   \frac{\partial C}{\partial b^l_j} = \delta^l_j
 \end{eqnarray}
 
-Die Gleichung \ref{eq:backprop-3} zeigt, dass sich die partielle Ableitung, also Änderungsrate, der Kostenfunktion an der Position des $j$-ten Neurons der $l$-ten Schichtrespektive gleich verhält, wie der bereits berechnete Fehler $\delta^l_j$
+Die Gleichung \ref{eq:backprop-3} zeigt, dass sich die partielle Ableitung, also Änderungsrate, der Kostenfunktion an der Position des $j$-ten Neurons der $l$-ten Schicht in Relation zum Biasvektor gleich verhält, wie der bereits berechnete Fehler $\delta^l_j$
 
 **4. Berechnung des Gradienten der Kostenfunktion in Relation zu den Gewichten im Netzwerk**
 
@@ -210,9 +210,9 @@ Die Gleichung \ref{eq:backprop-3} zeigt, dass sich die partielle Ableitung, also
   \frac{\partial C}{\partial w^l_{jk}} = a^{l-1}_k \delta^l_j.
 \end{eqnarray}
 
-Die Gleichung \ref{eq:backprop-4} zeigt wie die Änderungsrate, der Gradient, der Kostenfunktion an der Stelle von jedem Neuron in jeder Schicht in Relation zu den jeweiligen Gewichten berechnet werden kann. Dafür muss der Aktivierungswert $a^{l-1}_k$ der vorhergehenden Schicht $l-1$ , welcher dem Wert der Eingabeverknüpfung entspricht, mit dem Fehler $\delta^l_j$ der zu berechnenden Schicht $l$ multipliziert werden.
+Die Gleichung \ref{eq:backprop-4} zeigt wie die Änderungsrate (Gradient) der Kostenfunktion an der Stelle von jedem Neuron in jeder Schicht in Relation zu den jeweiligen Gewichten berechnet werden kann. Dafür muss der Aktivierungswert $a^{l-1}_k$ der vorhergehenden Schicht $l-1$ , welcher dem Wert der Eingabeverknüpfung entspricht, mit dem Fehler $\delta^l_j$ der zu berechnenden Schicht $l$ multipliziert werden.
 
-#### Stochastisches Gradientenabstiegsverfahren
+#### Stochastisches Gradientenabstiegsverfahren \label{head:sgd}
 
 Aufbauend auf dem Kapitel \ref{head:backprop}, welches anhand dem *Backpropagation-Algorithmus* aufzeigt, wie die Gradienten der Kostenfunktion der einzelnen Neuronen berechnet werden können, ist das *stochastische Gradientenabstiegsverfahren*, ein Algorithmus, um die Gewichte in Anbetracht der berechneten Gradienten zu modifizieren.
 
@@ -220,7 +220,7 @@ Die Gewichte werden für jede Schicht der Gleichung $w^l \rightarrow w^l-\frac{\
 
 Werden diese zwei Gleichungen mit den im Kapitel \ref{gradientenabstiegsverfahren} beschriebenen Gleichungen \ref{eq:update_gewichte} und \ref{eq:update-bias} verglichen, wird ersichtlich, dass die darin zu berechnenden Gradienten nun durch die im *Backpropagation-Algorithmus* berechneten Gradienten ausgetauscht werden.
 
-#### RMSProp / Root Mean Square Propagation
+#### RMSProp / Root-Mean-Square-Propagation \label{head:rmsprop}
 
 Die *RMSProp* wurde von Tijemen Tieleman [@Tieleman2012] vorgeschlagen und wird von Geoffrez Hinton im Kurs *COURSERA: Neural Networks for Machine Learning* vermittelt. Besagtes Verfahren zur Gewichtsmodifikation hat in der vorliegenden Bachelorarbeit zu sehr guten Ergebnissen geführt. Zur Zeit gibt es keine offizielle Veröffentlichung des Verfahrens.
 

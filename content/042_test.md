@@ -1,6 +1,6 @@
 # Test Driven Development \label{head:tdd}
 
-Das Testen wurde nach dem *TDD*-Prinzip, *Test Driven Development*, umgesetzt. Die Tests werden beim *TDD* nicht am Ende hinzugefügt, sondern direkt während der Implementation erstellt. Anstatt in der *Python*-Konsole einzelne Funktionalitäten durch manuelles Eintippen zu testen, und sich dadurch häufig zu wiederholen, geschieht dies in Form von Unittests. Dieses Vorgehen spart Zeit, dient als Dokumentation und vereinfacht die spätere Weiterentwicklung sowie das Refactoring. Alle in diesem Kapitel verwendeten Pfadangaben sind als relativ zum Projektordner zu betrachten.
+Das Testen wurde nach dem *TDD*-Prinzip, *Test Driven Development*, umgesetzt. Die Tests werden beim *TDD* nicht am Ende hinzugefügt, sondern direkt während der Implementation erstellt. Anstatt in der *Python*-Konsole einzelne Funktionalitäten durch manuelles Eintippen zu testen, und sich dadurch häufig zu wiederholen, geschieht dies in Form von *Unittests*. Dieses Vorgehen spart Zeit, dient als Dokumentation und vereinfacht die spätere Weiterentwicklung sowie das Refactoring. Alle in diesem Kapitel verwendeten Pfadangaben sind als relativ zum Projektordner zu betrachten.
 
 ## Python Unittests und Struktur
 
@@ -18,7 +18,7 @@ Standardmäßig werden immer alle Tests ausgeführt. Es besteht jedoch die Mögl
 
 Eigene Dateien, welche von den Tests verwendet werden, befinden sich im Ordner */test/data*. Die Wettbewerb-Daten dürfen nicht weitergegeben werden und befinden sich deshalb nicht in diesem Ordner, sowie auf der CD zu dieser Arbeit. Diese müssen selbst von der Webseite zum Wettbewerb heruntergeladen werden.
 
-Um Wettbewerb-Daten in den Tests zu verwenden, wird die Variable *data_dir_path* in der Konfigurationsdatei */tests/config.py* zur Verfügung gestellt. Dieser muss den relativen Pfad von der Datei */tests.py* zum Datenordner zugewiesen werden. In den Tests wird ausschließlich über die Variabel *data_dir_path* auf *diese Daten zugegriffen.
+Um Wettbewerb-Daten in den Tests zu verwenden, wird die Variable *data_dir_path* in der Konfigurationsdatei */tests/config.py* zur Verfügung gestellt. Dieser muss den relativen Pfad von der Datei */tests.py* zum Datenordner zugewiesen werden. In den Tests wird ausschließlich über die Variabel *data_dir_path* auf diese Daten zugegriffen.
 
 ## Preprocessor
 
@@ -36,7 +36,7 @@ Beim Modul *metric.py* wird überprüft, ob die Verbindung zur Datenbank erstell
 
 Zum Testen des Moduls *network.py*, wird ein *kNN* der Klasse *Network* instanziiert, welches über die Schichten *FullyConnectedLayer* und *AutoencoderLayer*, verfügt und mit einem kleine Datensatz trainiert wird. Die *AutoencoderLayer* werden ebenfalls im Voraus trainiert.
 
-Damit handelt es sich um Integrations- und nicht um Unittests. Die Tests dienen zur Sicherstellung, dass alle Schichten korrekt implementiert sind und ebenfalls als Vorlage für die Verwendung des Moduls *network.py*. Um sicher zu stellen, dass das *kNN* trainiert, müssen die Validierungskosten kleiner als 1 sein.
+Damit handelt es sich um Integrations- und nicht um *Unittests*. Die Tests dienen zur Sicherstellung, dass alle Schichten korrekt implementiert sind und ebenfalls als Vorlage für die Verwendung des Moduls *network.py*. Um sicher zu stellen, dass das *kNN* trainiert, müssen die Validierungskosten kleiner als 1 sein.
 
 **Die Tests garantieren nicht, dass die Algorithmen korrekt implementiert wurden**, aber, dass das Netz mit Trainingsdaten trainiert werden kann, ohne dass ein Fehler auftaucht.
 

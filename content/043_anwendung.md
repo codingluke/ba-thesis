@@ -40,7 +40,7 @@ Ist das Training zu Ende, werden die Validierungskosten der besten Validierung a
 
 ## Trainieren mit Spearmint
 
-Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden. Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *Python-Dictionary* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
+Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden. Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *dict* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
 
 ~~~~~~~{#lst:spearmint .python caption="Minimalsetup zum Trainineren durch Spearmint."}
 from network import Network,

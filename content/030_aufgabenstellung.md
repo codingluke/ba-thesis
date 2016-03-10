@@ -141,7 +141,7 @@ Mit dieser Methode, kann feines Hintergrundrauschen und leichter Graustich entfe
 
 Das unter dem Wettbewerb veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus, wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. Mittig der Abbildung \ref{fig:threshold} ist ein bereinigter Bildausschnitt zu sehen, links und rechts davon befinden sich die verrauschte und die optimal bereinigte Varianten. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein Wettbewerb-Resultat vorhanden. Optisch ist jedoch offensichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
 
-![Bereinigung durch eine Schwellenwertfunktion [Hodel] \label{fig:threshold}](images/threshold.png)
+![Bereinigung durch eine Schwellenwertfunktion [@hodel] \label{fig:threshold}](images/threshold.png)
 
 Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fourier-Transformation* zu einem Hochpassfilter. Diese Lösung erreichte im Wettbewerb ein *RMSE* von $0.09568$ und belegt damit den $95.$ Platz.
 

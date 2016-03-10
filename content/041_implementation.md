@@ -4,7 +4,7 @@
 
 Im Kontextdiagramm der Abbildung \ref{fig:kontextdiagramm} sind die Klassenstruktur und deren Abhängigkeiten, ebenso wie die verwendeten und resultierenden Artefakte abgebildet. Das Projekt ist in vier Module unterteilt, welche in Form von *Python*-Dateien abgebildet werden.
 
-![Kontextdiagramm [Hodel] \label{fig:kontextdiagramm}](images/Kontextdiagramm.pdf)
+![Kontextdiagramm [@hodel] \label{fig:kontextdiagramm}](images/Kontextdiagramm.pdf)
 
 Das Modul *preprocessor.py* dient als Adapter der Originalbilder zum Netzwerk.
 
@@ -22,7 +22,7 @@ Das Modul *preprocessor.py* beinhaltet die Klassen *Processor* und *BatchProcess
 
 Das Generieren der Subbilder wird mit der *Python*-Klasse *Processor* implementiert. Der Klasse wird der Pfad zum verrauschten Bild, der Pfad zum bereinigten Bild, sowie Parameter für die Anzahl der berücksichtigten Nachbarpixel übergeben.
 
-Über die Methode *get_dataset* können nun die Subbilder als *tupel*, mit den jeweiligen Zielpixeln verbunden, ausgegeben werden. Es sind dafür drei verschiedene Algorithmen implementiert. Dabei ist der erste Algorithmus in reinem *Python*-Code realisiert. Der zweite Algorithmus verwendet spezielle *numpy*-Matrix-Operationen. Die beiden Algorithmen unterscheiden sich erheblich in der Performance, was in Kapitel \ref{head:sliding_window} beschrieben ist. Bei Beiden werden alle Subbilder in sortierter Form als *numpy.ndarray* ausgegeben.
+Über die Methode *get_dataset* können nun die Subbilder als *tuple*, mit den jeweiligen Zielpixeln verbunden, ausgegeben werden. Es sind dafür drei verschiedene Algorithmen implementiert. Dabei ist der erste Algorithmus in reinem *Python*-Code realisiert. Der zweite Algorithmus verwendet spezielle *numpy*-Matrix-Operationen. Die beiden Algorithmen unterscheiden sich erheblich in der Performance, was in Kapitel \ref{head:sliding_window} beschrieben ist. Bei Beiden werden alle Subbilder in sortierter Form als *numpy.ndarray* ausgegeben.
 
 Die dritte Version unterscheidet sich insofern, dass sie zufällig nur ein Subbild und das dazugehörige Zielpixel ausgibt. Es werden diesmal nicht alle Datensätze gleichzeitig ausgegeben. Diese Version ist in der Methode *get_random_patch* implementiert.
 
@@ -70,7 +70,7 @@ for j in xrange(1, len(self.layers)):
 
 Ebenfalls ist in der Klasse *Network* der Trainingsalgorithmus implementiert. Dafür ist die Methode *train* zuständig. Der Methode *train* werden die Trainings- und Validierungsdaten in Form von *BatchProcessor*-Instanzen sowie die Hyperparameter für die Lernrate, *L2-Regularisation* sowie die Art des *Gradientenabstiegsverfahrens* mitgegeben. Optional kann zusätzlich eine Instanz der Klasse *MetricRecorder* mitgegeben werden. Ist dies der Fall, werden nach jeder Validierung die Zwischenergebnisse aufgezeichnet. Der Trainingsablauf ist in Form eines Flussdiagramms in Abbildung \ref{fig:trainingsprozess} grob skizziert.
 
-![Trainingsprozess Implementation [Hodel] \label{fig:trainingsprozess}](images/Training-Flowchart.pdf)
+![Trainingsprozess Implementation [@hodel] \label{fig:trainingsprozess}](images/Training-Flowchart.pdf)
 
 Werden beim Instanziieren Schichten vom Typ *AutoencoderLayer* mitgegeben, können diese mittels der Methode *pretrain_autoencoders* vorausgehend trainiert werden. Diese Methode erkennt automatisch alle *AutoencoderLayer* und ruft bei diesen schrittweise deren Methode *train* auf (siehe Codebeispiel \ref{lst:autoencoder}).
 
@@ -83,7 +83,7 @@ for index, ae in enumerate(aes):
            level=index)
 ~~~~~~~
 
-Sind mehrere *AutoencoderLayer* vorhanden, handelt es sich um einen *Stacked-Denoising-Autoencoder*. Hier werden der nächsten Schicht alle vorhergehenden Schichten mitgegeben, damit die Trainingsdaten zunächst von den vorgehenden Schichten verarbeitet werden können. Die *Netzwerk* Klasse übernimmt hier abermals die Rolle des Bindeglieds.
+Sind mehrere *AutoencoderLayer* vorhanden, handelt es sich um einen *Stacked-denoising-Autoencoder*. Hier werden der nächsten Schicht alle vorhergehenden Schichten mitgegeben, damit die Trainingsdaten zunächst von den vorgehenden Schichten verarbeitet werden können. Die *Netzwerk* Klasse übernimmt hier abermals die Rolle des Bindeglieds.
 
 \FloatBarrier
 
@@ -152,7 +152,7 @@ Der *AutoencoderLayer* baut auf dem *FullyConnectedLayer* auf. Es wird jedoch ke
 
 Die wichtigste Eigenschaft vom *AutoencoderLayer* ist, dass dieser zwei "Gesichter" besitzt. Wird der *AutoencoderLayer* in einem Netzwerk verwendet, ist die unsichtbare Schicht gleichzeitig auch die Ausgangsschicht.
 
-Wird der *AutoencoderLayer* durch die eigene Methode *train* trainiert, wird intern der unsichtbaren Schicht eine neue Ausgangsschicht angefügt. Diese besitzt die gleiche Anzahl Neuronen wie die Eingangsschicht. Beim Trainieren werden die Gewichte und der Bias der unsichtbaren Schicht angepasst. Dies ist in Abbildung \ref{fig:stacked-autoencoder} in Kapitel \ref{head:stacked-autoencoder} visualisiert. Der *Stacked-Denoising-Autoencoer* kann durch das Verbinden mehrerer *AutoencoderLayer* erreicht werden.
+Wird der *AutoencoderLayer* durch die eigene Methode *train* trainiert, wird intern der unsichtbaren Schicht eine neue Ausgangsschicht angefügt. Diese besitzt die gleiche Anzahl Neuronen wie die Eingangsschicht. Beim Trainieren werden die Gewichte und der Bias der unsichtbaren Schicht angepasst. Dies ist in Abbildung \ref{fig:stacked-autoencoder} in Kapitel \ref{head:stacked-autoencoder} visualisiert. Der *Stacked-denoising-Autoencoer* kann durch das Verbinden mehrerer *AutoencoderLayer* erreicht werden.
 
 Weitere Arten wie der *Sparse-Autoencoder* oder *Deep-Autoencoder* wurden aus Zeitgründen nicht umgesetzt.
 
@@ -231,7 +231,7 @@ Dadurch, dass der *MetricRecorder* automatisch eine Identifikation generiert und
 #### Spezifikation der Kollektionen
 
 ---------------------   ----------------------------------------------------
-_id                     MongoDB-Id
+_id                     *MongoDB*-Id
 
 job_id                  Identifikator des Trainingsgangs
 
@@ -267,7 +267,7 @@ validation_frequency    Anzahl der Validierungen pro Epoche
   : Kollektion experiment_name.trainings \label{table:trainings}
 
 ---------------------   ----------------------------------------------------
-_id                     MongoDB-Id
+_id                     *MongoDB*-Id
 
 job_id                  Identifikation des Trainingsverlaufs
 

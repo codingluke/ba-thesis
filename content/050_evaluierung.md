@@ -45,7 +45,7 @@ In einem Benchmark wurden die drei implementierten Verfahren zur Subbildgenerier
 
 Wenn nun die Zufälligkeit mit einberechnet wird, wird die Stärke der Methode *Totaler-Zufall* sichtbar. Diese benötigt mit 100 Sekunden erheblich länger als die sortierte *Matrix-Op*, dafür müssen die Daten nicht zusätzlich durchmischt werden. Während den Tests wurde sichtbar, dass das Durchmischen mehr Zeit in Anspruch nimmt als die Generierung der Subbilder. Dadurch ist die Variante *Totaler-Zufall* die schnellste Zufallsvariante.
 
-![Vergleich: Batchweise Durchmischung gegen Totaler Zufall [Hodel] \label{fig:batch_vs_fully}](images/fully_vs_batch_random.png)
+![Vergleich: Batchweise Durchmischung gegen Totaler Zufall [@hodel] \label{fig:batch_vs_fully}](images/fully_vs_batch_random.png)
 
 Zu beachten ist: es wird in der Methode *Totaler-Zufall* nicht garantiert, dass alle vorhandenen Subbilder berücksichtigt werden. Wiederum können andere Subbilder doppelt vorkommen. In Abbildung \ref{fig:batch_vs_fully} konnte aufgezeigt werden, dass dies bei der vorhandenen Datengröße nicht ins Gewicht fällt, im Gegenteil, sogar einen regelmäßigeren Trainingsverlauf mit sich bringt, da die Durchmischung zufälliger innerhalb der gesamten Daten stattfindet. Für weitere Trainingsdurchläufe wird auf Grund dieser Gegenüberstellung die Methode *Totaler-Zufall* verwendet.
 
@@ -59,7 +59,7 @@ Als Vorteil benötigt das Trainieren einer Epoche bei einem größeren *Minibatc
 
 Als Nachteil kann ein zu großer *Minibatch* den Trainingsfortschritt pro Epoche verringern, da nur am Ende jedes *Minibatch*-Durchlaufs die Gewichte angepasst werden. Dadurch werden die Gewichte bei einem kleineren *Minibatch* öfter angepasst.
 
-![Trainingsverlauf [Hodel] \label{fig:mb-vergleich}](images/training_minibatch_vergleich_2.png)
+![Trainingsverlauf [@hodel] \label{fig:mb-vergleich}](images/training_minibatch_vergleich_2.png)
 
 In Abbildung \ref{fig:mb-vergleich} ist zu sehen, wie sich der Trainingsfortschritt pro Epoche verringert, um so größer der *Minibatch* gewählt wird. Gleichzeitig verringert sich aber auch die Lerndauer. Um möglichst viele Trainingsvariationen prüfen zu können, wird eine *Minibatchgröße* von $500$ gewählt. Das *kNN* mit dem besten Resultat im Wettbewerb wird zusätzlich mit einer *Minibatchgröße* von $50$ trainiert.
 
@@ -69,7 +69,7 @@ In Abbildung \ref{fig:fix_dyn_eta} ist der Trainingsablauf einer fixen Lernrate,
 
 Anfangs ist bei beiden Validierungskurven eine sprunghafte Verbesserung sichtbar. Ab der zweiten Epoche ist das Minimum bereits fast erreicht. Nun werden größere Sprünge bei der Kurve mit der fixen Lernrate sichtbar, wobei die Kurve mit der dynamischen Lernrate konstant, leicht abnimmt. Dies geschieht, da die dynamische Lernrate pro Epoche verkleinert wird, womit wiederum der Lernvorgang verfeinert wird.
 
-![Unterschiedliche Trainingsverhalten bei fixer oder dynamischer Lernrate [Hodel] \label{fig:fix_dyn_eta}](images/lernrate_fix_vs_decrease.png)
+![Unterschiedliche Trainingsverhalten bei fixer oder dynamischer Lernrate [@hodel] \label{fig:fix_dyn_eta}](images/lernrate_fix_vs_decrease.png)
 
 Die Kostenfunktion der Validierungskosten ist in Abbildung \ref{fig:fix_dyn_eta} nicht der *RMSE*. Bis zu diesem Zeitpunkt der Arbeit war diese leider falsch. Die Aussage der Kurve stimmt dennoch weiterhin.
 
@@ -77,11 +77,11 @@ Die Kostenfunktion der Validierungskosten ist in Abbildung \ref{fig:fix_dyn_eta}
 
 ### RMSprop gegenüber Stochastik-Gradient-Descent und Momentum
 
-In Abbildung \ref{fig:rmsprop_vs_sgd} ist ersichtlich, dass die beiden Gradientenabstiegsverfahren *RMSprop* und *Stochastik Gradient Descent*, *SGD*, sich in zwei Merkmalen unterscheiden. Als Erstes ist zu sehen, dass der *RMSprop* bereits am Anfang der ersten Epoche bessere Werte erzielt als der *SGD* am Ende der dritten. Der zweite Unterschied zeigt sich bei den Validierungskosten. Der *RMSprop* zeigt immer wieder kleine Ausschläge an, wobei der *SGD* kontinuierlich abnimmt.
+In Abbildung \ref{fig:rmsprop_vs_sgd} ist ersichtlich, dass die beiden Gradientenabstiegsverfahren *RMSprop* und *Stochastik-Gradient-Descent*, *SGD*, sich in zwei Merkmalen unterscheiden. Als Erstes ist zu sehen, dass der *RMSprop* bereits am Anfang der ersten Epoche bessere Werte erzielt als der *SGD* am Ende der dritten. Der zweite Unterschied zeigt sich bei den Validierungskosten. Der *RMSprop* zeigt immer wieder kleine Ausschläge an, wobei der *SGD* kontinuierlich abnimmt.
 
-![Unterschiedliche Trainingsverhalten der beiden Algorithmen RMSprop und SGD+Momentum [Hodel] \label{fig:rmsprop_vs_sgd}](images/rmsprop_vs_sgd.png)
+![Unterschiedliche Trainingsverhalten der beiden Algorithmen RMSprop und SGD+Momentum [@hodel] \label{fig:rmsprop_vs_sgd}](images/rmsprop_vs_sgd.png)
 
-Da der *RMSprop* Algorithmus offensichtlich schneller lernt, basieren weitere Tests ausschließlich auf dem *RMSprop* Algorithmus. Hiermit konnte das Resultat der Abbildung \ref{rmsprop-compair} bestätigt werden.
+Da der *RMSprop* Algorithmus offensichtlich schneller ler-t, basieren weitere Tests ausschließlich auf dem *RMSprop* Algorithmus. Hiermit konnte das Resultat der Abbildung \ref{rmsprop-compair} bestätigt werden.
 
 \FloatBarrier
 
@@ -103,11 +103,11 @@ hidden      [10 .. 500]         **199**
 
 Die kleinste zum Trainieren verwendete Datenmenge mit jeweils 20 Trainings- und Validierungsbildern, ergeben $3486240$ Subbilder zum Trainieren als auch zum Validieren. Damit steht eine genügend große Datenmenge zur Verfügung, mit welcher *Overfitting* durch genügend Trainingsdaten entgegengewirkt werden soll. Wird die gesamte Trainingsmenge von 144 Bilder verwendet, wird dies noch verstärkt, da die Trainingsmenge um das Siebenfache ansteigt.
 
-![Bei Verwendung von Dropout wird das Resultat schlechter [Hodel] \label{fig:comp-dropout}](images/comp_dropout.png)
+![Bei Verwendung von Dropout wird das Resultat schlechter [@hodel] \label{fig:comp-dropout}](images/comp_dropout.png)
 
 Bestätigt wird diese Annahme durch in den Abbildungen \ref{fig:comp-dropout} und \ref{fig:comp-l2} dargestellten Tests. In der Abbildung \ref{fig:comp-dropout} ist zu sehen, dass die Resultate sich mit dem Verwenden von *Dropout* verschlechtern. Auch die *L2-Regularisation* in Abbildung \ref{fig:comp-l2} führt nicht zu der besagten Verbesserung.
 
-![Bei Verwendung von L2-Regularisation wird das Resultat nicht besser [Hodel] \label{fig:comp-l2}](images/l2-comair.png)
+![Bei Verwendung von L2-Regularisation wird das Resultat nicht besser [@hodel] \label{fig:comp-l2}](images/l2-comair.png)
 
 Eine Erklärung, wieso Regularisierung in diesem Fall zu einer Verschlechterung führt ist, dass die Trainings- und Validierungsdaten sich zu ähnlich sind. Dies wird bereits in Kapitel \ref{head:explorative-datenanalyse} erwähnt. In diesem Fall führt das *Overfitting* zu einem besseren Validierungsresultat.
 
@@ -117,7 +117,7 @@ Unterstrichen wird dies ebenfalls von der Tatsache, dass nur bekannte Schriften 
 
 Während der heuristischen Hyperparametersuche ist aufgefallen, dass die unsichtbare Schicht, solange sie größer als die Eingangsschicht ist, keine signifikante Änderungen bewirkt. Dies ist in Abbildung \ref{fig:comp_hidden} an mehreren Beispielen dargestellt. Darin werden zwischen 21 bis 500 Neuronen in der unsichtbaren Schicht verwendet. Es ist auffällig, dass erst ab weniger als 100 Neuronen das Resultat negativ beeinflusst wird. Dieser ist allerdings fast nicht spürbar. Erst wenn die unsichtbare Schicht kleiner als die Eingangsschicht (25 Neuronen) wird, wird das Lernverhalten spürbar negativ beeinflusst.
 
-![Auswirkung der unsichbaren Schicht anhand der Anzahl Neuronen [Hodel] \label{fig:comp_hidden}](images/hidden_units.png)
+![Auswirkung der unsichbaren Schicht anhand der Anzahl Neuronen [@hodel] \label{fig:comp_hidden}](images/hidden_units.png)
 
 \FloatBarrier
 
@@ -125,15 +125,15 @@ Während der heuristischen Hyperparametersuche ist aufgefallen, dass die unsicht
 
 Für den *Denoising-Autoencoder*, *dA*, wurde ebenfalls eine Hyperparametersuche mit *Spearmint* durchgeführt. Dabei wurde nach dem besten Verunreinigungswert und der Lernrate gesucht. Als beste Werte für den *Denoising-Autoencoder* stellten sich die Werte *0.15* für die Verunreinigung und *0.025* für die Lernrate heraus. Die Werte der Parameter dropout, L2 und Anzahl Neuronen in der unsichtbaren Schicht wurden vom normalen einschichtigen *kNN* übernommen.
 
-![Eischichtiger dA gegenüber einschichtigem, normalen kNN (kleiner Datensatz) [Hodel] \label{fig:dA-vs-knn}](images/1-layer-comair.png)
+![Eischichtiger dA gegenüber einschichtigem, normalen kNN (kleiner Datensatz) [@hodel] \label{fig:dA-vs-knn}](images/1-layer-comair.png)
 
 Es hat sich herausgestellt, dass der *Denoising-Autoencoder* mit dem kleinen, sowie dem größeren Trainingsdatensatz besser als das normale *kNN* abgeschlossen hat, wobei der Unterschied im größeren Trainingsdatensatz erheblich größer ausfällt.
 
-![Eischichtiger dA gegenüber einschichtigem normalem kNN (großer Datensatz) [Hodel] \label{fig:dA-vs-knn}](images/1-layer-comair-medium.png)
+![Eischichtiger dA gegenüber einschichtigem normalem kNN (großer Datensatz) [@hodel] \label{fig:dA-vs-knn}](images/1-layer-comair-medium.png)
 
-## Stacked-Denoising-Autoencoder, SdA
+## Stacked-denoising-Autoencoder, SdA
 
-Bei *Stacked-Denoising-Autoencoder*, *SdA*, handelt es sich um ein *kNN* bestehend aus mehreren aufeinander folgenden Schichten der Klasse *AutoencoderLayer*. Es wird nun überprüft, wie sich die Präzision pro neuer Schicht verändert, wenn es im Voraus trainiert wird und wenn nicht.
+Bei *Stacked-denoising-Autoencoder*, *SdA*, handelt es sich um ein *kNN* bestehend aus mehreren aufeinander folgenden Schichten der Klasse *AutoencoderLayer*. Es wird nun überprüft, wie sich die Präzision pro neuer Schicht verändert, wenn es im Voraus trainiert wird und wenn nicht.
 
 Ab der dritten Schicht wird zusätzlich mit der Aktivierungsfunkion *Rectified-Linear-Unit*, *ReLU*, trainiert. Es wird angenommen, dass diese zu besseren Resultaten führen kann, da sie, wie in Kapitel \ref{head:relu_act} erläutert, bei tiefen Netzen viele Vorteile mit sich bringt.
 
@@ -143,11 +143,11 @@ Die Größe der zweiten Schicht wurde abermals mit Hilfe von *Spearmint* ermitte
 
 Wird das *kNN* um eine Schicht erweitert, wird das Resultat signifikant verbessert. Auch kann in Abbildung \ref{fig:dA-vs-sdA} abgelesen werden, dass im Voraus trainierter *SdA* bessere Resultate erzeugen, als ein nicht im Voraus trainiertes *MLP*.
 
-![Eischichtiger dA gegenüber einem zweischichtigen SdA mit und ohne Voraustraining (kleiner Datensatz) [Hodel] \label{fig:dA-vs-sdA}](images/2-layer-compair.png)
+![Eischichtiger dA gegenüber einem zweischichtigen SdA mit und ohne Voraustraining (kleiner Datensatz) [@hodel] \label{fig:dA-vs-sdA}](images/2-layer-compair.png)
 
 Der Trainingsverlauf durch die größere Trainingsmenge erzielt ein ähnliches Bild (siehe Abbildung \ref{fig:dA-vs-sdA-medium}). Auch hier ist der im Voraus trainierte *SdA* dem normalen *MLP* überlegen. Weit abgeschlagen folgt der einschichtige *dA*.
 
-![Eischichtiger dA gegenüber einem zweischichtigen SdA mit und ohne Voraustraining (große Trainingsmenge) [Hodel] \label{fig:dA-vs-sdA-medium}](images/2-layer-compair-medium.png)
+![Eischichtiger dA gegenüber einem zweischichtigen SdA mit und ohne Voraustraining (große Trainingsmenge) [@hodel] \label{fig:dA-vs-sdA-medium}](images/2-layer-compair-medium.png)
 
 \FloatBarrier
 
@@ -157,13 +157,13 @@ Für die dritte Schicht wurde abermals mit Hilfe von *Spearmint* die beste Kombi
 
 Der dreischichtige *SdA*, trainiert mit der Aktivierungsfunktion *Sigmoid*, erreicht auf der kleinen Datenbasis mit einem *Root-Mean-Squared-Error*, *RMSE*, von $0.01369$ ein leicht besseres Resultat als der zweischichtige. Die Verbesserung ist dennoch weit entfernt vom Sprung, welcher beim Schritt vom einschichtigen zum zweischichtigen *SdA* stattgefunden hat.
 
-![Dreischichtige MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (kleiner Datensatz) [Hodel] \label{fig:3-layer-compair}](images/3-layer-compair.png)
+![Dreischichtige MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (kleiner Datensatz) [@hodel] \label{fig:3-layer-compair}](images/3-layer-compair.png)
 
 Des Weiteren wurde erforscht, wie sich der dreischichtige *SdA* gegenüber einem normalen, nicht im Voraus trainierten, dreischichtigen Netzwerk schlägt. Hier ist ablesbar, dass der *SdA* ab der vierten Epoche bessere Validierungswerte erzielt als das normale *MLP*. Deutlicher sichtbarer, kann ebenfalls an den Trainingskosten abgelesen werden, dass der *SdA* gegenüber dem *MLP* schneller trainiert.
 
 Werden die beiden Tests mit der Aktivierungsfunktion *ReLU* wiederholt, werden keine besseren Werte erzielt. Im Gegenteil, sowohl der *SdA*, als auch das normale *MLP* schließen mit *ReLU*-Neuronen schlechter ab als mit *Simgmoid*-Neuronen. Interessant ist ebenfalls, dass der *ReLU-SdA* zu schlechteren Ergebnissen führt als das normal *ReLU-MLP*. Zusätzlich ist abzulesen, dass der Validierungsverlauf mit *ReLU*-Neuronen viel Sprunghafter ist als mit *Sigmoid*-Neuronen.
 
-![Dreischichtiges MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (großer Datensatz) [Hodel] \label{fig:3-layer-compair-medium}](images/3-layer-comair-medium.png)
+![Dreischichtiges MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (großer Datensatz) [@hodel] \label{fig:3-layer-compair-medium}](images/3-layer-comair-medium.png)
 
 Werden die Netze mit der großen Datenmenge trainiert, kommt es zu Überraschungen. Hier erzielen die mit *ReLU*-Neuronen besetzten *MLP* bessere Werte. Allen voran das normale, nicht im Voraus trainierte *ReLU-MLP*. Bei den Trainingskosten zeigt der *Sigmoid-SdA* abermals seine Stärken. Das normale *Simgoid-MLP* ist sichtbar das schwächste.
 
@@ -173,11 +173,11 @@ Werden die Netze mit der großen Datenmenge trainiert, kommt es zu Überraschung
 
 Beim vierschichtigen *SdA* ist bei der kleinen Datengröße die Streuung der Konfigurationen sehr klein. Mit einem *RMSE* von $0.0141$ hat sich das beste Resultat vom normalen *ReLU-MLP*, gegenüber dem dreischichtigen *SdA* verschlechtert. Eine Regelmäßigkeit lässt sich in den Trainingskosten erkennen. Hier schließen der *Sigmoid-SdA* und das normale *ReLU-MLP* abermals am besten ab.
 
-![Vierschichtiges MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (kleiner Datensatz) [Hodel] \label{fig:4-layer-compair}](images/4-layer-compair.png)
+![Vierschichtiges MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (kleiner Datensatz) [@hodel] \label{fig:4-layer-compair}](images/4-layer-compair.png)
 
 Auch bestätigt sich, dass mit der großen Datenmenge die Unterschiede größer ausfallen und womöglich repräsentativer sind. Interessanterweise schließt bei der großen Datenmenge das normale *Sigmoid-MLP* am besten ab. Klarer Verlierer hingegen ist der *ReLU-SdA*. Mit *0.0122* gegenüber dem Bestwert von *0.0105* der normalen dreischichtigen *ReLU-MLP* ist das vierschichtige *MLP* dem dreischichtigen auch in der großen Datenmenge unterlegen.
 
-![ 4-Schichtige MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (großer Datensatz) [Hodel] \label{fig:4-layer-compair-medium}](images/4-layer-comair-medium.png)
+![ 4-Schichtige MLP mit verschiedenen Aktivierungsfunktionen und Voraustraining (großer Datensatz) [@hodel] \label{fig:4-layer-compair-medium}](images/4-layer-comair-medium.png)
 
 \FloatBarrier
 
@@ -265,11 +265,11 @@ Die größten Schwierigkeiten bereiten Flecken, welche den Kontrast zur Schrift 
 
 Für diese Analyse wurde in den Wettbewerb-Testdaten nach exemplarischen Ausschnitten gesucht, an welchen der Unterschied der verschiedenenschichtigen *MLP* aufgezeigt werden kann. Hier werden immer die normalen *Sigmoid-MLP*, welche für den Wettbewerb mit allen Trainingsdaten trainiert wurden, verwendet. Die Schichten sind in aufsteigender Reihenfolge von links nach rechts dargestellt.
 
-![01.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [Hodel] \label{fig:schicht-vergleich-01}](images/bild1-schicht-img-compair.png)
+![01.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [@hodel] \label{fig:schicht-vergleich-01}](images/bild1-schicht-img-compair.png)
 
 In Abbildung \ref{fig:schicht-vergleich-01} ist ein Bild mit dem anspruchsvollsten Hintergrund sichtbar. Das Wort *important* kann selbst vom menschlichen Auge, nur durch erhöhte Konzentration, entziffert werden. Es ist erkennbar, dass das einschichtige *kNN* bereits ein gutes Resultat erzielt. Das zweischichtige *MLP* schafft es die Schrift leserlicher zu machen und bereinigt die Zwischenräume sichtbar besser. Das dreischichtige ist dabei noch gründlicher, was besonders am Verschwinden vom Randbereich des Flecks ersichtlich ist. Beim vierschichtigen *MLP* macht sich wieder eine leichte Verschlechterung wahrnehmbar.
 
-![19.png: Bereinigt druch 1-4 schichtiges kNN von links nach rechts aufsteigend [Hodel] \label{fig:schicht-vergleich-19}](images/bild19-schicht-img-compair.png)
+![19.png: Bereinigt druch 1-4 schichtiges kNN von links nach rechts aufsteigend [@hodel] \label{fig:schicht-vergleich-19}](images/bild19-schicht-img-compair.png)
 
 Abbildung \ref{fig:schicht-vergleich-19} zeigt das Bild *19.png*. Es besitzt einen rauen, gefleckten Hintergrund. Hier ist vor allem hervorzuheben, wie die Kontur der Schrift sich bis zur dritten Schicht leicht, aber stetig verbessert. Auch die Freiflächen werden ab der zweiten Schicht annähernd perfekt bereinigt.
 
@@ -277,11 +277,11 @@ Abbildung \ref{fig:schicht-vergleich-19} zeigt das Bild *19.png*. Es besitzt ein
 
 Im Bild \ref{fig:schicht-vergleich-22} besteht der Hintergrund aus einem zerknitterten Papier. Die Schrift ist offensichtlich nicht verzerrt, somit wurde der Hintergrund im Nachhinein hinzugefügt. An diesem Hintergrund sind vor allem die Stellen der Wörter *corpus*, *gh Spanish* und *widesp* herausfordernd. Hier ist wahrnehmbar, wie die Bereinigung der Freistellen bis zur dritten Schicht verbessert wird. Was hingegen nur geringfügig funktioniert, ist das Füllen von weißen Ritzen innerhalb der Buchstaben. Dies ist beim Wort *corpus* sehr schön sichtbar.
 
-![22.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [Hodel] \label{fig:schicht-vergleich-22}](images/bild22-schicht-img-compair.png)
+![22.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [@hodel] \label{fig:schicht-vergleich-22}](images/bild22-schicht-img-compair.png)
 
 Das Bild *88.png* der Abbildung \ref{fig:schicht-vergleich-88} besitzt den unproblematischsten Hintergrund. Dieser wurde bereits vom einschichtigen *kNN* sehr gut bereinigt. Einzig an der Stelle des Buchstabens *i* im Wort *important* kann eine Verbesserung erreicht werden. Ebenfalls ist eine leichte Verbesserung der Buchstabenkonturen ab der zweiten Schicht sichtbar.
 
-![88.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [Hodel] \label{fig:schicht-vergleich-88}](images/bild88-schicht-img-compair.eps)
+![88.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [@hodel] \label{fig:schicht-vergleich-88}](images/bild88-schicht-img-compair.eps)
 
 \FloatBarrier
 
