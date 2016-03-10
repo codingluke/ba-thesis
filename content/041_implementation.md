@@ -12,7 +12,7 @@ Das Modul *metric.py* beinhaltet Klassen, um Trainingsvorgänge in einer *MongoD
 
 Das Modul *network.py* repräsentiert das eigentliche *kNN*. Es beinhaltet die Klasse *Network*, welche Instanzen der Klassen *FullyConnectedLayer* und *AutoencoderLayer* zu einem *kNN* verbindet und diese trainieren kann. Dafür wird die Klasse *BatchProcessor* und auch optional die Klasse *MetricRecorder* verwendet. Ein trainiertes *kNN* wird als *Artefakt* in einer Datei persistent gespeichert.
 
-Das Modul *cleaner.py* beinhaltet die Klasse *Cleaner*, mit welcher ein gespeichertes *kNN* geladen und damit beliebige Bilder bereinigt werden können. Die Klasse *BatchCleaner* macht Verwendung der Klasse *Cleaner* und kann Bilder eines ganzen Ordners bereinigen. Es besteht ebenfalls die Möglichkeit eine komprimierte Datei im von *Kaggle* vorgegebenen Dateiformat zu erstellen. Mit dieser kann das *kNN* anschließend auf *Kaggle* bewertet werden.
+Das Modul *cleaner.py* beinhaltet die Klasse *Cleaner*, mit welcher ein gespeichertes *kNN* geladen und damit beliebige Bilder bereinigt werden können. Die Klasse *BatchCleaner* macht Verwendung der Klasse *Cleaner* und kann Bilder eines ganzen Ordners bereinigen. Es besteht ebenfalls die Möglichkeit eine komprimierte Datei im vom Wettbewerb vorgegebenen Dateiformat zu erstellen. Mit dieser kann das *kNN* anschließend durch den Wettbewerb bewertet werden.
 
 ## Preprocessor
 
@@ -142,7 +142,7 @@ Die Kostenfunktion *cost* verwendet die von *Theano* zur Verfügung gestellte Fu
 
 #### Präzision
 
-Für die Berechnung der Präzision bei der Validierung mit Validierungsdaten, wird nicht die *binary_crossentropy* sondern, wie vom Wettbewerb [@kaggleDDD] vorgeschrieben, der *Root-Mean-Square-Error*, verwendet. Hier wird nun als Ausgabeverknüpfung das Attribut *self.output* verwendet. *Dropout* ist nur beim Training von Relevanz.
+Für die Berechnung der Präzision bei der Validierung mit Validierungsdaten, wird nicht die *binary_crossentropy* sondern, wie vom Wettbewerb vorgeschrieben, der *Root-Mean-Square-Error*, verwendet. Hier wird nun als Ausgabeverknüpfung das Attribut *self.output* verwendet. *Dropout* ist nur beim Training von Relevanz.
 
 Ein wesentliches Detail liegt in der "*Minibatch*-weisen" Bereinigung. Ein Bild hat meistens nicht genau so viele Pixel, dass diese ohne Rest durch die *Minibatchgröße* geteilt werden können. Um trotzdem alle Pixel durch *Minibatch* bereinigen zu können, werden diese mit schwarzen Subbildern ergänzt, welche danach wieder entfernt werden.
 
@@ -314,4 +314,4 @@ Die Methoden *clean_and_save* sowie *clean_and_show* verwenden beide die Methode
 
 ### Die Klasse BatchCleaner \label{head:batch-cleaner}
 
-Die Klasse *BatchCleaner* verwendet die Klasse *Cleaner* um damit Bilder eines Ordners bereinigen zu können. Beim Instanziieren muss ein Pfad zum Ordner mit den verunreinigten Bildern, sowie der Pfad zur serialisierten Modelldatei angegeben werden. Danach können über die zur Verfügung gestellten Methoden *clean_and_save* sowie *clean_for_submission* alle Bilder bereinigt und abgespeichert oder bereinigt und im vom *Kaggle-Wettbewerb* vorgegebenen Format zur Einreichung ausgegeben werden.
+Die Klasse *BatchCleaner* verwendet die Klasse *Cleaner* um damit Bilder eines Ordners bereinigen zu können. Beim Instanziieren muss ein Pfad zum Ordner mit den verunreinigten Bildern, sowie der Pfad zur serialisierten Modelldatei angegeben werden. Danach können über die zur Verfügung gestellten Methoden *clean_and_save* sowie *clean_for_submission* alle Bilder bereinigt und abgespeichert oder bereinigt und im vom Wettbewerb vorgegebenen Format zur Einreichung ausgegeben werden.

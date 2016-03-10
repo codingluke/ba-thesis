@@ -16,9 +16,9 @@ Standardmäßig werden immer alle Tests ausgeführt. Es besteht jedoch die Mögl
 
 ### Daten
 
-Eigene Dateien, welche von den Tests verwendet werden, befinden sich im Ordner */test/data*. Die Kaggle Test- und Validierungsdaten dürfen nicht weitergegeben werden und befinden sich deshalb nicht in diesem Ordner, sowie auf der CD zu dieser Arbeit. Die Kaggle-Daten müssen selbst von *kaggle.com/c/denoising-dirty-documents* heruntergeladen werden.
+Eigene Dateien, welche von den Tests verwendet werden, befinden sich im Ordner */test/data*. Die Wettbewerb-Daten dürfen nicht weitergegeben werden und befinden sich deshalb nicht in diesem Ordner, sowie auf der CD zu dieser Arbeit. Diese müssen selbst von der Webseite zum Wettbewerb heruntergeladen werden.
 
-Um Kaggle-Daten in den Tests zu verwenden, wird die Variable *data_dir_path* in der Konfigurationsdatei */tests/config.py* zur Verfügung gestellt. Dieser muss den relativen Pfad von der Datei */tests.py* zum Ordner mit den Kaggle-Daten zugewiesen werden. In den Tests wird ausschließlich über die Variabel *data_dir_path* auf Kaggle-Daten zugegriffen.
+Um Wettbewerb-Daten in den Tests zu verwenden, wird die Variable *data_dir_path* in der Konfigurationsdatei */tests/config.py* zur Verfügung gestellt. Dieser muss den relativen Pfad von der Datei */tests.py* zum Datenordner zugewiesen werden. In den Tests wird ausschließlich über die Variabel *data_dir_path* auf *diese Daten zugegriffen.
 
 ## Preprocessor
 
@@ -44,8 +44,8 @@ Um die Algorithmen testen zu können, bräuchte es vorgegebene Test- und Validie
 
 ## Cleaner
 
-Das Modul *cleaner.py* wird getestet, indem ein trainiertes und gespeichertes *kNN* geladen und damit ein Testbild der Kaggle Daten bereinigt und angezeigt wird. So ist vom Auge aus ersichtlich, ob das Bereinigen funktioniert.
+Das Modul *cleaner.py* wird getestet, indem ein trainiertes und gespeichertes *kNN* geladen und damit ein Testbild bereinigt und angezeigt wird. So ist vom Auge aus ersichtlich, ob das Bereinigen funktioniert.
 
-Zudem wird beim *BatchCleaner* überprüft, ob die generierte Datei zur Einreichung auch in dem von Kaggle definierten Format vorliegt. Damit wird sichergestellt, dass die generierte Einreichung auch korrekt formatiert ist.
+Zudem wird beim *BatchCleaner* überprüft, ob die generierte Datei zur Einreichung auch in dem vom Wettbewerb vorgegebenen Format vorliegt. Damit wird sichergestellt, dass die generierte Einreichung auch korrekt formatiert ist.
 
 Auch diese Tests dienen zusätzlich als Vorlage zur Verwendung der Klassen *Cleaner* und *BatchCleaner*.

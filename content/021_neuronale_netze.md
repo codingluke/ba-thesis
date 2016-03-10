@@ -114,7 +114,7 @@ Um zu wissen in welche Richtung die Gewichte angepasst werden müssen, wird das 
 
 Die Kostenfunktion^[Die Kostenfunktion wird im Englischen als *cost*, oder auch *loss* bezeichnet] berechnet die Abweichung, bzw. den Fehler, vom aktuell berechneten Ausgangswert zum gewünschten Zielwert. Anhand dieser Abweichung werden für jedes Neuron im Netz das Gewicht und den Bias modifiziert.
 
-Die klassische und auch von dem Kaggle Wettbewerb [@kaggleDDD] vorgeschriebene Kostenfunktion ist der *Root-Mean-Squared-Error*, *RMSE*. Der *RMSE*, dargestellt in Gleichung \ref{eq:rmse}, berechnet die Distanz von jeder Stelle des Zielvektors zu der entsprechenden Stelle des berechneten Ausgangsvektors. Die einzelnen Distanzen werden quadriert und miteinander aufsummiert. Die Distanzen werden deswegen quadriert, um dem Fehler ein höheres Gewicht zu geben. Wenn diese nicht quadriert würden, wäre der Lernfortschritt kleiner. Am Schluss wird davon wieder die Wurzel gezogen. [vgl. @nielsen_2015, K.2]
+Die klassische und auch von dem Wettbewerb [@kaggleDDD] vorgeschriebene Kostenfunktion ist der *Root-Mean-Squared-Error*, *RMSE*. Der *RMSE*, dargestellt in Gleichung \ref{eq:rmse}, berechnet die Distanz von jeder Stelle des Zielvektors zu der entsprechenden Stelle des berechneten Ausgangsvektors. Die einzelnen Distanzen werden quadriert und miteinander aufsummiert. Die Distanzen werden deswegen quadriert, um dem Fehler ein höheres Gewicht zu geben. Wenn diese nicht quadriert würden, wäre der Lernfortschritt kleiner. Am Schluss wird davon wieder die Wurzel gezogen. [vgl. @nielsen_2015, K.2]
 
 \begin{equation} \label{eq:rmse}
   RMSE(w, b) \equiv \sqrt{\frac{1}{2n} \displaystyle\sum_{X} \|y(X) - a \|^2}

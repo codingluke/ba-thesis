@@ -1,6 +1,6 @@
 # Evaluierung \label{head:evaluierung}
 
-In diesem Kapitel wird versucht mit den zuvor implementierten Modulen eine Konfiguration zu finden, welche im *Kaggle-Wettbewerb* so gut wie möglich abschließt. Dafür werden verschiedene Architekturen einander gegenübergestellt und ebenfalls die Eigenschaften der einzelnen Hyperparameter erforscht und dokumentiert.
+In diesem Kapitel wird versucht mit den zuvor implementierten Modulen eine Konfiguration zu finden, welche im Wettbewerb [@kaggleDDD] so gut wie möglich abschließt. Dafür werden verschiedene Architekturen einander gegenübergestellt und ebenfalls die Eigenschaften der einzelnen Hyperparameter erforscht und dokumentiert.
 
 ## Trainingsumgebung
 
@@ -61,7 +61,7 @@ Als Nachteil kann ein zu großer *Minibatch* den Trainingsfortschritt pro Epoche
 
 ![Trainingsverlauf [Hodel] \label{fig:mb-vergleich}](images/training_minibatch_vergleich_2.png)
 
-In Abbildung \ref{fig:mb-vergleich} ist zu sehen, wie sich der Trainingsfortschritt pro Epoche verringert, um so größer der *Minibatch* gewählt wird. Gleichzeitig verringert sich aber auch die Lerndauer. Um möglichst viele Trainingsvariationen prüfen zu können, wird eine *Minibatchgröße* von $500$ gewählt. Das *kNN* mit dem besten Resultat im *Kaggle-Wettbewerb* wird zusätzlich mit einer *Minibatchgröße* von $50$ trainiert.
+In Abbildung \ref{fig:mb-vergleich} ist zu sehen, wie sich der Trainingsfortschritt pro Epoche verringert, um so größer der *Minibatch* gewählt wird. Gleichzeitig verringert sich aber auch die Lerndauer. Um möglichst viele Trainingsvariationen prüfen zu können, wird eine *Minibatchgröße* von $500$ gewählt. Das *kNN* mit dem besten Resultat im Wettbewerb wird zusätzlich mit einer *Minibatchgröße* von $50$ trainiert.
 
 ### Fixe gegenüber dynamischer Lernrate
 
@@ -87,7 +87,7 @@ Da der *RMSprop* Algorithmus offensichtlich schneller lernt, basieren weitere Te
 
 ### Hyperparametersuche mit Spearmint
 
-Mit Hilfe der *Python*-Bibliothek *Spearmint* wurde eine Hyperparametersuche auf den in Tabelle \ref{table:hyper-kNN} angegebenen Parametern und deren Wertebereichen ausgeführt. Beim Training wurde der kleine Datensatz verwendet um so viele Kombinationen wie mögliche testen zu können. Es wird angenommen, dass die Tendenzen der Hyperparameter ebenfalls auf der kleinen Datenbasis erkennbar sind, wenn auch das Resultat mit der größeren Datenbasis unterschiedlich ausfallen kann. Die besten Werte werden danach verwendet um weitere Tests mit der größeren Datenbasis durchzuführen und abschließend ein Modell mit allen Trainingsdaten für den Kaggle-Wettbewerb zu trainieren.
+Mit Hilfe der *Python*-Bibliothek *Spearmint* wurde eine Hyperparametersuche auf den in Tabelle \ref{table:hyper-kNN} angegebenen Parametern und deren Wertebereichen ausgeführt. Beim Training wurde der kleine Datensatz verwendet um so viele Kombinationen wie mögliche testen zu können. Es wird angenommen, dass die Tendenzen der Hyperparameter ebenfalls auf der kleinen Datenbasis erkennbar sind, wenn auch das Resultat mit der größeren Datenbasis unterschiedlich ausfallen kann. Die besten Werte werden danach verwendet um weitere Tests mit der größeren Datenbasis durchzuführen und abschließend ein Modell mit allen Trainingsdaten für den Wettbewerb zu trainieren.
 
 Parameter   Wertebereich        Bester Wert
 --------    ---------------     -----------
@@ -193,15 +193,15 @@ Dies erklärt hingegen nicht das gute Resultat des normalen *Simgoid-MLP* in Abb
 
 Das schlechte Abschneiden des *SdA* mit *ReLU*-Neuronen wird im vorausgehenden Training mit *Sigmoid*-Neuronen vermutet. Es ist dadurch nicht auszuschließen, dass die trainierten Initialwerte suboptimal für *ReLU*-Neuronen sind.
 
-## Kaggle Resultate
+## Wettbewerb-Resultate
 
-Um die *kNN*-Konfigurationen auf Kaggle zu bewerten, wurden die Netze in gleicher Konfiguration wie in den vorhergehenden Kapitel mit allen verfügbaren Trainingsdaten für 15 Epochen trainiert. Das vorausgehende Training der *SdA*s wurde mit 10 Epochen durchgeführt.
+Um die *kNN*-Konfigurationen im Wettbewerb bewerten zu lassen, wurden die Netze in gleicher Konfiguration wie in den vorhergehenden Kapitel mit allen verfügbaren Trainingsdaten für 15 Epochen trainiert. Das vorausgehende Training der *SdA*s wurde mit 10 Epochen durchgeführt.
 
 Wie der Tabelle \ref{table:kaggle-results} entnommen werden kann, hat überraschenderweise das normale dreischichtige *MLP* mit *Sigmoid*-Neuronen, welches nicht durch *AutoencoderLayer* im Voraus trainiert wurde, mit dem 11. Platz und einem *RMSE* von **0.01894** am Besten abgeschnitten. Bei allen anderen Schichten hat sich, wie erwartet, der *SdA* gegenüber dem normalen *MLP* durchgesetzt.
 
-Mit den eigenen Datensätze trainiert, hat die Gewinner-Konfiguration, gegenüber den Anderen, schlecht abgeschnitten. Dies lässt die Vermutung zu, dass die eigenen Validierungsdaten den Trainingsdaten zu ähnlich sind, worauf sich *Overfitting* positiv auswirkt. Sehr überraschend ist ebenfalls das schlechte Abschneiden der *ReLU*-Neuronen, da diese in eigenen Tests häufig sehr gut abgeschlossen haben und, wie in Kapitel \ref{head:relu_act} beschrieben, auch in anderen Arbeiten zu Spitzenresultaten führten.
+Mit den eigenen Datensätze trainiert, hat die Gewinner-Konfiguration, gegenüber den Anderen, schlecht abgeschnitten. Dies lässt die Vermutung zu, dass die gewählten Validierungsdaten den Trainingsdaten zu ähnlich sind, worauf sich *Overfitting* positiv auswirkt. Sehr überraschend ist ebenfalls das schlechte Abschneiden der *ReLU*-Neuronen, da diese in eigenen Tests häufig sehr gut abgeschlossen haben und, wie in Kapitel \ref{head:relu_act} beschrieben, auch in anderen Arbeiten zu Spitzenresultaten führten.
 
-Parallelen zwischen den eigenen sowie den Kaggle-Testläufe sind:
+Parallelen zwischen den eigenen sowie den Wettbewerb-Resultate sind:
 
 - der *SdA* mit *ReLU*-Neuronen schließt durchgehend schlecht ab
 - drei Schichten sind besser als vier
@@ -235,11 +235,11 @@ Architektur                 RMSE          Platz   Trainingsdauer
 1 Schicht Sigmoid           0.02973       52      300 Minuten
 -----------------------------------------------------------------
 
-  : Kaggle Resultate \label{table:kaggle-results}
+  : Wettbewerb-Resultate \label{table:kaggle-results}
 
 ### Minibatchgröße
 
-Das beste Modell, das dreischichtige, normale *MLP* mit *Sigmoid*-Neuronen, wurde nachträglich mit einer *Minibatchgröße* von 50 anstatt den 500 trainiert. Das Training dauerte dadurch 15.5 Stunden anstatt 4.5 Stunden, also mehr als dreimal so lange. Ausgewertet auf Kaggle, erreichte dieses *MLP* einen *RMSE*-Score von **0.01885**. Es schnitt somit minimal besser ab. Die Trainingslänge ist jedoch erheblich höher. Damit konnte bestätigt werden, dass bei der Hyperparametersuche ein möglichst großer *Minibatch* verwendet werden sollte, um schneller Resultate zu erzielen.
+Das beste Modell, das dreischichtige, normale *MLP* mit *Sigmoid*-Neuronen, wurde nachträglich mit einer *Minibatchgröße* von 50 anstatt den 500 trainiert. Das Training dauerte dadurch 15.5 Stunden anstatt 4.5 Stunden, also mehr als dreimal so lange. Im Wettbewerb, erreichte dieses *MLP* einen *RMSE*-Score von **0.01885**. Es schnitt somit minimal besser ab. Die Trainingslänge ist jedoch erheblich höher. Damit konnte bestätigt werden, dass bei der Hyperparametersuche ein möglichst großer *Minibatch* verwendet werden sollte, um schneller Resultate zu erzielen.
 
 ### Trainingszeit
 
@@ -247,7 +247,7 @@ Da der Server *deepgreen02* von mehreren Benutzern gleichzeitig benutzt werden k
 
 ### Eigene Trainings- und Validationdaten überdenken
 
-Das inkonsistente Abschneiden der Netze bezüglich der Kaggle-Testdaten gegenüber den eigenen Datensätze lässt darauf schließen, dass die gewählten Validierungsdaten zum einen zu spezifisch und zum anderen zu ähnlich zu den Trainingsdaten sind. Es wurde beim Aufteilen der von Kaggle zur Verfügung gestellten Trainingsdaten in eigene Trainings- und Validationsdaten bewusst darauf geachtet, dass sich die Hintergründe und Texte unterscheiden. Die einzigen Merkmale, welche in den Trainings- sowie den Validationsdaten gleich sind, sind die Schriftarten. Es könnte nun ein Validierungsdatensatz erstellt werden, welcher komplett andere Schriften enthält. Dies würde ein generelleres Validieren der Schriften ermöglichen.
+Das inkonsistente Abschneiden der Netze im Wettbewerb gegenüber den eigenen Datensätze lässt darauf schließen, dass die gewählten Validierungsdaten zum einen zu spezifisch und zum anderen zu ähnlich zu den Trainingsdaten sind. Es wurde beim Aufteilen der vom Wettbewerb zur Verfügung gestellten Trainingsdaten in eigene Trainings- und Validationsdaten bewusst darauf geachtet, dass sich die Hintergründe und Texte unterscheiden. Die einzigen Merkmale, welche in den Trainings- sowie den Validationsdaten gleich sind, sind die Schriftarten. Es könnte nun ein Validierungsdatensatz erstellt werden, welcher komplett andere Schriften enthält. Dies würde ein generelleres Validieren der Schriften ermöglichen.
 
 Zusätzlich sollten neue, diverse Hintergründe dem Datensatz hinzugefügt werden. Die vorhandenen Hintergründe sind sich tatsächlich sehr ähnlich. Hier könnte in Zukunft eine Methode für automatische Testdatengenerierung durch zufälliges Generieren verunreinigter Bilder Abhilfe schaffen.
 
@@ -255,15 +255,15 @@ Zusätzlich sollten neue, diverse Hintergründe dem Datensatz hinzugefügt werde
 
 Die Trainingsmenge hat ebenfalls Einfluss auf das Training. Die Tatsache, dass bei gleicher Anzahl trainierter Epochen bei einer doppelt so großen Trainingsmenge auch doppelt so viele Lern-Iterationen anfallen, bestätigt dies. Ebenfalls hat die Trainingsmenge Einfluss auf die Komplexität eines *kNN*. Je mehr Daten zur Verfügung stehen, desto komplexer kann ein *kNN* sein, ohne dass *Overfitting* auftritt (siehe Kapitel \ref{head:overfitting}).
 
-Interessanterweise haben die Tests mit dem kleinen Datensatz gegenüber dem größeren zu ähnlichen Resultaten geführt; die Resultate der gesamten Trainingsmenge auf die Kaggle Testdaten jedoch zu überraschend anderen.
+Interessanterweise haben die Tests mit dem kleinen Datensatz gegenüber dem größeren zu ähnlichen Resultaten geführt; die Resultate mit der gesamten Trainingsmenge im Wettbewerb jedoch zu überraschend anderen.
 
 ### Größte Schwierigkeiten
 
-Die größten Schwierigkeiten bereiten Flecken, welche den Kontrast zur Schrift extrem verringern. In den Kaggle Testdaten befindet sich ein Hintergrund, welcher exakt dies erfüllt (siehe Abbildung \ref{fig:schicht-vergleich-01}). In den Trainingsdaten befindet sich hingegen nur ein Hintergrund, welcher dem nahe kommt. Dieser Hintergrund verfügt dennoch über einen höheren Kontrast, womit geeignete Trainingsdaten fehlen, um diesen Fall besser abzudecken.
+Die größten Schwierigkeiten bereiten Flecken, welche den Kontrast zur Schrift extrem verringern. In den Wettbewerbs-Testdaten befindet sich ein Hintergrund, welcher exakt dies erfüllt (siehe Abbildung \ref{fig:schicht-vergleich-01}). In den Trainingsdaten befindet sich hingegen nur ein Hintergrund, welcher dem nahe kommt. Dieser Hintergrund verfügt dennoch über einen höheren Kontrast, womit geeignete Trainingsdaten fehlen, um diesen Fall besser abzudecken.
 
 ### Detailanalyse ausgewählter Bilder
 
-Für diese Analyse wurde in den Testdaten nach exemplarischen Ausschnitten gesucht, an welchen der Unterschied der verschiedenenschichtigen *MLP* aufgezeigt werden kann. Hier werden immer die normalen *Sigmoid-MLP*, welche für den Kaggle-Wettbewerb mit allen Trainingsdaten trainiert wurden, verwendet. Die Schichten sind in aufsteigender Reihenfolge von links nach rechts dargestellt.
+Für diese Analyse wurde in den Wettbewerb-Testdaten nach exemplarischen Ausschnitten gesucht, an welchen der Unterschied der verschiedenenschichtigen *MLP* aufgezeigt werden kann. Hier werden immer die normalen *Sigmoid-MLP*, welche für den Wettbewerb mit allen Trainingsdaten trainiert wurden, verwendet. Die Schichten sind in aufsteigender Reihenfolge von links nach rechts dargestellt.
 
 ![01.png: Bereinigt durch 1-4 schichtiges kNN von links nach rechts aufsteigend [Hodel] \label{fig:schicht-vergleich-01}](images/bild1-schicht-img-compair.png)
 
@@ -285,6 +285,6 @@ Das Bild *88.png* der Abbildung \ref{fig:schicht-vergleich-88} besitzt den unpro
 
 \FloatBarrier
 
-### 11. Platz auf Kaggle
+### 11. Platz im Wettbewerb
 
-Trotz der inkonsistenten Resultate, ist der 11. Platz auf Kaggle, mit einem von Grund auf selbst geschrieben *kNN*, ein beachtliches Resultat. Andere Mitstreiter, welche noch bessere Resultate erreichten, taten dies unter anderem durch bewusstes *Overfitting* der Kaggle-Testdaten. Dies kann durch das Extrahieren und miteinbeziehen der Hintergründe im Training erreicht werden. Auch verwenden viele Vorvearbeitungsschritte wie automatisierter Kontrastausgleich. Diese Informationen können im Kaggle-Forum zum Wettbewerb [@kaggleDDD] entnommen werden.
+Trotz der inkonsistenten Resultate, wurde der 11. Platz im Wettbewerb erreicht. Andere Mitstreiter, welche noch bessere Resultate erreichten, schafften dies unter anderem durch das Bewusste *Overfitting* der Testdaten. Dies kann durch das Extrahieren und Miteinbeziehen deren Hintergründe im Training erreicht werden. Auch verwenden viele zusätzliche Vorverarbeitungsschritte, wie z.B. automatisierter Kontrastausgleich oder Kantenfinder-Algorithmen. Dies kann aus dem Forum zum Wettbewerb entnommen werden.

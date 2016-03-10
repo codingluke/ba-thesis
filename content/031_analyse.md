@@ -67,7 +67,7 @@ Arten von *kNN* welche untersucht werden:
 
 ## Trainings- und Validationsdaten Unterteilung
 
-Die wesentlichen Eigenschaften, welche vom *kNN* gelernt werden sollen, sind die Schriftbilder der verwendeten Schriftarten und Stile. Die von *Kaggle* zur Verfügung gestellten Testdaten verwenden die exakt selben Schriften und Stile wie die Trainingsdaten. Die Testdaten unterscheiden sich durch verschiedene Hintergründe, Sättigung der Schrift, sowie einem anderen Text.
+Die wesentlichen Eigenschaften, welche vom *kNN* gelernt werden sollen, sind die Schriftbilder der verwendeten Schriftarten und Stile. Die vom Wettbewerb zur Verfügung gestellten Testdaten verwenden die exakt selben Schriften und Stile wie die Trainingsdaten. Die Testdaten unterscheiden sich durch verschiedene Hintergründe, Sättigung der Schrift, sowie einem anderen Text.
 
 Es muss also darauf geachtet werden, dass die daraus Abgeleiteten Test- und Validierungsdaten ebenfalls gleiche Schriftbilder enthalten. Das *kNN* soll neuen Schmutz erkennen und beseitigen, nicht aber neue Schriftbilder ableiten können.
 
@@ -75,7 +75,7 @@ Beim Analysieren der Trainingsdaten ist aufgefallen, dass zwei verschiedene Text
 
 Deswegen werden die Trainingsdaten in Trainings- und Validierungsdaten, 50:50, anhand der verschiedenen Texte aufgeteilt. Dies soll eine möglichst reale Präzision beim Validieren ermöglichen.
 
-Um beim Wettbewerb [@kaggleDDD] so gut wie möglich abzuschneiden, werden die Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl, jedoch diesmal mit Hilfe aller verfügbaren Trainingsdaten, trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die Testdaten von Kaggle, für welche keine bereinigten Zielbilder existieren, ist dafür das Aufzeichnen des Validierungsverlauf nicht möglich. Das Netz wird somit "blind" trainiert und anschließend durch das Hochladen direkt auf *Kaggle* validiert.
+Um beim Wettbewerb so gut wie möglich abzuschneiden, werden die Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl, jedoch diesmal mit Hilfe aller verfügbaren Trainingsdaten, trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die vom Wettbewerb  vorgesehenen Testdaten, für welche keine bereinigten Zielbilder existieren, ist dafür das Aufzeichnen des Validierungsverlauf nicht möglich. Das Netz wird somit "blind" trainiert und anschließend durch den Wettbewerb validiert.
 
 ### Kleine Datenbasis für effiziente Hyperparametersuche
 
@@ -123,15 +123,15 @@ Autoencoder-Trainingsdaten
 
 >Alle bereinigten Trainingsbilder, wobei doppelte ausgeschlossen wurden (Bilder mit verschiedenen Hintergründe, jedoch dem selben Text besitzen gleiche Zielbilder)
 
-**Kaggle Datenbasis**
+**Wettbewerb-Datenbasis**
 
 Trainingsdaten
 
-> Alle von Kaggle zur Verfügung gestellten Trainingsdaten.
+> Alle vom Wettbewerb zur Verfügung gestellten Trainingsdaten.
 
 Validierungsdaten
 
-> Alle von Kaggle zur Verfügung gestellten Testdaten. Da für diese Testdaten keine Zielbilder vorhanden sind, wird die Validierung auf der Kaggle-Webseite vorgenommen.
+> Alle vom Wettbewerb zur Verfügung gestellten Testdaten. Da für diese Testdaten keine Zielbilder vorhanden sind, wird die Validierung auf der Webseite zum Wettbewerb vorgenommen.
 
 Autoencoder-Trainingsdaten
 

@@ -72,7 +72,7 @@ c.clean_and_save(img_path='/pfad/zum/verrauschten/bild.png',
                  savepath='/pfad/zum/bereinigten/bild.png')
 ~~~~~~~
 
-Mit der Klasse *BatchCleaner* kann wie in Codebeispiel \ref{lst:batch-clean} dargestellt direkt ganze Ordner bereinigt werden. Es ist auch möglich mit der Methode *clean_for_submission* eine Datei zu erstellen, mit Welcher auf der *Kaggle*-Webseite das Modell validiert werden kann.
+Mit der Klasse *BatchCleaner* kann wie in Codebeispiel \ref{lst:batch-clean} dargestellt direkt ganze Ordner bereinigt werden. Es ist auch möglich mit der Methode *clean_for_submission* eine Datei zu erstellen, mit Welcher das Modell durch den Wettbewerb validiert werden kann.
 
 ~~~~~~~{#lst:batch-clean .python caption="Bereinigen eines gesamten Ordners"}
 from cleaner import BatchCleaner

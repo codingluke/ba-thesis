@@ -4,10 +4,10 @@
 
 ### Funktionale Anforderungen
 
-Kaggle Wettbewerb
+Wettbewerb
 
   ~ : FA01
-  ~ Es soll ein bestmögliches Resultat im Wettbewerb [@kaggleDDD] erzielt werden.
+  ~ Es soll ein bestmögliches Resultat im *Kaggle*-Wettbewerb [@kaggleDDD] erzielt werden.
 
 Bereinigen von Bildern verschiedener Größe
 
@@ -55,9 +55,9 @@ Trainingsverlauf
 Evaluation
 
   ~ : FA09
-  ~ Die Modelle werden durch die von Kaggle [@kaggleDDD] zur Verfügung gestellten Testdaten direkt auf kaggle.com bewertet.
   ~ Die verschiedenen Modelle sollen miteinander auf Trainingsdauer, Trainingsverlauf verglichen werden.
   ~ Die Auswirkung diverser Hyperparameter soll aufgezeigt werden.
+  ~ Zusätzlich werden die Modelle durch den Wettbewerb bewertet.
 
 ### Nicht Funktionale Anforderungen
 
@@ -66,15 +66,15 @@ Trainieren mit großen Datenmengen
   ~ : NFA01
   ~ Das Trainieren des *kNN* soll mit einer Menge von Trainingsdaten möglich sein, welche die Größe des Arbeitsspeichers überschreitet.
 
-Trainieren auf einer GPU
+Trainieren auf einer *GPU*
 
   ~ : NFA02
-  ~ Um möglichst viele Konfigurationen von *kNN* zu vergleichen, soll das *kNN* so implementiert werden, dass das Trainieren auf einer GPU möglich ist.
+  ~ Um möglichst viele Konfigurationen von *kNN* zu vergleichen, soll das *kNN* so implementiert werden, dass das Trainieren auf einer *GPU* möglich ist.
 
-Software-Unit-Tests
+Softwaretests
 
   ~ : NFA03
-  ~ Eingene Klassen und Methoden sollen mit Software-Unit-Tests getestet werden.
+  ~ Eingene Klassen und Methoden sollen mit Softwaretests verifiziert werden.
 
 Programmiersprache
 
@@ -85,7 +85,7 @@ Python Bibliotheken
 
   ~ : NFA05
   ~ Es darf keine umfassende *kNN* Bibliothek, wie z.B. *Keras*, verwendet werden. Die verwendeten Algorithmen sollen selbst geschrieben werden.
-  ~ *Theano* soll zur Optimierung der Algorithmen und deren Portierung auf GPU code eingesetzt werden.
+  ~ *Theano* soll zur Optimierung der Algorithmen und deren Portierung auf *GPU*-Code eingesetzt werden.
   ~ *Spearmint* soll für die Hyperparametersuche eingesetzt werden.
   ~ *Pandas* und *matplotlib* sollen zur Visualisierung und Analyse der Lerndaten verwendet werden.
 
@@ -111,7 +111,7 @@ Schriftbilder
 
 ## Explorative Datenanalyse \label{head:explorative-datenanalyse}
 
-Die Trainings- und Testdaten werden direkt vom Kaggle Wettbewerb "Denoising Dirty Documnets" [@kaggleDDD] zur Verfügung gestellt. In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht:
+Die Trainings- und Testdaten werden direkt vom Wettbewerb zur Verfügung gestellt. In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht:
 
 Trainingsdaten
 
@@ -123,7 +123,7 @@ Testdaten
 
 ### Zusammenfassung
 
-Das wesentlichste Merkmal ist, dass sich in den Trainings- sowie in den Testdaten die exakt selben Schriftarten befinden. Der Unterschied liegt im neuen Text sowie in den Hintergrundbildern. Das trainierte *kNN* muss im Kaggle-Wettbewerb hiermit keine neuen Schriftarten erkennen können. Vielmehr ist ein Modell im Vorteil, welches extremes *Overfitting* auf die vorhandenen Schriften ausübt und nicht auf generelles bereinigen von Schriften ausgelegt ist.
+Das wesentlichste Merkmal ist, dass sich in den Trainings- sowie in den Testdaten die exakt selben Schriftarten befinden. Der Unterschied liegt im neuen Text sowie in den Hintergrundbildern. Das trainierte *kNN* muss im Wettbewerb hiermit keine neuen Schriftarten erkennen können. Vielmehr ist ein Modell im Vorteil, welches extremes *Overfitting* auf die vorhandenen Schriften ausübt und nicht auf generelles bereinigen von Schriften ausgelegt ist.
 
 Ebenfalls ist auffällig, dass die Hintergrundbilder der Testdaten zwar anders ausfallen, dennoch sehr ähnlicher Struktur sind. Es scheint als ob die Trainings- und Testbilder aus gleicher Quelle stammen. Daher wird vermutet, dass Regularisierungstechniken, wie die bereits beschriebene *L2-Regularisation* und das *Dropout*, nur bedingt Verbesserungen mit sich bringen.
 
@@ -139,7 +139,7 @@ Mit dieser Methode, kann feines Hintergrundrauschen und leichter Graustich entfe
 
 #### Resultat
 
-Das unter dem Wettbewerb [@kaggleDDD] veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus, wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. Mittig der Abbildung \ref{fig:threshold} ist ein bereinigter Bildausschnitt zu sehen, links und rechts davon befinden sich die verrauschte und die optimal bereinigte Varianten. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein *Kaggle*-Resultat vorhanden. Optisch ist jedoch offensichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
+Das unter dem Wettbewerb veröffentlichte Skript *clean-by-thresholding* führt eine soeben beschriebe Schwellenwertfunktion auf das Bild aus, wobei ein Pixel ab dem Wert 0.2 auf 1, Weiß, gesetzt wird. Mittig der Abbildung \ref{fig:threshold} ist ein bereinigter Bildausschnitt zu sehen, links und rechts davon befinden sich die verrauschte und die optimal bereinigte Varianten. Hier ist ersichtlich, dass die feinen Konturen der Schrift nicht gut beibehalten werden. Für diese Lösung ist kein Wettbewerb-Resultat vorhanden. Optisch ist jedoch offensichtlich, dass das Resultat weit hinter der *kNN*s des Kapitels \ref{head:evaluierung}, liegen dürfte.
 
 ![Bereinigung durch eine Schwellenwertfunktion [Hodel] \label{fig:threshold}](images/threshold.png)
 
@@ -153,7 +153,7 @@ Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei 
 
 #### Resultat
 
-Ein im Forum zum Wettbewerb [@kaggleDDD] geteiltes Resultat eines *Random-Forest*-Modells erzielte mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
+Ein im Forum zum Wettbewerb geteiltes Resultat eines *Random-Forest*-Modells erzielte mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
 
 ### Andere Programmiersprachen
 
@@ -163,7 +163,7 @@ Der in dieser Bachelorarbeit verwendete Programmcode ist in *Python* geschrieben
 
 ### Künstliche neuronale Netze
 
-Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb wie bei der in Hand geschriebenen Zahlenerkennung [@mnist], die klassischen probabilistischen Modelle übertroffen haben. Vorallem in der Bildbearbeitung machen *kNN* stetig Vortschritte was über den *Image-Net-Wettbewert* zusätzlich gefördert wird [@imagenet].
+Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb, wie bei der in Hand geschriebenen Zahlenerkennung [@mnist], die klassischen probabilistischen Modelle übertroffen haben. Vorallem in der Bildbearbeitung machen *kNN* stetig Vortschritte was über den *Image-Net-Wettbewert* zusätzlich gefördert wird [@imagenet].
 
 Es soll mit dieser Bachelorarbeit bewiesen werden, dass *kNN* ebenfalls für das Bereinigen verrauschter Schriftbilder geeignet sind.
 

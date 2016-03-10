@@ -2,21 +2,21 @@
 
 ## Motivation \label{head:motivation}
 
-Es existieren immer noch immense Wissensbestände, welche die Menschheit seit der Erfindung der Schrift niedergeschrieben hat, in reiner Papierform. Diese Art der Wissenskonservierung hat sich über Jahrtausende bewährt. Ein großer Nachteil dieses Mediums liegt jedoch in der ineffizienten Durchsuchbarkeit, durch manuelles Lesen.
+Es existieren nach wie vor immense Wissensbestände, welche die Menschheit seit der Erfindung der Schrift niedergeschrieben hat, in reiner Papierform. Diese Art der Wissenskonservierung hat sich über Jahrtausende bewährt. Ein großer Nachteil dieses Mediums liegt jedoch in der, durch manuelles Lesen vorgegebenen, ineffizienten Durchsuchbarkeit.
 
-Neue Arten der Wissensspeicherung in Form von digitaler Schrift bieten den Vorteil das Wissen, durch dessen Volltext-Indexierung in Kombination mit modernen Suchalgorithmen, effizient durchsuchbar zu machen. Um diese Errungenschaft ebenfalls auf alte Schriften anwenden zu können, müssen diese digitalisiert werden.
+Neue Arten der Wissensspeicherung in Form von digitaler Schrift bieten den Vorteil das Wissen, durch dessen Volltext-Indexierung in Kombination mit modernen Suchalgorithmen, effizient durchsuchbar zu machen. Um diese Errungenschaft ebenfalls auf das in alten Schriften festgehaltene Wissen anwenden zu können, müssen diese digitalisiert werden.
 
-Durch die jahrelange Archivierung sind die Schriften oft nicht mehr mühelos lesbar. Dazu können Staub, Luftfeuchtigkeit, Sonneneinstrahlung sowie sonstiger, unangemessener Umgang beigetragen haben. Dadurch verursachte Verunreinigungen können wiederum dazu beitragen, dass beim Digitalisieren diverse Buchstaben und Wörter nicht korrekt erkannt werden.
+Durch die jahrelange Archivierung sind solche Schriftstücke oft nicht mehr mühelos lesbar. Dazu können Staub, Luftfeuchtigkeit, Sonneneinstrahlung sowie sonstiger, unangemessener Umgang beigetragen haben. Dadurch verursachte Verunreinigungen können wiederum dazu beitragen, dass beim Digitalisieren diverse Buchstaben und Wörter nicht korrekt erkannt werden.
 
-An diesem Punkt soll die vorliegende Arbeit ansetzen. Mit Hilfe von künstlichen neuronalen Netzen wird versucht, eine Möglichkeit zu erarbeiten, eingescannte Schriften vor der eigentlichen Schrifterkennung zu bereinigen, um das Endresultat der Schrifterkennung zu verbessern.
+An diesem Punkt soll die vorliegende Arbeit ansetzen. Mit Hilfe künstlicher neuronaler Netze wird nach einer Möglichkeit gesucht, eingescannte Schriften zu bereinigen, um die Präzision der späteren Schrifterkennung zu erhöhen.
 
 ## Zielstellung \label{head:zielstellung}
 
-Das Hauptziel dieser Bachelorarbeit ist ein künstliches neuronales Netzwerk, *kNN*, zu entwerfen, implementieren und trainieren, welches möglichst gut im Kaggle Wettbewerb "Denoising Dirty Documents" [@kaggleDDD] abschneidet. Im Wettbewerb geht es darum verrauschte Bilder automatisch so zu bereinigen, dass das darin enthaltene Schriftbild optimal hervorgehoben wird.
+Das Hauptziel dieser Bachelorarbeit ist ein künstliches neuronales Netzwerk, *kNN*, zu entwerfen, implementieren und trainieren, welches möglichst gut im *Kaggle*-Wettbewerb "Denoising Dirty Documents" [@kaggleDDD] abschneidet. Im Wettbewerb geht es darum verrauschte Bilder automatisch so zu bereinigen, dass das darin enthaltene Schriftbild optimal hervorgehoben wird.
 
 Dazu wird auf verschiedene Architekturmodelle für *kNN* zurückgegriffen, welche untereinander verglichen werden. Somit ist ein weiteres Ziel der Arbeit die Stärken und Schwächen der unterschiedlichen Architekturen aufzuzeigen. Vor allem wird der Unterschied von einschichtigen *kNN* zu mehrschichtigen, tiefen *kNN* untersucht. Bei den mehrschichtigen *kNN* wird ein besonderes Augenmerk auf die in der Arbeit "Stacked denoising autoencoders: learning useful representations in a deep network with a local denoising criterion" [@Vincent10stackeddenoising] beschriebenen Methode der *Stacked-Denoising-Autoencoder* gelegt.
 
-Eine weitere Zielsetzung ist es, einen Prozess zur komfortablen Hyperparametersuche und Analyse des Lernvorgans herauszuarbeiten. Dieses Verfahren soll direkt für das Lernen und Analysieren der verschiedenen *kNN* dieser Bachelorarbeit angewendet werden.
+Eine weitere Zielsetzung ist es, einen Prozess zur komfortablen Hyperparametersuche und Analyse des Lernvorgans herauszuarbeiten. Dieses Verfahren soll sogleich für das Lernen und Analysieren der verschiedenen *kNN* dieser Bachelorarbeit mit angewendet werden.
 
 ## Aufbau der Arbeit \label{head:aufbau}
 

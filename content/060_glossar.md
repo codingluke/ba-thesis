@@ -2,7 +2,7 @@
 
 CUDA
 
-  ~ Compute Unified Device Architecture. Von *Nvidia* entwickelte Programmierumgebung, mit welcher Grafikkarten für generelle Berechunungen verwentet werden können. Bisher konnten Grafikkarten nur für 3D-Berechnungen verwendet werden.
+  ~ Compute Unified Device Architecture. Von *Nvidia* entwickelte Programmierumgebung, mit welcher Grafikkarten für generelle Berechunungen verwentet werden können. Bisher konnten Grafikkarten nur für 3D-Berechnungen verwendet werden
 
 dA
 
@@ -10,7 +10,7 @@ dA
 
 GPU
 
-  ~ Graphical Processing Unit, CPU auf der Grafikkarte.
+  ~ Graphical Processing Unit, CPU auf der Grafikkarte
 
 kNN
 
@@ -27,11 +27,11 @@ ReLU
 
 RMSE
 
-  ~ Root Mean Squared Error, Wurzel des quadratischen gemittelten Errors
+  ~ Root Mean Squared Error, Wurzel des quadratisch gemittelten Errors
 
 RMSprop
 
-  ~ Root Mean Squared Propagation; Ein Algorithmus zur *backpropagation* basierend auf dem Gradientenabstiegsverfahren.
+  ~ Root Mean Squared Propagation; ein Algorithmus zur *backpropagation* basierend auf dem Gradientenabstiegsverfahren
 
 SdA
 
@@ -39,11 +39,11 @@ SdA
 
 SGD
 
-  ~ Stochastik Gradient Descent; Stochastisches Gradientenabstiegsverfahren.
+  ~ Stochastik Gradient Descent; Stochastisches Gradientenabstiegsverfahren
 
 VPN
 
-  ~ Virtual Privat Network; Virtuelle Privates Netzwerk. VPN ermöglicht die sichere Kommunikation von lokal getrennten Netzwerke über das Internet.
+  ~ Virtual Privat Network; Virtuelle Privates Netzwerk. VPN ermöglicht die sichere Kommunikation von lokal getrennten Netzwerken über das Internet
 
 
 
