@@ -62,6 +62,8 @@ Es ist nicht unerlässlich diese Methoden zu überschreiben. Wird dies jedoch ni
 
 Den Kern des *kNN* bildet die Klasse *Network*. Beim Instanziieren wird ihr eine Liste von Schicht-Klassen mitgegeben. Dadurch werden die Schichten miteinander so verknüpft, dass die Ausgangsneuronen der vorstehenden Schicht zu den Eingangsneuronen der darauffolgenden Schicht werden (siehe Codebeispiel \ref{lst:binding}). Die Klasse *Network* ist damit das Bindeglied modular zusammenstellbarer Schicht-Klassen zu einem Netzwerk.
 
+\newpage
+
 ~~~~~~~{#lst:binding .python caption="Verbinden der Schichten"}
 for j in xrange(1, len(self.layers)):
   prev_layer, layer  = self.layers[j-1], self.layers[j]
@@ -130,10 +132,11 @@ Des Weiteren wird das Attribut *self.output* definiert, in dem die Aktivierungsf
 
 Zusätzlich zur Ausgabe *self.output* wird das Attribut *self.output_dropout* definiert. Hier wird zuerst die Eingabeverknüpfung, mit einer zufälligen Binominalverteilung maskiert. Somit werden zufällige Eingabeverknüpfungen deaktiviert. Diese maskierte Eingabeverknüpfung wird im Attribut *self.inpt_dropout* gespeichert. Der Parameterwert *p_dropout* definiert, wie viel Prozent der Neuronen deaktiviert werden sollen. Liegt der Wert bei Null, ist die *dropout*-Funktionalität deaktiviert.
 
-~~~~~~~{#lst:dropout .python caption="Maskierung der Layer mit einer Binominalverteilung"}
-srng = shared_randomstreams.RandomStreams(rnd.randint(999999))
-mask = srng.binomial(n=1, p=1-p_dropout, size=layer.shape)
-layer*T.cast(mask, theano.config.floatX)
+~~~~~~~{#lst:dropout .python caption="Implementierung von Dropout durch die Maskierung der Layer mit einer Binominalverteilung"}
+mask = theano_rnd.binomial(size=layer.shape,
+                           n=1, p=1 - p_dropout,
+                           dtype=theano.config.floatX)
+layer * mask
 ~~~~~~~
 
 #### Kostenfunktion
@@ -161,9 +164,10 @@ Weitere Arten wie der *Sparse-Autoencoder* oder *Deep-Autoencoder* wurden aus Ze
 Das Verrauschen der Eingabeverknüpfung geschieht in gleicher Weise, wie der *Dropout*-Mechanismus. In der Methode *get_corrupted_input* wird der Eingabevektor *self.inpt* mit einer binominal verteilten Maske, bestehend aus Prozentzahlen, multipliziert und zurückgegeben. Dadurch werden die Werte zufällig verändert.
 
 ~~~~~~~{#lst:corrupt .python caption="Verrauschen der Eingangsschicht mit einer Binominalverteilung"}
-self.theano_rng.binomial(size=self.inpt.shape, n=1,
-                         p=1 - self.corruption_level,
-                         dtype=theano.config.floatX) * self.inpt
+mask = theano_rnd.binomial(size=self.inpt.shape, n=1,
+                    p=1 - self.corruption_level,
+                    dtype=theano.config.floatX)
+mask * self.inpt
 ~~~~~~~
 
 #### Berechnung der unsichtbaren Schicht (encode)
@@ -189,24 +193,24 @@ Der *AutoencoderLayer* kann durch die Methode *train* trainiert werden. Dazu mü
 Nun wird eine symbolische *Theano-Tensor-Matrix-Variable* *x* erstellt, welche sogleich durch die Methode *set_inpt* als Eingabevektor gesetzt wird.
 Danach werden die symbolischen Funktionen zur Kostenberechnung und für die Modifikationsregeln der Gewichte und Bias mit der Methode *get_cost_updates* zurückgegeben. Die Methode *get_cost_updates* definiert die Kostenfunktion mit Hilfe der Methoden *get_hidden_values* und *get_reconstructed_input* und der schon in der Klasse *Network* verwendeten *binary_crossentropy*. Die Modifikationsregeln werden durch den *RMSprop*-Algorithmus generiert.
 
-~~~~~~~{#lst:train .python caption="Kompilieren der Theano Funktion zur berechnung der Trainingskosten pro Minibatch"}
+~~~~~~~{#lst:compile .python caption="Kompilieren der Theano Funktion zur Berechnung der Trainingskosten pro Minibatch"}
 cost, updates = self.get_cost_updates(eta=eta)
 train_mb = theano.function(
     [index], cost, updates=updates,
     givens={ x: training_x[index * mbs: (index + 1) * mbs] })
 ~~~~~~~
 
-Mit Hilfe der Modifikationsregeln und der Kostenfunktion wird nun die Trainingsfunktion als kompilierte *Theano*-Funktion definiert. Dabei wird eine *Theano-Shared-Variable* für die Trainingsdaten verwendet. Diese wird mit der symbolischen Variable *x* verbunden. Die Funktion besitzt ebenfalls einen Parameter für den *Minibatch*-Index. So wird aus der *Theano-Shared-Variable* der Trainingsdaten immer nur ein *Minibatch* pro Aufruf verarbeitet. Die Ausgabe der kompilierten Funktion ist der Fehler (Kosten) des aktuell trainierten *Minibatches*.
+Mit Hilfe der Modifikationsregeln und der Kostenfunktion wird nun die Trainingsfunktion als kompilierte *Theano*-Funktion definiert (siehe Codebeispiel \ref{lst:compile}). Dabei wird eine *Theano-Shared-Variable* für die Trainingsdaten, *training_x*, verwendet. Diese wird mit der symbolischen Variable *x* verbunden. Die Funktion besitzt ebenfalls einen Parameter für den *Minibatch*-Index. So wird aus der *Theano-Shared-Variable* der Trainingsdaten immer nur ein *Minibatch* pro Aufruf verarbeitet. Die Ausgabe der kompilierten Funktion ist der Fehler (Kosten) des aktuell trainierten *Minibatches*.
 
-~~~~~~~{#lst:train_loop .python caption="Iteration durch Trainingsdaten. Modifikation durch vorhergehende Layer. Aktualisieren der Shared-Variable. Trainieren der Minibatches"}
+Als Nächstes wird pro Epoche durch alle Trainingsdaten iteriert, wobei die *Theano-Shared-Variable* kontinuierlich aktualisiert wird. Vor der Aktualisierung werden die Trainingsdaten mit vorhandenen vorhergehenden Schichten bearbeitet. Dann wird für alle *Minibatches* die kompilierte *Theano-Funktion* zum Trainieren aufgerufen. Die Kosten werden aufsummiert und nach jeder Epoche deren Durchschnitt durch den *MetricRecorder* aufgezeichnet (siehe Codebeispiel \ref{lst:train-loop}).
+
+~~~~~~~{#lst:train-loop .python caption="Iterierung durch die Trainingsdaten. Modifikation durch vorhergehende Layer. Aktualisieren der Shared-Variable. Trainieren der Minibatches"}
 for train_x, _ in tdata:
   for l in layers: train_x = l.forward(train_x)
   training_x.set_value(train_x, borrow=True)
   for batch_index in xrange(n_train_batches):
     c.append(train_mb(batch_index))
 ~~~~~~~
-
-Als Nächstes wird pro Epoche durch alle Trainingsdaten iteriert, wobei die *Theano-Shared-Variable* kontinuierlich aktualisiert wird. Vor der Aktualisierung werden die Trainingsdaten mit vorhandenen vorhergehenden Schichten bearbeitet. Dann wird für alle *Minibatches* die kompilierte *Theano-Funktion* zum Trainieren aufgerufen. Die Kosten werden aufsummiert und nach jeder Epoche deren Durchschnitt durch den *MetricRecorder* aufgezeichnet.
 
 ## Metric
 

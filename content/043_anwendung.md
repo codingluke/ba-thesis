@@ -1,5 +1,7 @@
 # Anwendung \label{head:anwendung}
 
+## Konfigurieren und Trainieren
+
 Die drei implementierten Module *network.py*, *metric.py* und *preprocessor.py* können wie im Codeblock \ref{lst:training-sda} dargestellt, für das Trainieren eines *kNN* kombiniert werden.
 
 ~~~~~~~{#lst:training-sda .python caption="Konfigurieren und Trainieren eines SdA."}
@@ -40,7 +42,9 @@ Ist das Training zu Ende, werden die Validierungskosten der besten Validierung a
 
 ## Trainieren mit Spearmint
 
-Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden. Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *dict* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
+Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden (siehe Codebeispiel \ref{lst:spearmint}). Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *dict* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
+
+*Spearmint* wird durch das Aufrufen der Datei *main.py* im *Spearmint* Projektordner gestartet. Der Pfad zum Ordner Trainingsdatei wird als Parameter mitgegeben. In dem Ordner wird nach der Datei *config.json* gesucht. Innerhalb der Datei *config.json* werden die gewünschten *Hyperparameter* deklariert, sowie der Name der Trainingsdatei, die Datenbankverbindung und ein Experimentname. Jedes *Spearmint*-Experiment befindet sich somit in einem eigenen Ordner. In dieser Arbeit befinden sich diese als Unterordner des Ordners */trainings*.
 
 ~~~~~~~{#lst:spearmint .python caption="Minimalsetup zum Trainineren durch Spearmint."}
 from network import Network,
@@ -57,12 +61,10 @@ def main(job_id, params):
                    metric_recorder=mr, params[...])
 ~~~~~~~
 
-*Spearmint* wird durch das Aufrufen der Datei *main.py* im *Spearmint* Projektordner gestartet. Der Pfad zum Ordner Trainingsdatei wird als Parameter mitgegeben. In dem Ordner wird nach der Datei *config.json* gesucht. Innerhalb der Datei *config.json* werden die gewünschten *Hyperparameter* deklariert, sowie der Name der Trainingsdatei, die Datenbankverbindung und ein Experimentname. Jedes *Spearmint*-Experiment befindet sich somit in einem eigenen Ordner. In dieser Arbeit befinden sich diese als Unterordner des Ordners */trainings*.
-
 
 ## Verwenden eines gespeicherten Modells
 
-Das die während dem Trainieren gespeicherten Modelle, können mit der Klasse *Cleaner* geladen werden. Die Klasse Cleaner bietet nun die Methoden *clean_and_show* und *clean_and_save* zur Verfügung, mit welchen beliebige Bilder bereinigt werden können (Siehe \ref{lst:clean}).
+Das die während dem Trainieren gespeicherten Modelle, können mit der Klasse *Cleaner*, wie in Codebeispiel \ref{lst:clean}, geladen werden. Die *Cleaner*-Instanz (*c*) bietet nun die Methoden *clean_and_show* und *clean_and_save* zur Verfügung, mit welchen beliebige Bilder bereinigt werden können.
 
 ~~~~~~~{#lst:clean .python caption="Bereinigen eines einzelnen Bildes"}
 from cleaner import Cleaner
@@ -72,7 +74,7 @@ c.clean_and_save(img_path='/pfad/zum/verrauschten/bild.png',
                  savepath='/pfad/zum/bereinigten/bild.png')
 ~~~~~~~
 
-Mit der Klasse *BatchCleaner* kann wie in Codebeispiel \ref{lst:batch-clean} dargestellt direkt ganze Ordner bereinigt werden. Es ist auch möglich mit der Methode *clean_for_submission* eine Datei zu erstellen, mit Welcher das Modell durch den Wettbewerb validiert werden kann.
+Mit der Klasse *BatchCleaner* kann, wie in Codebeispiel \ref{lst:batch-clean} dargestellt, direkt ganze Ordner bereinigt werden. Es ist auch möglich mit der Instanzmethode *clean_for_submission* eine Datei zu erstellen, mit Welcher das Modell durch den Wettbewerb validiert werden kann.
 
 ~~~~~~~{#lst:batch-clean .python caption="Bereinigen eines gesamten Ordners"}
 from cleaner import BatchCleaner

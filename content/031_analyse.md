@@ -65,74 +65,81 @@ Arten von *kNN* welche untersucht werden:
 - Mehrschichtiges *kNN*, *MLP*, mit *ReLU*-Aktivierungsfunktion
 - *Stacked-denoising-Autoencoer*, *SdA*
 
-## Trainings- und Validationsdaten Unterteilung
+## Datenunterteilung
 
-Die wesentlichen Eigenschaften, welche vom *kNN* gelernt werden sollen, sind die Schriftbilder der verwendeten Schriftarten und Stile. Die vom Wettbewerb zur Verfügung gestellten Testdaten verwenden die exakt selben Schriften und Stile wie die Trainingsdaten. Die Testdaten unterscheiden sich durch verschiedene Hintergründe, Sättigung der Schrift, sowie einem anderen Text.
+Da für die *Testdaten* keine bereinigten Zieldaten (y) existieren, das Prüfen erfolgt durch ein Formular auf der Wettbewerb-Webseite, müssen die *Wettbewerb-Trainingsdaten* nochmals in eigene Trainings- und Validierungsdaten unterteilt werden (siehe Abbildung \ref{fig:train-test-split}). Dabei muss darauf geachtet werden, dass die abgeleiteten Trainings- und Validierungsdaten gleiche Schriftbilder enthalten. Das *kNN* soll neuen Schmutz erkennen und beseitigen, nicht aber neue Schriftbilder ableiten können.
 
-Es muss also darauf geachtet werden, dass die daraus Abgeleiteten Test- und Validierungsdaten ebenfalls gleiche Schriftbilder enthalten. Das *kNN* soll neuen Schmutz erkennen und beseitigen, nicht aber neue Schriftbilder ableiten können.
+![Aufteilung der Daten in Test-, Trainings- und Validierungsdaten mehrerer Größen. Dabei besitzen die Wettbewerb-Trainingsdaten verunreinigte (X) und bereinigte (y) Daten. Die Testdaten jedoch nur verunreinigte. [@hodel] \label{fig:train-test-split}](images/Datenunterteilung.pdf)
 
-Beim Analysieren der Trainingsdaten ist aufgefallen, dass zwei verschiedene Texte Verwendung finden. Diese Texte existieren beide exakt gleich oft in allen Schriftvariationen. Begünstigt wird dies dadurch dass die Hintergründe ebenfalls leicht abweichen.
+Beim Analysieren der *Wettbewerb-Trainingsdaten* ist aufgefallen, dass zwei verschiedene Texte Verwendung finden. Diese Texte existieren beide exakt gleich oft in allen Schriftvariationen. Begünstigt wird dies dadurch, dass die Hintergründe ebenfalls leicht abweichen. Deswegen werden die *Wettbewerb-Trainingsdaten*, anhand der verschiedenen Texte in Trainings- und Validierungsdaten aufgeteilt. Dies soll eine möglichst reale Präzision beim Validieren ermöglichen. Mit Hilfe dieser abgeleiteten Trainings- und Validationsdaten wird nach dem besten Modellen gesucht.
 
-Deswegen werden die Trainingsdaten in Trainings- und Validierungsdaten, 50:50, anhand der verschiedenen Texte aufgeteilt. Dies soll eine möglichst reale Präzision beim Validieren ermöglichen.
-
-Um beim Wettbewerb so gut wie möglich abzuschneiden, werden die Modell erneut mit denselben Hyperparameter, Schichtkombinationen und Epochenanzahl, jedoch diesmal mit Hilfe aller verfügbaren Trainingsdaten, trainiert. Da in diesem Fall keine Validationsdaten vorhanden sind, sondern nur die vom Wettbewerb  vorgesehenen Testdaten, für welche keine bereinigten Zielbilder existieren, ist dafür das Aufzeichnen des Validierungsverlauf nicht möglich. Das Netz wird somit "blind" trainiert und anschließend durch den Wettbewerb validiert.
+Um beim Wettbewerb so gut wie möglich abzuschneiden, werden die gefundenen Modelle erneut mit denselben Hyperparameter und Schichtkombinationen, jedoch diesmal mit Hilfe aller *Wettbewerb-Trainingsdaten*, trainiert. Da in diesem Fall für die Validationsdaten, die *Testdaten*, keine bereinigten Zielbilder existieren, ist hierfür das Aufzeichnen des Validierungsverlaufs nicht möglich. Das Netz wird also "blind" trainiert und anschließend durch den Wettbewerb validiert.
 
 ### Kleine Datenbasis für effiziente Hyperparametersuche
 
-Anhand der oben beschriebenen Methodik wird ebenfalls eine noch kleinere Datenbasis zusammengestellt. Darauf können schneller und effizienter verschiedene Kombinationen von Hyperparametern trainiert und validiert werden.
+Anhand der oben beschriebenen Methodik wird ebenfalls eine noch kleinere, die *Kleine-Datenbasis*, zusammengestellt (siehe Abbildung \ref{fig:train-test-split}). Darauf können schneller und effizienter verschiedene Kombinationen von Hyperparametern trainiert und validiert werden.
 
-Dies muss nicht zwingend auch zum besten Modell für die große Trainingsmenge führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation in Kapitel \ref{head:kNN}). Aus Zeitgründen, wird diese Methode angewendet, da angenommen wird, dass Tendenzen auch auf der kleinen Datenbasis sichtbar werden.
+Dies muss nicht zwingend auch zum besten Modell für die *Große-Datenbasis* führen, da auch die Menge der Trainingsdaten Einfluss auf das *kNN* haben (siehe Regularisation in Kapitel \ref{head:kNN}). Aus Zeitgründen, wird diese Methode angewendet, da angenommen wird, dass Tendenzen auch auf der *Kleinen-Datenbasis* sichtbar werden.
 
 ### Eigener Datensatz für das Trainieren der Denoising-Autoencoder
 
-Der Datensatz für das schichtweise Training der *Denoising-Autoencoder* beinhaltet ausschließlich bereits bereinigte Schriftbilder. Dabei werden pro Trainingsdatensatz nur Bilder mit Schriften gewählt, welche auch in den Trainings- und Validierungsdaten vorkommen.
+Die *Pretraindaten* für das vorausgehende, schichtweise Training der *Denoising-Autoencoder*, beinhalten ausschließlich bereinigte Zielbilder (y) der Trainingsdaten. Dabei handelt es sich genauer, um die Teilmenge welche nur heterogene Bilder enthaltet (siehe Abbildung \ref{fig:pretrain}).
 
-Der Grund, wieso bereinigte Bilder verwendet werden liegt darin, da der *Denoising-Autoencoder* die eingehenden Subbilder selbst Verunreinigt. Durch diesen automatisch generierten *Schmutz* wird erhofft, dass zusätzlich zu den bestehenden Hintergrundbilder neue generiert werden und somit das *Unsupervised-Feature-Learning* in sofern unterstützen, dass es besser generalisiert.
+![Die Pretraindaten sind eine Teilmenge der Zieldaten (y) \label{fig:pretrain} [@hodel]](images/Trainingsdaten.pdf)
+
+Unter den Zieldaten existieren tatsächlich diverse Bilder, unter verschiedenen Namen, mehrfach. Diese Redundanz kommt zu Stande, da verrauschte Bilder mit demselben Schriftbild, jedoch anderem Hintergrund, identische Zielbilder besitzen und deren Zuweisung durch eine Namenskonvention und nicht durch eine Tabelle besteht.
+
+Der Grund, wieso die bereinigte Zielbilder verwendet werden, liegt darin, dass der *Denoising-Autoencoder* die eingehenden Subbilder selbst Verunreinigt. Durch diesen automatisch hinzugefügten *Schmutz*, wird erhofft, dass die dadurch entstehenden Hintergrundbilder das *Unsupervised-Feature-Learning* darin unterstützen besser zu Generalisieren.
 
 #### Alternative
 
-Anstatt automatisch die Eingabedaten zu mutieren, könnte dem *Denoising-Autoencoder* die bereits verunreinigten sowie dessen bereinigten Zielbilder mitgegeben werden. Diese Variante wurde aus Zeitgründen nicht weiter verfolgt, sollte allerdings nach den Resultaten im Kapitel \ref{head:evaluierung} in Betracht gezogen werden.
+Anstatt automatisch die Eingabedaten zu mutieren, könnte dem *Denoising-Autoencoder* die bereits verunreinigten, sowie dessen bereinigten Zielbilder mitgegeben werden. Diese Variante wurde aus Zeitgründen nicht weiter verfolgt (sollte allerdings nach den Resultaten im Kapitel \ref{head:evaluierung} in Betracht gezogen werden).
 
 ### Deklaration der Datenbasen
 
-**Große Datenbasis**
+#### Große-Datenbasis
 
 Trainingsdaten
 
->72 Bilder, 24 Bilder (540x258), 48 Bilder (540x420), 8 Hintergründe, 1 Text, alle Schriften und Stile.
+  ~ 72 verunreinigte Bilder (X), davon 24 Bilder (540x258) und 48 Bilder (540x420). Diese beinhalten 8 Hintergründe, 1 Text, alle in den *Wettbewerb-Daten* vorhandenen Schriftarten und Stile.
+  ~ 72 bereinigte Zielbilder (y).
 
 Validationsdaten
 
->72 Bilder; 24 Bilder (540x258); 48 Bilder (540x420); 6 neue Hintergründe; 2 Hintergründe identisch den Trainingsdaten; 1 neuer Text; alle Schriften und Stile gleich.
+  ~ 72 verunreinigte Bilder (X), davon 24 Bilder (540x258) und 48 Bilder (540x420). Diese beinhalten 6 neue Hintergründe, 2 Hintergründe identisch den Trainingsdaten, 1 neuer Text, alle Schriftarten und Stile sind identisch zu den Trainingsdaten
+  ~ 72 bereinigte Zielbilder (y).
 
-Autoencoder-Trainingsdaten
+Pretraindaten
 
->Alle bereinigten Trainingsbilder, wobei doppelte ausgeschlossen wurden (Bilder mit verschiedenen Hintergründe, jedoch dem selben Text besitzen gleiche Zielbilder)
+  ~ Alle heterogenen Zielbilder (y) der Trainingsdaten.
 
-**Kleine Datenbasis**
+#### Kleine-Datenbasis
 
 Trainingsdaten
 
->20 Bilder, 12 Bilder (540x258), 8 Bilder (540x420), 4 Hintergründe, 1 Text, 5 Schriften in 5 Stile.
+  ~ 20 verunreinigte Bilder, davon 12 Bilder (540x258) und 8 Bilder (540x420). Diese beinhalten 4 Hintergründe, 1 Text, 5 Schriften in 5 Stile.
+  ~ 20 bereinigte Zielbilder (y).
 
 Validationsdaten
 
->20 Bilder, 12 Bilder (540x258), 8 Bilder (540x420), 3 neue Hintergründe, 1 Hintergrund identisch zu den Trainingsdaten, 1 neuer Text, 5 gleiche Schriften in 5 Stile.
+  ~ 20 verunreinigte Bilder, davon 12 Bilder (540x258) und 8 Bilder (540x420). Diese beinhalten 3 neue Hintergründe, 1 Hintergrund identisch zu den Trainingsdaten, 1 neuer Text, 5 Schriftarten und 5 Stile identisch zu den Trainingsdaten.
+  ~ 20 bereinigte Zielbilder (y).
 
-Autoencoder-Trainingsdaten
+Pretraindaten
 
->Alle bereinigten Trainingsbilder, wobei doppelte ausgeschlossen wurden (Bilder mit verschiedenen Hintergründe, jedoch dem selben Text besitzen gleiche Zielbilder)
+  ~ Alle heterogenen Zielbilder (y) der Trainingsdaten.
 
-**Wettbewerb-Datenbasis**
+#### Wettbewerb-Datenbasis
 
 Trainingsdaten
 
-> Alle vom Wettbewerb zur Verfügung gestellten Trainingsdaten.
+  ~ Alle vom Wettbewerb zur Verfügung gestellten Trainingsdaten.
 
-Validierungsdaten
+Testdaten
 
-> Alle vom Wettbewerb zur Verfügung gestellten Testdaten. Da für diese Testdaten keine Zielbilder vorhanden sind, wird die Validierung auf der Webseite zum Wettbewerb vorgenommen.
+  ~ Alle vom Wettbewerb zur Verfügung gestellten Testdaten.
+  ~ Keine Zieldaten (y) vorhanden.
 
-Autoencoder-Trainingsdaten
+Pretraindaten
 
-> Alle bereinigten Trainingsbilder.
+  ~ Alle heterogenen Zielbilder (y) der Trainingsdaten.

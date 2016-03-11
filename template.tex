@@ -24,18 +24,14 @@ $endif$
 \usepackage{fixltx2e} % provides \textsubscript
 \usepackage{placeins} % provides \textsubscript
 
-%\usepackage{comment}
-%\excludecomment{figure}
-%\let\endfigure\relax
-
 % Code Listings
 
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{color}
 
-\DeclareCaptionFormat{listing}{#1#2#3}
-\captionsetup{format=listing,singlelinecheck=false,labelsep=space,labelfont=bf,justification=centering,position=below}
+\DeclareCaptionFormat{listings}{#1#2#3}
+\captionsetup{format=listings,singlelinecheck=false,labelsep=space,labelfont=bf,justification=centering,position=below}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -94,8 +90,7 @@ $endif$
 }
 \makeatother
 
-\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded, resolution=72,keepaspectratio}%
-%\setkeys{Gin}{resolution=1000,keepaspectratio}%
+\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
 
 % Margins of chapter heading
 $if(chapterheadstartvskip)$
@@ -161,7 +156,6 @@ $if(verbatim-in-note)$
   \VerbatimFootnotes
 $endif$
 
-
 \usepackage[unicode=true]{hyperref}
 
 \hypersetup{breaklinks=true,
@@ -222,8 +216,8 @@ $if(toc)$
     \tableofcontents
     \pagestyle{plain}
     \cleardoublepage
+  \restoregeometry
 $endif$
-
 
 $if(scrlayer-scrpage)$
   $for(scrlayer-scrpage)$
@@ -235,29 +229,34 @@ $endif$
 
 $body$
 
-$if(lot)$
-  \renewcommand*\listtablename{Tabellenverzeichnis}
-  \newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
-    \listoftables
-  \restoregeometry
-  \clearpage
-$endif$
 
 $if(lof)$
   \renewcommand*\listfigurename{Abbildungsverzeichnis}
   \newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
     \listoffigures
   \restoregeometry
-  %\clearpage
+$endif$
+
+$if(lot)$
+  \renewcommand*\listtablename{Tabellenverzeichnis}
+  \newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
+    \listoftables
+  \restoregeometry
+$endif$
+
+\renewcommand*{\lstlistlistingname}{Sourcecodeverzeichnis}
+\newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
+  \lstlistoflistings
+\restoregeometry
+\clearpage
+
+$if(biblatex)$
+  \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 $endif$
 
 $for(include-chapters)$
   \input($include-chapters$)
 $endfor$
-
-$if(biblatex)$
-  \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-$endif$
 
 \backmatter
 
