@@ -31,7 +31,8 @@ $endif$
 \usepackage{color}
 
 \DeclareCaptionFormat{listings}{#1#2#3}
-\captionsetup{format=listings,singlelinecheck=false,labelsep=space,labelfont=bf,justification=centering,position=below}
+\captionsetup{labelfont=bf}
+\renewcommand\lstlistingname{Codebeispiel}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -62,8 +63,9 @@ $endif$
   stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=2,                       % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
+
 
 % Tables
 \usepackage{longtable,booktabs}

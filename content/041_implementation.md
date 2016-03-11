@@ -234,6 +234,32 @@ Dadurch, dass der *MetricRecorder* automatisch eine Identifikation generiert und
 
 #### Spezifikation der Kollektionen
 
+  : Kollektion experiment_name.metrics \label{table:metrics}
+
+----------------------------------------------------------------------------
+**Feldname**            **Beschreibung**
+---------------------   ----------------------------------------------------
+_id                     *MongoDB*-Id
+
+job_id                  Identifikation des Trainingsverlaufs
+
+cost                    Trainingskosten
+
+validation_accuracy     Validierungskosten
+
+epoch                   Aktuelle Epoche
+
+eta                     Verwendete Lernrate
+
+iteration               Aktuelle Iteration (Minibatch)
+
+second                  Vergangene Sekunden bis zur Aufzeichnung
+---------------------   ----------------------------------------------------
+
+  : Kollektion experiment_name.trainings \label{table:trainings}
+
+----------------------------------------------------------------------------
+**Feldname**            **Beschreibung**
 ---------------------   ----------------------------------------------------
 _id                     *MongoDB*-Id
 
@@ -268,27 +294,7 @@ validation_data         Anzahl der Validierungsdaten
 validation_frequency    Anzahl der Validierungen pro Epoche
 --------------------    ----------------------------------------------------
 
-  : Kollektion experiment_name.trainings \label{table:trainings}
 
----------------------   ----------------------------------------------------
-_id                     *MongoDB*-Id
-
-job_id                  Identifikation des Trainingsverlaufs
-
-cost                    Trainingskosten
-
-validation_accuracy     Validierungskosten
-
-epoch                   Aktuelle Epoche
-
-eta                     Verwendete Lernrate
-
-iteration               Aktuelle Iteration (Minibatch)
-
-second                  Vergangene Sekunden bis zur Aufzeichnung
----------------------   ----------------------------------------------------
-
-  : Kollektion experiment_name.metrics \label{table:metrics}
 
 ### MetricPlayer \label{head:metric-player}
 
