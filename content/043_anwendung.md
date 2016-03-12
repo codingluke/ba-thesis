@@ -4,7 +4,7 @@
 
 Die drei implementierten Module *network.py*, *metric.py* und *preprocessor.py* können wie im Codeblock \ref{lst:training-sda} dargestellt, für das Trainieren eines *kNN* kombiniert werden.
 
-~~~~~~~{#lst:training-sda .python caption="Konfigurieren und Trainieren eines SdA."}
+~~~~~~~{#lst:training-sda .python caption="Konfigurieren und Trainieren eines SdA"}
 from network import Network, FullyConnectedLayer as FCL,
                     AutoencoderLayer as Ae
 from metric import MetricRecorder
@@ -28,11 +28,11 @@ net.train(tdata=td, vdata=vd, metric_recorder=mr, mbs=500,
           save_dir='./models/train_', lambda=0.0, epochs=15)
 ~~~~~~~
 
-Für die Train-, Pretrain- und Validierungsdaten wird je eine *BatchProcessor*-Instanz erstellt (*td*, *pd* und *vd*). Bei der Erstellung wird mitgegeben, wie viele Nachbarpixel berücksichtigt werden sollen und wie die *Batchgröße* pro Iteration sein soll. Den *BatchProcessor*en für die Training- sowie Pretaindaten sollten zusätzlich der Parameter *random* auf *True* gesetzt werden. Damit wird sichergestellt, dass die Trainingsdaten durchmischt werden. Der *BatchProcessor* für die Validierungsdaten darf die Daten nicht mischen, dies benötigt unnötig Zeit.
+Für die Train-, Pretrain- und Validierungsdaten wird je eine *BatchProcessor*-Instanz erstellt (*td*, *pd* und *vd*). Bei der Erstellung wird mitgegeben, wie viele Nachbarpixel berücksichtigt werden sollen und wie die *Batchgröße* pro Iteration sein soll. Den *BatchProcessor*en für die Trainings- sowie Pretaindaten sollten zusätzlich der Parameter *random* auf *True* gesetzt werden. Damit wird sichergestellt, dass die Trainingsdaten durchmischt werden. Der *BatchProcessor* für die Validierungsdaten darf die Daten nicht mischen, dies benötigt unnötig Zeit.
 
 Zusätzlich wird eine *MetricRecorder*-Instanz, *mr*, erstellt. Mit Hilfe des *MetricRecorder*s wird beim Training der Verlauf aufgezeichnet. Beim Instanziieren muss eine Konfigurationsdatei angegeben werden, welche einen beliebigen Experimentname sowie die Datenbankverbindung beinhaltet.
 
-Als nächstes werden beliebig viele Klasseninstanzen, vom Basistyp *Layer*, mit beliebiger Anzahl Ein- und Ausgänge erstellt. Es stehen die Typen *AutoencoderLayer* und *FullyConnectedLayer* zur Verfügung. Hier muss beachtet werden, dass die Anzahl Ausgänge des Vorgängers mit der Anzahl Eingänge der Folgeschicht übereinstimmen. Diese Schichtinstanzen werden bei der darauffolgenden Instanziierung der Klasse *Network* als Liste mitgegeben. Der *AutoencoderLayer* Klassen können zusätzlich den *corruption_level*, Maß der Verunreinigung, gesetzt werden.
+Als nächstes werden beliebig viele Klasseninstanzen, vom Basistyp *Layer*, mit beliebiger Anzahl Ein- und Ausgänge erstellt. Es stehen die Typen *AutoencoderLayer* und *FullyConnectedLayer* zur Verfügung. Hier muss beachtet werden, dass die Anzahl Ausgänge des Vorgängers mit der Anzahl Eingänge der Folgeschicht übereinstimmen. Diese Schichtinstanzen werden bei der darauffolgenden Instanziierung der Klasse *Network* als Liste mitgegeben. Die *AutoencoderLayer* Klasse kann zusätzlich der Parameter *corruption_level*, Maß der Verunreinigung, mitgegeben werden.
 
 Mit der Methode *pretrain_autoencoders* können nun die *AutoencoderLayer* im Voraus trainiert werden. Hier muss als Trainingsmenge *tdata* die *BatchProcessor*-Instanz, *pd*, welche zum Ordner mit den Pretraindaten zeigt, mitgegeben werden.
 
@@ -42,11 +42,11 @@ Ist das Training zu Ende, werden die Validierungskosten der besten Validierung a
 
 ## Trainieren mit Spearmint
 
-Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden (siehe Codebeispiel \ref{lst:spearmint}). Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der parameter *params* beinhaltet ein *dict* mit den ausgewählten Werten der zu überprüfenden *Hyperparameter* für einen Test. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
+Um mit *Spearmint* automatische Hyperparametersuche durchzuführen, muss sich das Netzwerk in einer *Python*-Datei innerhalb einer Methode mit der Signatur *main(job_id, params)* befinden (siehe Codebeispiel \ref{lst:spearmint}). Der Parameter *job_id* beinhaltet die automatisch zugewiesene Identität als Integer. Der Parameter *params* ist vom Datentyp *dict* welcher die von *Spearmint* ausgewählten Werten der zu überprüfenden *Hyperparameter*, beinhaltet. Zurückgeben muss die Methode das Resultat, hier die niedrigsten Validierungskosten.
 
 *Spearmint* wird durch das Aufrufen der Datei *main.py* im *Spearmint* Projektordner gestartet. Der Pfad zum Ordner Trainingsdatei wird als Parameter mitgegeben. In dem Ordner wird nach der Datei *config.json* gesucht. Innerhalb der Datei *config.json* werden die gewünschten *Hyperparameter* deklariert, sowie der Name der Trainingsdatei, die Datenbankverbindung und ein Experimentname. Jedes *Spearmint*-Experiment befindet sich somit in einem eigenen Ordner. In dieser Arbeit befinden sich diese als Unterordner des Ordners */trainings*.
 
-~~~~~~~{#lst:spearmint .python caption="Minimalsetup zum Trainineren durch Spearmint."}
+~~~~~~~{#lst:spearmint .python caption="Minimalsetup zum Trainineren mit Spearmint."}
 from network import Network,
 from network import FullyConnectedLayer as FC
 from metric import MetricRecorder
@@ -74,7 +74,7 @@ c.clean_and_save(img_path='/pfad/zum/verrauschten/bild.png',
                  savepath='/pfad/zum/bereinigten/bild.png')
 ~~~~~~~
 
-Mit der Klasse *BatchCleaner* kann, wie in Codebeispiel \ref{lst:batch-clean} dargestellt, direkt ganze Ordner bereinigt werden. Es ist auch möglich mit der Instanzmethode *clean_for_submission* eine Datei zu erstellen, mit Welcher das Modell durch den Wettbewerb validiert werden kann.
+Mit den Methoden *clean_and_save*, sowie *clean_for_submission* der Klasse *BatchCleaner* kann, wie in Codebeispiel \ref{lst:batch-clean} dargestellt, direkt ein ganzer Ordner bereinigt werden.
 
 ~~~~~~~{#lst:batch-clean .python caption="Bereinigen eines gesamten Ordners"}
 from cleaner import BatchCleaner

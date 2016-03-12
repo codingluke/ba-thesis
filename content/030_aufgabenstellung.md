@@ -55,7 +55,7 @@ Trainingsverlauf
 Evaluation
 
   ~ : FA09
-  ~ Die verschiedenen Modelle sollen miteinander auf Trainingsdauer, Trainingsverlauf verglichen werden.
+  ~ Die Trainingsverläufe verschiedener Modelle sollen miteinander verglichen werden.
   ~ Die Auswirkung diverser Hyperparameter soll aufgezeigt werden.
   ~ Zusätzlich werden die Modelle durch den Wettbewerb bewertet.
 
@@ -109,7 +109,7 @@ Schriftbilder
   ~ Die Bilder dürfen keine Handschrift beinhalten.
   ~ Es werden nur die Schriftarten und Stiele, welche in den Trainingsdaten vorkommen berücksichtigt.
 
-## Explorative Datenanalyse \label{head:explorative-datenanalyse}
+## Zur Verfügung gestellte Daten \label{head:explorative-datenanalyse}
 
 Die Trainings- und Testdaten werden direkt vom Wettbewerb zur Verfügung gestellt. In der explorativen Datenanalyse wurden folgende Eigenschaften ausfindig gemacht:
 
@@ -119,7 +119,7 @@ Trainingsdaten
 
 Testdaten
 
-  ~ 72 Bilder insgesamt; 24 Bilder in der Größe (540 x 258); 48 Bilder in der Größe (540 x 420); alle Bilder sind nur in verrauschter Form vorhanden; 4 verschiedene Hintergründe, welche sich von den Hintergründen der Trainingsdaten unterscheiden; 5 verschiedene Schriftarten identisch zu den Trainingsschriftarten; 3 verschiedene Schriftgrößen; 1 Text der sich von den 2 Trainingstexten unterscheidet; kursiv und normal; nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stil vorhanden; die größeren Bilder teilen sich die Hintergründe mit den kleineren Bildern und erweitern diese auf ihre Größe; Bildformat *PNG*.
+  ~ 72 Bilder insgesamt; 24 Bilder in der Größe (540 x 258); 48 Bilder in der Größe (540 x 420); alle Bilder sind nur in verrauschter Form vorhanden; 4 verschiedene Hintergründe, welche sich von den Hintergründen der Trainingsdaten unterscheiden; 5 verschiedene Schriftarten identisch mit den Trainingsschriftarten; 3 verschiedene Schriftgrößen; 1 Text der sich von den 2 Trainingstexten unterscheidet; kursiv und normal; nicht alle Kombinationen von Hintergrund, Text, Schriftart und Stil vorhanden; die größeren Bilder teilen sich die Hintergründe mit den kleineren Bildern und erweitern diese auf ihre Größe; Bildformat *PNG*.
 
 ### Zusammenfassung
 
@@ -127,7 +127,7 @@ Das wesentlichste Merkmal ist, dass sich in den Trainings- sowie in den Testdate
 
 Ebenfalls ist auffällig, dass die Hintergrundbilder der Testdaten zwar anders ausfallen, dennoch sehr ähnlicher Struktur sind. Es scheint als ob die Trainings- und Testbilder aus gleicher Quelle stammen. Daher wird vermutet, dass Regularisierungstechniken, wie die bereits beschriebene *L2-Regularisation* und das *Dropout*, nur bedingt Verbesserungen mit sich bringen.
 
-## Alternativen
+## Alternative Lösungsansätze
 
 ### Schwellenwertfunktion
 
@@ -145,7 +145,7 @@ Das unter dem Wettbewerb veröffentlichte Skript *clean-by-thresholding* führt 
 
 Ein anderes veröffentlichtes Skript erweiterte dieses Verfahren durch eine *Fourier-Transformation* zu einem Hochpassfilter. Diese Lösung erreichte im Wettbewerb ein *RMSE* von $0.09568$ und belegt damit den $95.$ Platz.
 
-### Logistic Regression und Random Forest
+### Logistische-Regression und Random-Forest
 
 Eine weiterentwickelte Möglichkeit Bilder zu bereinigen bieten klassische probabilistische Modelle des maschinellen Lernens. Dabei kann eine *Logistische-Regression* oder auch ein Entscheidungsbaum wie der *Random-Forest* zum Einsatz kommen.
 
@@ -153,7 +153,7 @@ Bei der Bildanalyse schneiden diese Modelle häufig schlecht ab, da es sich bei 
 
 #### Resultat
 
-Ein im Forum zum Wettbewerb geteiltes Resultat eines *Random-Forest*-Modells erzielte mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
+Ein im Forum zum Wettbewerb geteiltes Resultat eines *Random-Forest* Modells erzielte mit einem *RMSE* von $0.02811$ den 49. Platz und überbietet damit das in Kapitel \ref{head:evaluierung} trainierte einschichtige *kNN*. Es ist nicht bekannt, ob beim Training die Hintergründe der Testdaten für vorsätzliches *Overfitting* verwendet wurden.
 
 ### Andere Programmiersprachen
 
@@ -163,7 +163,7 @@ Der in dieser Bachelorarbeit verwendete Programmcode ist in *Python* geschrieben
 
 ### Künstliche neuronale Netze
 
-Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb, wie bei der in Hand geschriebenen Zahlenerkennung [@mnist], die klassischen probabilistischen Modelle übertroffen haben. Vorallem in der Bildbearbeitung machen *kNN* stetig Vortschritte was über den *Image-Net-Wettbewert* zusätzlich gefördert wird [@imagenet].
+Die künstlichen neuronalen Netze werden gewählt, da diese Technologie in den letzten Jahren in fast jedem Wettbewerb, wie bei der in Hand geschriebenen Zahlenerkennung [@mnist], die klassischen probabilistischen Modelle übertreffen konnte. Vor allem in der Bildbearbeitung machen *kNN* stetig Vortschritte, was über den *Image-Net-Wettbewert* [@imagenet] zusätzlich gefördert wird.
 
 Es soll mit dieser Bachelorarbeit bewiesen werden, dass *kNN* ebenfalls für das Bereinigen verrauschter Schriftbilder geeignet sind.
 

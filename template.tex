@@ -70,6 +70,16 @@ $endif$
 % Tables
 \usepackage{longtable,booktabs}
 
+
+%\usepackage{comment}
+%\excludecomment{figure}
+%\excludecomment{longtable}
+%\excludecomment{table}
+%\excludecomment{lstlisting}
+%\let\endfigure\relax
+%\let\endlongtable\relax
+%\let\endtable\relax
+
 \usepackage{graphicx}
 % Redefine \includegraphics so that, unless explicit options are
 % given, the image width will not exceed the width or the height of the page.
@@ -200,6 +210,7 @@ $for(header-includes)$
   $header-includes$
 $endfor$
 
+
 \begin{document}
 
 \frontmatter
@@ -213,11 +224,11 @@ $endfor$
 $if(toc)$
   \renewcommand*\contentsname{Inhaltsverzeichnis}
   \hypersetup{linkcolor=black}
-    \setcounter{tocdepth}{$toc-depth$}
+  \setcounter{tocdepth}{$toc-depth$}
   \newgeometry{left=3cm,right=2.5cm, top=1.5cm, bottom=3cm}
-    \tableofcontents
-    \pagestyle{plain}
-    \cleardoublepage
+  \tableofcontents
+  \pagestyle{empty}
+  \cleardoublepage
   \restoregeometry
 $endif$
 

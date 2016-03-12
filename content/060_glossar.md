@@ -18,7 +18,7 @@ kNN
 
 MLP
 
-  ~ Mulit-Layer-Perceptorn
+  ~ Multi-Layer-Perceptorn
 
 ReLU
 
@@ -64,7 +64,7 @@ Blocks
 
 Bias
 
-  ~ Aus der neurobiologie, psychologie stammender Begriff. Ein Wert der die Wahrnehmungsverzerrung bzw. das Vorurteil ausdrückt.
+  ~ Aus der Neurobiologie bzw. Psychologie stammender Begriff. Ein Wert, der die Wahrnehmungsverzerrung bzw. das Vorurteil ausdrückt.
 
 Bibliothek
 
@@ -85,11 +85,11 @@ Compute-Unified-Device-Architecture
 
 cPickle
 
-  ~ *cPickle* ist die standardmäßige Bibliothek in *Python* um *Python*-Objekte zu *Serialisieren*.
+  ~ *cPickle* ist die standardmäßige Bibliothek in *Python* um *Python*-Objekte zu *serialisieren*.
 
 cross-entropy
 
-  ~ Die *cross-entropy* ist eine Kostenfunktion, siehe Kapitel \ref{haed:kostenfunktion}.
+  ~ Die *cross-entropy* ist eine Kostenfunktion, siehe Kapitel \ref{head:kostenfunktion}.
 
 Denoising-Autoencoder
 
@@ -101,7 +101,7 @@ deepgreen02
 
 dict
 
-  ~ Der *dict* ist ein Datentyp der Programmiersprache *Python*. Dabei handelt es sich um ein Schlüssel, Wertzuweisung. Das *dict* ist vergleichbar mit einem aus Java bekanntem *HashSet*.
+  ~ Der *dict* ist ein Datentyp der Programmiersprache *Python*. Dabei handelt es sich um eine Schlüssel-Wertzuweisung. Das *dict* ist vergleichbar mit einem aus Java bekanntem *HashSet*.
 
 Exception
 
@@ -113,11 +113,11 @@ Fule
 
 Framework
 
-  ~ Eine Zusammenstellung verschiedener Bibliotheken, welche zusammen in ein spezifisches Problem angehen. Die Begriffe Bibliothek (*Library*) und *Framework* können sich überschneiden. Es ist nicht klar definiert ab wann eine Bibliothek zu einem *Framework* wird. Ein *Freamework* ist jedoch meistens umfassender.
+  ~ Eine Zusammenstellung verschiedener Bibliotheken, welche zusammen ein spezifisches Problem angehen. Die Begriffe Bibliothek (*Library*) und *Framework* können sich überschneiden. Es ist nicht klar definiert, ab wann eine Bibliothek zu einem *Framework* wird. Ein *Freamework* ist jedoch meistens umfassender.
 
 Grid-Search-Algorithmus
 
-  ~ Der *Grid-Search-Algorithmus* ist ein Algorithmus, welcher aus einer gegebenen Tabelle, alle Werte miteinander Kombiniert und in einer Schleife zurückgibt.
+  ~ Der *Grid-Search-Algorithmus* ist ein Algorithmus, welcher aus einer gegebenen Tabelle, alle Werte miteinander kombiniert und in einer Schleife zurückgibt.
 
 Hadamard-Produkt
 
@@ -125,7 +125,7 @@ Hadamard-Produkt
 
 Hyperparametersuche
 
-  ~ Ein Hyperparameter ist ein Parameter für Parameter, er könnte auch Metaparameter genannt werden. Die Hyperparametersuche ist somit die Suche von Parameter für weitere Parameter, welche wiederum beim Trainieren gesucht werden.
+  ~ Im maschinellen Lernen wird unter *Hyperparameter* ein Parameter für das trainieren von Modellen verstanden. Das Training wiederum, ist die Suche nach den besten Parametern des Modells. Die *Hyperparametersuche* ist somit die Suche der optimalen *Hyperparametern* mit welchen wiederum beim Trainieren die besten Modell-Parameter gesucht werden.
 
 Identität
 
@@ -149,7 +149,7 @@ Keras
 
 Lernrate
 
-  ~ Die *Lernrate*, auch *Proportionalitätskonstante* genannt, ist, im maschinellen Lernen, ein Wert der angibt wie stark das Lernen in die eingeschlagene Richtung (Gradient) geschehen soll.
+  ~ Die *Lernrate*, auch *Proportionalitätskonstante* genannt, ist, im maschinellen Lernen, ein Wert der angibt, wie stark das Lernen in die eingeschlagene Richtung (Gradient) geschehen soll.
 
 Logistische-Regression
 
@@ -161,7 +161,7 @@ matplotlib
 
 Minibatch
 
-  ~ Unter *Minibatch* wird in dieser Arbeit einen kleinen Stapel (*Batch*), welcher zusammen mit allen anderen *Minibatches* die gesamte Datenmenge darstellt, verstanden.
+  ~ Unter *Minibatch* wird in dieser Arbeit ein kleinen Stapel (engl. *Batch*), welcher zusammen mit allen anderen *Minibatches* die gesamte Datenmenge darstellt, verstanden.
 
 Modell
 
@@ -173,7 +173,7 @@ MongoDB
 
 Multi-Layer-Perceptron
 
-  ~ Die Englische, in der Fachwelt geläufigere, Bezeichnung für ein mehrschichtiges künstliches neuronales Netz.
+  ~ Die englische, in der Fachwelt geläufigere, Bezeichnung für ein mehrschichtiges künstliches neuronales Netz.
 
 numpy
 
@@ -185,11 +185,11 @@ Nvidia
 
 open-source
 
-  ~ Unter *open-source* wird in der Arbeit verstanden, dass der Programmcode für alle offen zugänglich ist und dass dieser frei verwendet werden darf. Es gibt auch *open-source*, wo zwar der Programmcode zwar offen zugänglich, jedoch nicht zur frei Verwendung verfügbar ist.
+  ~ Unter *open-source* wird in der Arbeit verstanden, dass der Programmcode für alle offen zugänglich ist und dass dieser frei verwendet werden darf. Es gibt auch *open-source*, wo zwar der Programmcode offen zugänglich, jedoch nicht zur freien Verwendung verfügbar ist.
 
 Overfitting
 
-  ~ Das *Overfitting*, Überanpassung, ist ein im maschinellen Lernen verwendeter Begriff, welcher aussagt, dass ein Modell die spezifischen Trainingsdaten zu gut gelernt hat und somit auf neuen, generellen Daten schlecht abschneidet, siehe Kapitel \ref{head:overfitting}.
+  ~ Das *Overfitting*, Überanpassung, ist ein im maschinellen Lernen verwendeter Begriff, welcher aussagt, dass ein Modell die spezifischen Trainingsdaten "zu gut" gelernt hat und somit auf neuen, generellen Daten schlecht abschneidet, siehe Kapitel \ref{head:overfitting}.
 
 pandas
 
@@ -205,11 +205,11 @@ Rectified-Linear-Unit
 
 Root-Mean-Square-Error
 
-  ~ Der *Root-Mean-Square-Error* ist eine Kostenfunktion, siehe Kapitel \ref{haed:kostenfunktion}.
+  ~ Der *Root-Mean-Square-Error* ist eine Kostenfunktion, siehe Kapitel \ref{head:kostenfunktion}.
 
 Root-Mean-Squared-Propagation
 
-  ~ Die *Root-Mean-Squared-Propagation* ist ein Algorithmus zur *Backpropagation*, siehe Kapitel \ref{head:rmsprop}
+  ~ Die *Root-Mean-Squared-Propagation* ist ein Algorithmus zur *Backpropagation*, siehe Kapitel \ref{head:rmsprop}.
 
 Spearmint
 
@@ -221,11 +221,11 @@ Sigmoid
 
 Stochastik-Gradient-Descent
 
-  ~ Stochastisches Gradientenabstiegsverfahren, siehe Kapitel \ref{head:sgd}
+  ~ Stochastisches Gradientenabstiegsverfahren, siehe Kapitel \ref{head:sgd}.
 
 Stacked-denoising-Autoencoder
 
-  ~ Eine von Architektur für künstliche neuronale Netze, siehe Kapitel \ref{head:stacked-autoencoder}
+  ~ Eine von Architektur für künstliche neuronale Netze, siehe Kapitel \ref{head:stacked-autoencoder}.
 
 Support-Vector-Machine
 
@@ -241,12 +241,12 @@ Virtuelles-Privates-Netzwerk
 
 tuple
 
-  ~ Unter *tuple* wird in dieser Arbeit ein Datentyp der Programmierspache *Python* gemeint. Dieser besteht aus mehreren Werten, welche durch ein Komma getrennt werden.
+  ~ Unter *tuple* wird in dieser Arbeit ein Datentyp der Programmierspache *Python* verstanden. Dieser besteht aus mehreren Werten, welche durch ein Komma getrennt werden.
 
 Unittest
 
-  ~ Ein *Unittest* ist ein Softwaretest, mit welchem elementare Methoden von Klassen getestet werden. Optimalerweise wird versucht der Aufruf durch Grenzwertparameter zu testen um möglichst viele Szenarien abzudecken.
+  ~ Ein *Unittest* ist ein Softwaretest, mit welchem elementare Methoden von Klassen getestet werden. Optimalerweise wird versucht den Methodenaufruf durch Grenzwertparameter zu testen um möglichst viele Szenarien abzudecken.
 
 Wettbewerb
 
-  ~ In dieser Arbeit wird mit Wettbewerb immer den *Kaggle*-Wettbewerb "Denoising Dirty Documents" [@kaggleDDD] gemeint.
+  ~ In dieser Arbeit ist mit Wettbewerb immer der *Kaggle*-Wettbewerb "Denoising Dirty Documents" [@kaggleDDD] gemeint.

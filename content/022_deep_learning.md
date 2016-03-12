@@ -2,7 +2,7 @@
 
 ### Definition
 
-Sobald ein *kNN* über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes, mehrschichtiges *kNN*, welches auch auch *Multi-Layered-Perceptron*, *MLP*, genannt wird. Kommen *MLP* zum Einsatz, wird generell von *Deep-Learning* gesprochen [vgl. @nielsen_2015, K.6].
+Sobald ein *kNN* über mehr als eine versteckte Schicht verfügt, handelt es sich um ein tiefes, mehrschichtiges *kNN*, auch auch *Multi-Layered-Perceptron*, *MLP*, genannt. Kommen *MLP* zum Einsatz, wird laut Nielsen [@nielsen_2015, K.6] von *Deep-Learning* gesprochen.
 
 Das Verwenden von mehren Schichten, kann sich dadurch positiv auf das Resultat auswirken, dass jede weitere Schicht die gelernten Eigenschaften der vorhergehenden wiederverwenden und verfeinern kann. Dies führt zu höheren, abstrakteren Eigenschaften pro zusätzlicher Schicht [vgl. @nielsen_2015, K.6].
 
